@@ -8,18 +8,34 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-
+  position: relative;
   padding: 20px 60px;
   background: #F7C6C6;
 }
 
-/* Menus */
-.menu{
+/*header esquerdo*/
+.headerEsquerda{
   display: flex;
-  gap: 30px;
+  position: relative;
+  gap: 50px;
+  left: 300px;
 }
 
-.menu a{
+.headerEsquerda a{ 
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+}
+
+/*Header direita*/
+.headerDireita{
+  display: flex;
+ position: relative;
+  gap: 50px;
+  right: 300px;
+}
+
+.headerDireita a{ 
   text-decoration: none;
   color: black;
   font-size: 18px;
