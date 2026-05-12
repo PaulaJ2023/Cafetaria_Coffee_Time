@@ -1,12 +1,31 @@
-.logo{
-    display: block;
-    margin: 20px auto;
-    width: 150px;
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-h1 {
-    text-align: center;
-    color: #6f4e37;
-    font-family: 'Arial', sans-serif;
-    margin-top: 10px;
+.navbar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 20px 60px;
+  background: rgb(149, 33, 33);
+}
+
+/* Menus */
+.menu{
+  display: flex;
+  gap: 30px;
+}
+
+.menu a{
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+}
+
+/* Logo */
+.logo img{
+  width: 120px;
 }
