@@ -50,7 +50,7 @@ public class Funcionario {
     public void exibirDados(){
         System.out.println("Nome:" + nome);
         System.out.println("CPF" + cpf);
-        System.out.println("Salário:" + salario);
+        System.out.println("Salário Base:" + salario);
         System.out.println("Salário a receber:" + calcularSalario());
     }
 }
