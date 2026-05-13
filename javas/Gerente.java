@@ -22,7 +22,7 @@ public class Gerente extends Funcionario {
     }
     @Override
     public double calcularSalario(){
-        return super.calcularSalario() + gratificacao + participacaoLucros;
+        return getSalario() + gratificacao + participacaoLucros;
     }
     @Override
     public void exibirDados(){
