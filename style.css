@@ -10,18 +10,18 @@ body{
   background: #f4f4f4;
 }
 
-/* ESCONDE CHECKBOX */
+/*ESCONDE CHECKBOX*/
 #menu{
   display: none;
 }
 
-/* SITE */
+/*SITE*/
 .site{
   width: 100%;
   min-height: 100vh;
 }
 
-/* TOPO */
+/*TOPO*/
 .topo{
   height: 120px;
   background: #e7bcbc;
@@ -33,26 +33,105 @@ body{
   padding: 0 20px;
 }
 
+/*Logo Imagem*/
 .topo img{
   width: 120px;
+  position: relative;
+  top: 0px;
+  left: 1300px;
 }
 
-.esquerda,
-.direita{
-  display: flex;
-  gap: 15px;
-  font-size: 22px;
-  color: #5a2323;
-}
-
-label{
+/*Botão de imagem*/
+.botao-imagem {
+  background: none;
+  border: none;
+  padding: 0;
   cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+/*Esconde o checkbox original*/
+#menu {
+  display: none;
+}
+
+/* Transforma a imagem em um botão interativo*/
+.botao-menu {
+  cursor: pointer;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.botao-menu img {
+  width: 75px;
+  height: auto;
+  display: block;
+  position: relative;
+  margin-top: -110px;
+  left: 70px; 
+}
+
+/*Efeito visual de clique no botão imagem*/
+.botao-menu:active {
+  transform: scale(0.95);
+}
+
+/*Configuração do Menu Lateral (Inicia escondido à esquerda)*/
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 250px;
+  height: 100vh;
+  background-color: #ffdfdf;
+  box-shadow: 2px 0 10px rgba(255, 246, 246, 0.5);
+  z-index: 9999;
+  padding-top: 60px;
+  transition: left 0.3s ease-in-out;
+  box-sizing: border-box;
+}
+
+/* O TRUQUE: Abre o menu lateral quando o checkbox for marcado */
+#menu:checked ~ .sidebar {
+  left: 0;
+}
+
+/* Estilo dos links internos */
+.sidebar a {
+  display: block;
+  padding: 15px 25px;
+  color: #601C1C;
+  text-decoration: none;
+  font-family: sans-serif;
+  font-size: 18px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.sidebar a:hover {
+  background-color: #601C1C;
+  color: #ffdfdf;
+}
+
+/* Botão de fechar (X) */
+.botao-fechar {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  font-size: 32px;
+  color: #601C1C;
+  cursor: pointer;
+  font-family: sans-serif;
+}
+
+.botao-fechar:hover {
+  color: #ff5e9c;
 }
 
 /* HERO */
 .hero{
   text-align: center;
-  padding: 40px 20px;
+  padding: 50px 20px;
+  margin-top: -140px;
 }
 
 .hero h1{
@@ -138,64 +217,4 @@ label{
 
   font-size: 25px;
   color: #5a2323;
-}
-
-/* SIDEBAR */
-.sidebar{
-  position: fixed;
-  top: 0;
-  left: -320px;
-
-  width: 320px;
-  height: 100vh;
-
-  background: #f6eeee;
-
-  transition: 0.4s;
-
-  z-index: 1000;
-}
-
-/* ABRIR SIDEBAR */
-#menu:checked ~ .sidebar{
-  left: 0;
-}
-
-/* PERFIL */
-.perfil{
-  background: #f1c58b;
-
-  padding: 20px;
-
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.foto{
-  width: 70px;
-  height: 70px;
-
-  border-radius: 50%;
-
-  background: white;
-}
-
-/* LINKS */
-.sidebar nav{
-  display: flex;
-  flex-direction: column;
-}
-
-.sidebar nav a{
-  padding: 18px 20px;
-
-  text-decoration: none;
-  color: #5a2323;
-
-  font-size: 18px;
-}
-
-.sidebar nav a:hover{
-  background: #e7bcbc;
 }

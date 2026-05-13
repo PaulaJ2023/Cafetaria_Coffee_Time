@@ -10,52 +10,39 @@
 </head>
 <body>
 
-  <!-- MENU LATERAL -->
-  <input type="checkbox" id="menu">
-
-  <aside class="sidebar">
-
-    <div class="perfil">
-      <div class="foto"></div>
-      <h3>Nome do usuário</h3>
-    </div>
-
-    <nav>
-      <a href="#"><i class="fa-solid fa-dollar-sign"></i> Pagamentos</a>
-      <a href="#"><i class="fa-solid fa-wheelchair"></i> Acessibilidade</a>
-      <a href="#"><i class="fa-solid fa-circle-question"></i> Ajuda</a>
-      <a href="#"><i class="fa-solid fa-phone"></i> Contatos</a>
-      <a href="#"><i class="fa-solid fa-gear"></i> Configurações</a>
-      <a href="#"><i class="fa-solid fa-mug-hot"></i> Sobre o Coffee Time</a>
-    </nav>
-
-  </aside>
-
   <!-- SITE -->
   <div class="site">
 
     <!-- TOPO -->
     <header class="topo">
-
-      <div class="esquerda">
-        <i class="fa-solid fa-bell"></i>
-
-        <label for="menu">
-          <i class="fa-solid fa-bars"></i>
-        </label>
-      </div>
-
-      <img src="Logo_Coffee_Time.png" alt="Logo">
-
-
+    <img src="Logo_Coffee_Time.png" alt="Logo">
     </header>
+
+    <!-- MENU LATERAL -->
+    <input type="checkbox" id="menu" class="menu-lateral">
+    <label for="menu" class="botao-menu">
+    <img src="menu-fofo.png" alt="Abrir Menu">
+   </label>
+    
+    <nav class="sidebar">
+    <!-- Botão interno para fechar o menu -->
+    <label for="menu" class="botao-fechar">&times;</label>
+
+      <!-- Links do Menu -->
+  <a href="#">Pagamentos</a>
+  <a href="#">Acessibiliade</a>
+  <a href="#">Ajuda</a>
+  <a href="#">Contatos</a>
+  <a href="#">configurações</a>
+  <a href="#">Serviços</a>
+  <a href="#">Sobre o Coffee Time</a>
+</nav>
 
     <!-- HERO -->
     <section class="hero">
-
       <h1>
-        Sejas Bem-Vindos <br>
-        ao Coffee Time!!!
+        Sejas Bem-Vindos
+        ao Coffee Time!
       </h1>
 
     </section>
