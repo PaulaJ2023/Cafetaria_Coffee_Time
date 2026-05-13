@@ -10,11 +10,6 @@ body{
   background: #f4f4f4;
 }
 
-/*ESCONDE CHECKBOX*/
-#menu{
-  display: none;
-}
-
 /*SITE*/
 .site{
   width: 100%;
@@ -51,7 +46,11 @@ body{
 }
 
 /*Esconde o checkbox original*/
-#menu {
+#menu{
+  display: none;
+}
+
+#popup-controle{
   display: none;
 }
 
@@ -76,6 +75,7 @@ body{
   transform: scale(0.95);
 }
 
+
 /*Configuração do Menu Lateral (Inicia escondido à esquerda)*/
 .sidebar {
   position: fixed;
@@ -94,6 +94,105 @@ body{
 /* O TRUQUE: Abre o menu lateral quando o checkbox for marcado */
 #menu:checked ~ .sidebar {
   left: 0;
+}
+
+/* --- BLOCO DO USUÁRIO LARANJA (SEGUNDA IMAGEM) --- */
+.usuario-menu {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #ffcc80; /* Cor laranja da segunda imagem */
+  padding: 12px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  margin-bottom: 35px; /* Separa o bloco dos links abaixo */
+  border: 1px solid #e0a350;
+}
+
+.foto-perfil {
+  width: 42px;
+  height: 42px;
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.nome-usuario {
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  font-size: 15px;
+  color: #000000;
+}
+
+/* --- POP-UP DE LOGIN --- */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Fundo escurecido */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000; /* Fica por cima de tudo, inclusive do menu */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Ativa a exibição do pop-up */
+#popup-controle:checked ~ .popup-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.popup-conteudo {
+  background-color: #ffffff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  position: relative;
+  width: 320px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.popup-fechar {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 26px;
+  cursor: pointer;
+  color: #888888;
+}
+
+/* Estilização básica do formulário de login interno */
+.formulario-login {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.formulario-login input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.formulario-login button {
+  padding: 12px;
+  background-color: #5c2c2c; /* Combinando com o tom marrom do menu */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 /* Estilo dos links internos */
@@ -126,6 +225,7 @@ body{
 .botao-fechar:hover {
   color: #ff5e9c;
 }
+
 
 /* HERO */
 .hero{
