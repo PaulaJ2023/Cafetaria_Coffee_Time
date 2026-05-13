@@ -1,31 +1,110 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Time</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coffee Time</title>
+
+  <!-- Ícones -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-   <header class="navbar">
 
-  <!-- Menu esquerdo -->
-  <nav class="headerEsquerda">
-    <a href="#">Menu</a>
-    <a href="#">Sobre</a>
-  </nav>
+  <!-- MENU LATERAL -->
+  <input type="checkbox" id="menu">
 
-  <!-- Logo -->
-  <div class="logo">
-    <img src="Logo_Coffee_Time.png" alt="Logo">
+  <aside class="sidebar">
+
+    <div class="perfil">
+      <div class="foto"></div>
+      <h3>Nome do usuário</h3>
+    </div>
+
+    <nav>
+      <a href="#"><i class="fa-solid fa-dollar-sign"></i> Pagamentos</a>
+      <a href="#"><i class="fa-solid fa-wheelchair"></i> Acessibilidade</a>
+      <a href="#"><i class="fa-solid fa-circle-question"></i> Ajuda</a>
+      <a href="#"><i class="fa-solid fa-phone"></i> Contatos</a>
+      <a href="#"><i class="fa-solid fa-gear"></i> Configurações</a>
+      <a href="#"><i class="fa-solid fa-mug-hot"></i> Sobre o Coffee Time</a>
+    </nav>
+
+  </aside>
+
+  <!-- SITE -->
+  <div class="site">
+
+    <!-- TOPO -->
+    <header class="topo">
+
+      <div class="esquerda">
+        <i class="fa-solid fa-bell"></i>
+
+        <label for="menu">
+          <i class="fa-solid fa-bars"></i>
+        </label>
+      </div>
+
+      <img src="Logo_Coffee_Time.png" alt="Logo">
+
+
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+
+      <h1>
+        Sejas Bem-Vindos <br>
+        ao Coffee Time!!!
+      </h1>
+
+    </section>
+
+    <!-- PRODUTOS -->
+    <main class="produtos">
+
+      <h2>Bebidas quentes</h2>
+
+      <div class="grid">
+
+        <div class="card">
+          <img src="">
+          <h3>Café Expresso</h3>
+          <p>R$</p>
+          <button>+ adicionar</button>
+        </div>
+
+        <div class="card">
+          <img src="">
+          <h3>Cappuccino</h3>
+          <p>R$</p>
+          <button>+ adicionar</button>
+        </div>
+
+        <div class="card">
+          <img src="">
+          <h3>Café Americano</h3>
+          <p>R$</p>
+          <button>+ adicionar</button>
+        </div>
+
+        <div class="card">
+          <img src="">
+          <h3>Coffee</h3>
+          <p>R$</p>
+          <button>+ adicionar</button>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- MENU INFERIOR -->
+    <footer class="footer">
+
+    </footer>
+
   </div>
 
-  <!-- Menu direito -->
-  <nav class="headerDireita">
-    <a href="#">Servicos</a>
-    <a href="#">Contatos</a>
-  </nav>
-
-</header>
 </body>
 </html>

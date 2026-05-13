@@ -1,48 +1,201 @@
+/* RESET */
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-.navbar{
+body{
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+}
+
+/* ESCONDE CHECKBOX */
+#menu{
+  display: none;
+}
+
+/* SITE */
+.site{
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* TOPO */
+.topo{
+  height: 120px;
+  background: #e7bcbc;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
-  padding: 20px 60px;
-  background: #F7C6C6;
+
+  padding: 0 20px;
 }
 
-/*header esquerdo*/
-.headerEsquerda{
+.topo img{
+  width: 120px;
+}
+
+.esquerda,
+.direita{
   display: flex;
-  position: relative;
-  gap: 50px;
-  left: 300px;
+  gap: 15px;
+  font-size: 22px;
+  color: #5a2323;
 }
 
-.headerEsquerda a{ 
-  text-decoration: none;
-  color: black;
+label{
+  cursor: pointer;
+}
+
+/* HERO */
+.hero{
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.hero h1{
+  font-size: 42px;
+  color: #5a2323;
+}
+
+/* PRODUTOS */
+.produtos{
+  padding: 20px;
+}
+
+.produtos h2{
+  background: #d68f5b;
+  color: white;
+
+  width: fit-content;
+
+  padding: 10px 20px;
+  border-radius: 10px;
+
+  margin-bottom: 20px;
+}
+
+/* GRID */
+.grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 20px;
+}
+
+/* CARD */
+.card{
+  background: #f1c58b;
+
+  border-radius: 20px;
+
+  padding: 20px;
+
+  text-align: center;
+}
+
+.card img{
+  width: 80px;
+}
+
+.card h3{
+  margin-top: 10px;
+  color: #5a2323;
+}
+
+.card p{
+  margin: 10px 0;
+}
+
+/* BOTÃO */
+.card button{
+  background: #d67b19;
+  color: white;
+
+  border: none;
+
+  padding: 10px 20px;
+
+  border-radius: 20px;
+
+  cursor: pointer;
+}
+
+/* MENU INFERIOR */
+.footer{
+  position: fixed;
+  bottom: 0;
+
+  width: 100%;
+  height: 70px;
+
+  background: #e7bcbc;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
   font-size: 25px;
-  font-family: Palatino, URW Palladio L, serif; 
+  color: #5a2323;
 }
 
-/*Header direita*/
-.headerDireita{
+/* SIDEBAR */
+.sidebar{
+  position: fixed;
+  top: 0;
+  left: -320px;
+
+  width: 320px;
+  height: 100vh;
+
+  background: #f6eeee;
+
+  transition: 0.4s;
+
+  z-index: 1000;
+}
+
+/* ABRIR SIDEBAR */
+#menu:checked ~ .sidebar{
+  left: 0;
+}
+
+/* PERFIL */
+.perfil{
+  background: #f1c58b;
+
+  padding: 20px;
+
   display: flex;
- position: relative;
-  gap: 50px;
-  right: 300px;
+  align-items: center;
+  gap: 15px;
 }
 
-.headerDireita a{ 
+.foto{
+  width: 70px;
+  height: 70px;
+
+  border-radius: 50%;
+
+  background: white;
+}
+
+/* LINKS */
+.sidebar nav{
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar nav a{
+  padding: 18px 20px;
+
   text-decoration: none;
-  color: black;
+  color: #5a2323;
+
   font-size: 18px;
 }
 
-/* Logo */
-.logo img{
-  width: 120px;
+.sidebar nav a:hover{
+  background: #e7bcbc;
 }
