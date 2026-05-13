@@ -21,12 +21,35 @@
     <!-- MENU LATERAL -->
     <input type="checkbox" id="menu" class="menu-lateral">
     <label for="menu" class="botao-menu">
-  <img src="menu-fofo.png" alt="Abrir Menu">
+   <img src="menu-fofo.png" alt="Abrir Menu">
    </label>
-    
+
     <nav class="sidebar">
     <!-- Botão interno para fechar o menu -->
     <label for="menu" class="botao-fechar">&times;</label>
+
+     <!-- BLOCO DO USUÁRIO (Inserido no início do menu lateral) -->
+    <input type="checkbox" id="popup-controle">
+    <label for="popup-controle" class="usuario-menu">
+    <div class="foto-perfil"></div>
+    <span class="nome-usuario">Nome do usuário</span>
+   </label>
+
+   <!-- POP-UP DE LOGIN (Aparece ao clicar na foto ou no nome) -->
+   <div class="popup-overlay">
+   <div class="popup-conteudo">
+
+    <!-- Botão X para fechar o pop-up -->
+    <label for="popup-controle" class="popup-fechar">&times;</label>
+    
+    <h2>Área de Login</h2>
+    <form class="formulario-login" onsubmit="return false;">
+      <input type="email" placeholder="E-mail ou Usuário" required>
+      <input type="password" placeholder="Senha" required>
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
+</div>
 
       <!-- Links do Menu -->
   <a href="#">Pagamentos</a>
