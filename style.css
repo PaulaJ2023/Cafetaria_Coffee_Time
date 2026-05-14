@@ -24,13 +24,15 @@ body {
 }
 
 .logo {
-  height: 60px;
+  height: 100px;
   width: auto;
+  margin-top: 30px;
 }
 
 .botao-menu img {
-  width: 40px;
+  width: 60px;
   cursor: pointer;
+  margin-top: 5px;
 }
 
 .botao-fechar {
@@ -98,7 +100,7 @@ body {
 
 /*hero*/
 .hero {
-  min-height: 50vh;
+  min-height: 25vh;
   background-color: #F4C2C2;
   display: flex;
   align-items: center;
@@ -111,8 +113,7 @@ body {
   font-family: 'Itim', cursive;
   font-size: clamp(1.8rem, 8vw, 3.5rem); /*Fonte fluida*/
   color: #5a2323;
-  -webkit-text-stroke: 1px #fff; 
-  text-shadow: 2px 2px 0px #5a2323;
+  text-shadow: 3px 4px 0px #ffffff;
 }
 
 /*popup overlay - O fundo escurecido*/
