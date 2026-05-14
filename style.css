@@ -228,6 +228,24 @@ body {
   display: flex;
 }
 
+/*popup de esqueci a senha*/
+#popup-senha-controle:checked + #overlay-senha {
+  display: flex;
+}
+
+#overlay-senha {
+  z-index: 10002;
+}
+
+/*popup de cadastro*/
+#popup-registro-controle:checked + #overlay-registro {
+  display: flex;
+}
+
+#overlay-registro {
+  z-index: 10001;
+}
+
 /*Grid de Produtos*/
 .produtos {
   padding: 40px 5%;

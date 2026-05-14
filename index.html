@@ -36,8 +36,8 @@
         <button type="submit" id="entrar-login">Entrar</button>
         
         <div class="botoes-lado-a-lado">
-            <button type="button" id="esqueci-senha">Esqueci a senha</button>
-            <button type="button" id="registrar">Ainda não tem conta? Registrar</button>
+            <label for="popup-senha-controle" id="esqueci-senha" style="cursor:pointer;">Esqueci a senha</label>
+            <label for="popup-registro-controle" id="registrar" style="cursor:pointer;">Ainda não tem conta? Registrar</label>
         </div>
     </form>
 </div>
@@ -52,6 +52,53 @@
         <a href="#">Sobre o Coffee Time</a>
       </nav>
     </div>
+
+    <!--Area de esqueci senha-->
+    <input type="checkbox" id="popup-senha-controle" style="display: none;">
+    <div class="popup-overlay" id="overlay-senha">
+    <div class="popup-conteudo">
+        <label for="popup-senha-controle" class="popup-fechar">&times;</label>
+        <h2 class="titulo-popup">Recuperar Senha</h2>
+        <p style="color: #5a2323; margin-bottom: 20px; font-family: 'Itim', cursive;">
+            Insira seu e-mail para receber as instruções de recuperação.
+        </p>
+        <form class="formulario-login">
+            <input type="email" placeholder="Seu e-mail cadastrado" required>
+            
+            <button type="submit" id="entrar-login">Enviar Instruções</button>
+            
+            <div class="botoes-lado-a-lado">
+                <label for="popup-senha-controle" id="registrar" style="text-decoration: underline; cursor: pointer;">
+                    Voltar para o Login
+                </label>
+            </div>
+        </form>
+    </div>
+</div>
+
+    <!-- Area de cadastro -->
+     <input type="checkbox" id="popup-registro-controle" style="display: none;">
+
+    <div class="popup-overlay" id="overlay-registro">
+    <div class="popup-conteudo">
+        <label for="popup-registro-controle" class="popup-fechar">&times;</label>
+        <h2 class="titulo-popup">Criar Conta</h2>
+        <form class="formulario-login">
+            <input type="text" placeholder="Nome Completo" required>
+            <input type="email" placeholder="E-mail" required>
+            <input type="password" placeholder="Crie uma Senha" required>
+            <input type="password" placeholder="Confirme a Senha" required>
+            
+            <button type="submit" id="entrar-login">Cadastrar</button>
+            
+            <div class="botoes-lado-a-lado">
+                <label for="popup-registro-controle" id="registrar" style="text-decoration: underline; cursor: pointer;">
+                    Já tem uma conta? Entrar
+                </label>
+            </div>
+        </form>
+    </div>
+</div>
 
     <img src="Logo_Coffee_Time.png" alt="Logo" class="logo">
   </header>
