@@ -4,73 +4,64 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coffee Time</title>
-
-  <!-- Ícones -->
+  <link href="https://fonts.googleapis.com/css2?family=Itim&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- SITE -->
-  <div class="site">
-
-    <!-- TOPO -->
     <header class="topo">
-    <img src="Logo_Coffee_Time.png" alt="Logo">
-    </header>
+    <div class="menu-container">
+      <input type="checkbox" id="menu" class="menu-lateral-check">
+      <label for="menu" class="botao-menu">
+        <img src="menu-fofo.png" alt="Menu">
+      </label>
+      
+      <nav class="sidebar">
+        <label for="menu" class="botao-fechar">&times;</label>
+        
+        <input type="checkbox" id="popup-controle">
+        <label for="popup-controle" class="usuario-menu">
+          <div class="foto-perfil"></div>
+          <span class="nome-usuario">Entrar / Registrar</span>
+        </label>
 
-    <!-- MENU LATERAL -->
-    <input type="checkbox" id="menu" class="menu-lateral">
-    <label for="menu" class="botao-menu">
-   <img src="menu-fofo.png" alt="Abrir Menu">
-   </label>
-
-    <nav class="sidebar">
-    <!-- Botão interno para fechar o menu -->
-    <label for="menu" class="botao-fechar">&times;</label>
-
-     <!-- BLOCO DO USUÁRIO (Inserido no início do menu lateral) -->
-    <input type="checkbox" id="popup-controle">
-    <label for="popup-controle" class="usuario-menu">
-    <div class="foto-perfil"></div>
-    <span class="nome-usuario">Nome do usuário</span>
-   </label>
-
-   <!-- POP-UP DE LOGIN (Aparece ao clicar na foto ou no nome) -->
-   <div class="popup-overlay">
-   <div class="popup-conteudo">
-
-    <!-- Botão X para fechar o pop-up -->
+        <div class="popup-overlay">
+          <<div class="popup-conteudo">
     <label for="popup-controle" class="popup-fechar">&times;</label>
-    
-    <h2>Área de Login</h2>
-    <form class="formulario-login" onsubmit="return false;">
-      <input type="email" placeholder="E-mail ou Usuário" required>
-      <input type="password" placeholder="Senha" required>
-      <button type="submit">Entrar</button>
+    <h2 class="titulo-popup">Área de Login</h2>
+    <form class="formulario-login">
+        <input type="text" placeholder="E-mail ou Usuário" required>
+        <input type="password" placeholder="Senha" required>
+        
+        <button type="submit" id="entrar-login">Entrar</button>
+        
+        <div class="botoes-lado-a-lado">
+            <button type="button" id="esqueci-senha">Esqueci a senha</button>
+            <button type="button" id="registrar">Ainda não tem conta? Registrar</button>
+        </div>
     </form>
-  </div>
 </div>
+        </div>
 
-      <!-- Links do Menu -->
-  <a href="#">Pagamentos</a>
-  <a href="#">Acessibiliade</a>
-  <a href="#">Ajuda</a>
-  <a href="#">Contatos</a>
-  <a href="#">configurações</a>
-  <a href="#">Serviços</a>
-  <a href="#">Sobre o Coffee Time</a>
-</nav>
+        <!--Links do menu lateral-->
+        <a href="#">Pagamentos</a>
+        <a href="#">Acessibiliade</a>
+        <a href="#">Ajuda</a>
+        <a href="#">Contatos</a>
+        <a href="#">configurações</a>
+        <a href="#">Serviços</a>
+        <a href="#">Sobre o Coffee Time</a>
+      </nav>
+    </div>
 
-    <!-- HERO -->
-    <section class="hero">
-      <h1>
-        Sejas Bem-Vindos
-        ao Coffee Time!
-      </h1>
+    <img src="Logo_Coffee_Time.png" alt="Logo" class="logo">
+  </header>
 
-    </section>
+  <section class="hero">
+    <h1>Seja Bem-Vindo ao Coffee Time!</h1>
+  </section>
 
-    <!-- PRODUTOS -->
+  <!-- PRODUTOS -->
     <main class="produtos">
 
       <h2>Bebidas quentes</h2>
@@ -106,15 +97,7 @@
         </div>
 
       </div>
-
     </main>
-
-    <!-- MENU INFERIOR -->
-    <footer class="footer">
-
-    </footer>
-
-  </div>
 
 </body>
 </html>
