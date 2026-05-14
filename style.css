@@ -140,7 +140,7 @@ body {
 
 /*Conteudo do popup - A caixa branca*/
 .popup-conteudo {
-  background: white;
+  background: #F1C58B;
   width: 90%;
   max-width: 450px;
   padding: 40px;
@@ -154,9 +154,9 @@ body {
 .titulo-popup {
   font-size: 28px;
   font-weight: bold;
-  color: #000;
+  color: #5a2323;
   margin-bottom: 25px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Itim', cursive;
 }
 
 /*Inputs de E-mail e Senha*/
@@ -164,10 +164,11 @@ body {
   width: 100%;
   padding: 15px;
   margin-bottom: 15px;
-  border: 1.5px solid #ccc;
+  border: 1.5px solid #ffffff;
   border-radius: 12px;
   font-size: 16px;
   outline: none;
+  font-family: 'Itim', cursive;
 }
 
 .formulario-login input:focus {
@@ -178,7 +179,7 @@ body {
 #entrar-login {
   width: 100%;
   padding: 15px;
-  background-color: #5D3A2E;
+  background-color: #d67b19;
   color: white;
   border: none;
   border-radius: 12px;
@@ -187,19 +188,21 @@ body {
   cursor: pointer;
   margin-top: 10px;
   transition: background 0.3s;
+  font-family: 'Itim', cursive;
 }
 
 #entrar-login:hover {
-  background-color: #3C2415;
+  background-color: #e28929cc; /*Tom mais claro ao passar o mouse*/
 }
 
 /*Botões extras (Registrar/Esqueci Senha) - Estilo link */
 #esqueci-senha, #registrar {
+  font-family: 'Itim', cursive;
   background: none;
   border: none;
   color: #5D3A2E;
   text-decoration: underline;
-  font-size: 14px;
+  font-size: 17px;
   cursor: pointer;
   margin-top: 15px;
 }
@@ -216,7 +219,7 @@ body {
   top: 15px;
   right: 20px;
   font-size: 24px;
-  color: #666;
+  color: #5D3A2E;
   cursor: pointer;
   font-weight: bold;
 }
