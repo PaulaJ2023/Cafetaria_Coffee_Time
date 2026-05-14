@@ -5,7 +5,7 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Itim', cursive;
   background: #f4f4f4;
   overflow-x: hidden;
 }
@@ -51,8 +51,8 @@ body {
 .sidebar {
   position: fixed;
   top: 0;
-  left: -280px;
-  width: 280px;
+  left: -238px;
+  width: 238px;
   height: 100vh;
   background: #FFE4E4;
   transition: 0.3s;
@@ -66,12 +66,13 @@ body {
 .usuario-menu {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 5px;
   background: #F1C58B; /*Cor de destaque para a área do usuário*/
-  padding: 30px 20px;
+  padding: 40px 20px;
   cursor: pointer;
   border-bottom: 1px solid rgba(0,0,0,0.05);
 }
+
 
 /* Estilo dos Links do Menu */
 .sidebar a {
@@ -79,8 +80,8 @@ body {
   padding: 15px 25px;
   color: #5A2323;
   text-decoration: none;
-  font-size: 20px;
-  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-family: 'itim', sans-serif;
   transition: 0.2s;
 }
 
@@ -96,6 +97,16 @@ body {
   background: #fff;
   border-radius: 50%;
   border: 2px solid #5D3A2E;
+  position: relative;
+  top: 20px;
+}
+
+.usuario-menu span {
+  font-family: 'Itim', cursive;
+  font-size: 18px;
+  color: #5D3A2E;
+  position: relative;
+  top: 20px;
 }
 
 /*hero*/
