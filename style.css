@@ -23,12 +23,15 @@ body {
   z-index: 1000;
 }
 
+/*lOGO*/
 .logo {
   height: 100px;
   width: auto;
   margin-top: 30px;
 }
+/*FIM DA LOGO*/
 
+/*MENU*/
 .botao-menu img {
   width: 60px;
   cursor: pointer;
@@ -45,7 +48,7 @@ body {
   font-weight: bold;
 }
 
-/*sidebar e popup siderbar(Lógica de Checkbox)*/
+/*sidebar e popup siderbar*/
 #menu, #popup-controle { display: none; }
 
 .sidebar {
@@ -73,8 +76,7 @@ body {
   border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
-
-/*Links do Menu*/
+/*LINKS DO MENU*/
 .sidebar a {
   display: flex;
   align-items: center;
@@ -87,7 +89,6 @@ body {
   transition: 0.2s;
 }
 
-/*Efeito ao passar o mouse (Hover)*/
 .sidebar a:hover {
   background-color: #F8D0D0;
   color: #3C1515;
@@ -116,8 +117,9 @@ body {
   position: relative;
   top: 20px;
 }
+/*FIM DO MENU*/
 
-/*hero*/
+/*HERO*/
 .hero {
   min-height: 25vh;
   background-color: #F4C2C2;
@@ -134,12 +136,13 @@ body {
   color: #5a2323;
   text-shadow: 3px 4px 0px #ffffff;
 }
+/*FIM DO HERO*/
 
-/*popup overlay - O fundo escurecido*/
+/*popup overlay*/
 .popup-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5); /*Fundo escuro semitransparente*/
+  background: rgba(0, 0, 0, 0.5);
   display: none;
   justify-content: center;
   align-items: center;
@@ -158,7 +161,7 @@ body {
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-/*Título "Área de Login"*/
+/*Área de Login*/
 .titulo-popup {
   font-size: 28px;
   font-weight: bold;
@@ -183,7 +186,6 @@ body {
   border-color: #5D3A2E;
 }
 
-/*Botão "Entrar" Marrom Largo*/
 #entrar-login {
   width: 100%;
   padding: 15px;
@@ -253,6 +255,8 @@ body {
   z-index: 10001;
 }
 
+/*FIM DOS POPUPS DA ÁREA DO USUÁRIO*/
+
 /*Label do Contato*/
 .link-contatos-label {
   display: flex;
@@ -312,44 +316,95 @@ body {
 #overlay-contato {
   z-index: 10003;
 }
+/*FIM DO CONTATO!*/
 
-/*Grid de Produtos*/
+
+/*PRODUTOS*/
+.card {
+  background: #f1c58b;
+  padding: 20px 20px;
+  border-radius: 25px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.imagem-sticker {
+  width: 120px;
+  height: 120px;
+  object-fit: contain; 
+  margin-bottom: 2px;
+  
+  filter: 
+  drop-shadow(3px 5px 0px rgba(90, 35, 35, 0.3));
+}
+
+.card h3 {
+  font-family: 'Itim', cursive;
+  color: #5a2323;
+  font-size: 22px;
+  margin: 0px 0;
+}
+
+.card p {
+  font-family: 'Itim', cursive;
+  color: #5a2323;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.card button {
+  background: #d67b19;
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-family: 'Itim', cursive;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 5px;
+}
+
+.card button:hover {
+  background: #e28929cc;
+}
+
 .produtos {
   padding: 40px 5%;
+  text-align: center;
 }
 
 .produtos h2 {
-  background: #d68f5b;
-  color: white;
-  padding: 8px 20px;
-  border-radius: 50px;
-  width: fit-content;
+  text-align: left;
+  margin-top: 40px;    /* Cria um espaço excelente entre as seções */
   margin-bottom: 30px;
+}
+
+.titulo-categoria {
+  display: inline-block;
+  background-color: #f5c2c2;
+  color: #5a2323;
+  border: 2px solid #5a2323; /* Adicionada a borda escura igual ao sticker */
+  border-radius: 15px;    
+  padding: 5px 20px;
+  font-size: 24px;
+  font-family: 'Itim', cursive;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 25px;
+  max-width: 12000px;
+  margin: 0 auto;
 }
-
-.card {
-  background: #f1c58b;
-  padding: 20px;
-  border-radius: 25px;
-  text-align: center;
-  transition: 0.3s;
-}
-
-.card:hover { transform: translateY(-5px); }
-
-.card button {
-  margin-top: 15px;
-  background: #d67b19;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-weight: bold;
-}
+/*FIM DOS PRODUTOS*/
