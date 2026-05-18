@@ -4,73 +4,132 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coffee Time</title>
-
-  <!-- Ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Itim&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- SITE -->
-  <div class="site">
-
-    <!-- TOPO -->
     <header class="topo">
-    <img src="Logo_Coffee_Time.png" alt="Logo">
-    </header>
+    <div class="menu-container">
+      <input type="checkbox" id="menu" class="menu-lateral-check">
+      <label for="menu" class="botao-menu">
+        <img src="menu-fofo.png" alt="Menu">
+      </label>
+      
+      <nav class="sidebar">
+        <label for="menu" class="botao-fechar">&times;</label>
+        
+        <input type="checkbox" id="popup-controle">
+        <label for="popup-controle" class="usuario-menu">
+          <div class="foto-perfil"></div>
+          <span class="nome-usuario">Entrar / Registrar</span>
+        </label>
 
-    <!-- MENU LATERAL -->
-    <input type="checkbox" id="menu" class="menu-lateral">
-    <label for="menu" class="botao-menu">
-   <img src="menu-fofo.png" alt="Abrir Menu">
-   </label>
-
-    <nav class="sidebar">
-    <!-- Botão interno para fechar o menu -->
-    <label for="menu" class="botao-fechar">&times;</label>
-
-     <!-- BLOCO DO USUÁRIO (Inserido no início do menu lateral) -->
-    <input type="checkbox" id="popup-controle">
-    <label for="popup-controle" class="usuario-menu">
-    <div class="foto-perfil"></div>
-    <span class="nome-usuario">Nome do usuário</span>
-   </label>
-
-   <!-- POP-UP DE LOGIN (Aparece ao clicar na foto ou no nome) -->
-   <div class="popup-overlay">
-   <div class="popup-conteudo">
-
-    <!-- Botão X para fechar o pop-up -->
+        <div class="popup-overlay">
+          <<div class="popup-conteudo">
     <label for="popup-controle" class="popup-fechar">&times;</label>
-    
-    <h2>Área de Login</h2>
-    <form class="formulario-login" onsubmit="return false;">
-      <input type="email" placeholder="E-mail ou Usuário" required>
-      <input type="password" placeholder="Senha" required>
-      <button type="submit">Entrar</button>
+    <h2 class="titulo-popup">Área de Login</h2>
+    <form class="formulario-login">
+        <input type="text" placeholder="E-mail ou Usuário" required>
+        <input type="password" placeholder="Senha" required>
+        
+        <button type="submit" id="entrar-login">Entrar</button>
+        
+        <div class="botoes-lado-a-lado">
+            <label for="popup-senha-controle" id="esqueci-senha" style="cursor:pointer;">Esqueci a senha</label>
+            <label for="popup-registro-controle" id="registrar" style="cursor:pointer;">Ainda não tem conta? Registrar</label>
+        </div>
     </form>
-  </div>
+</div>
+        </div>
+        <!--Links do menu lateral-->
+        <a href="#"><i class="fas fa-shopping-cart"></i> <span>Carrinho</span></a>
+        <a href="#"><i class="fas fa-coffee"></i> <span>Serviços</span></a>
+        <label for="popup-contato-controle" class="link-contatos-label">
+         <i class="fas fa-envelope"></i> <span>Contatos</span></label>
+         <a href="#"><i class="fas fa-universal-access"></i> <span>Acessibilidade</span></a>
+        <a href="#"><i class="fas fa-cog"></i> <span>Configurações</span></a>
+        <a href="#"><i class="fas fa-question-circle"></i> <span>Ajuda</span></a>
+        <a href="#"><i class="fas fa-info-circle"></i> <span>Sobre o Coffee Time</span></a>
+      </nav>
+    </div>
+
+    <!--Area de esqueci senha-->
+    <input type="checkbox" id="popup-senha-controle" style="display: none;">
+    <div class="popup-overlay" id="overlay-senha">
+    <div class="popup-conteudo">
+        <label for="popup-senha-controle" class="popup-fechar">&times;</label>
+        <h2 class="titulo-popup">Recuperar Senha</h2>
+        <p style="color: #5a2323; margin-bottom: 20px; font-family: 'Itim', cursive;">
+            Insira seu e-mail para receber as instruções de recuperação.
+        </p>
+        <form class="formulario-login">
+            <input type="email" placeholder="Seu e-mail cadastrado" required>
+            
+            <button type="submit" id="entrar-login">Enviar Instruções</button>
+            
+            <div class="botoes-lado-a-lado">
+                <label for="popup-senha-controle" id="registrar" style="text-decoration: underline; cursor: pointer;">
+                    Voltar para o Login
+                </label>
+            </div>
+        </form>
+    </div>
 </div>
 
-      <!-- Links do Menu -->
-  <a href="#">Pagamentos</a>
-  <a href="#">Acessibiliade</a>
-  <a href="#">Ajuda</a>
-  <a href="#">Contatos</a>
-  <a href="#">configurações</a>
-  <a href="#">Serviços</a>
-  <a href="#">Sobre o Coffee Time</a>
-</nav>
+    <!-- Area de cadastro -->
+     <input type="checkbox" id="popup-registro-controle" style="display: none;">
 
-    <!-- HERO -->
-    <section class="hero">
-      <h1>
-        Sejas Bem-Vindos
-        ao Coffee Time!
-      </h1>
+    <div class="popup-overlay" id="overlay-registro">
+    <div class="popup-conteudo">
+        <label for="popup-registro-controle" class="popup-fechar">&times;</label>
+        <h2 class="titulo-popup">Criar Conta</h2>
+        <form class="formulario-login">
+            <input type="text" placeholder="Nome Completo" required>
+            <input type="email" placeholder="E-mail" required>
+            <input type="password" placeholder="Crie uma Senha" required>
+            <input type="password" placeholder="Confirme a Senha" required>
+            
+            <button type="submit" id="entrar-login">Cadastrar</button>
+            
+            <div class="botoes-lado-a-lado">
+                <label for="popup-registro-controle" id="registrar" style="text-decoration: underline; cursor: pointer;">
+                    Já tem uma conta? Entrar
+                </label>
+            </div>
+        </form>
+    </div>
+</div>
 
-    </section>
 
-    <!-- PRODUTOS -->
+<!-- Pop-up de Contato -->
+ <input type="checkbox" id="popup-contato-controle" style="display: none;">
+    <div class="popup-overlay" id="overlay-contato">
+      <div class="popup-conteudo-branco">
+        <label for="popup-contato-controle" class="popup-fechar">&times;</label>
+        <h2 class="titulo-popup">Fale Conosco</h2>
+        
+        <form class="formulario-login">
+          <input type="text" placeholder="Seu Nome" required>
+          <input type="email" placeholder="Seu E-mail" required>
+          <input type="text" placeholder="Assunto" required>
+          <textarea placeholder="Escreva sua mensagem aqui..." class="textarea-contato" rows="5" required></textarea>
+          
+          <button type="submit" id="entrar-login">Enviar Mensagem</button>
+        </form>
+      </div>
+    </div>
+
+
+    <img src="Logo_Coffee_Time.png" alt="Logo" class="logo">
+  </header>
+
+  <section class="hero">
+    <h1>Seja Bem-Vindo ao Coffee Time!</h1>
+  </section>
+
+  <!-- PRODUTOS -->
     <main class="produtos">
 
       <h2>Bebidas quentes</h2>
@@ -106,15 +165,7 @@
         </div>
 
       </div>
-
     </main>
-
-    <!-- MENU INFERIOR -->
-    <footer class="footer">
-
-    </footer>
-
-  </div>
 
 </body>
 </html>
