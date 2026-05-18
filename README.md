@@ -14,7 +14,7 @@ Professores: Edjane Mikaelly Silva de Azevedo / Daniel
 Curso: Ciência da Computação - UNP Campus Salgado Filho
 Turno: Manhã
 
- * Maria Eduarda
+ * Maria Eduarda Rodrigues Gonçalves
 Curso: ADS - UNP Campus Salgado Filho
 Turno: Manhã
 
