@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coffee Time</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Itim&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -43,13 +44,14 @@
 </div>
         </div>
         <!--Links do menu lateral-->
-        <a href="#">Pagamentos</a>
-        <a href="#">Acessibiliade</a>
-        <a href="#">Ajuda</a>
-        <a href="#">Contatos</a>
-        <a href="#">configurações</a>
-        <a href="#">Serviços</a>
-        <a href="#">Sobre o Coffee Time</a>
+        <a href="#"><i class="fas fa-shopping-cart"></i> <span>Carrinho</span></a>
+        <a href="#"><i class="fas fa-coffee"></i> <span>Serviços</span></a>
+        <label for="popup-contato-controle" class="link-contatos-label">
+         <i class="fas fa-envelope"></i> <span>Contatos</span></label>
+         <a href="#"><i class="fas fa-universal-access"></i> <span>Acessibilidade</span></a>
+        <a href="#"><i class="fas fa-cog"></i> <span>Configurações</span></a>
+        <a href="#"><i class="fas fa-question-circle"></i> <span>Ajuda</span></a>
+        <a href="#"><i class="fas fa-info-circle"></i> <span>Sobre o Coffee Time</span></a>
       </nav>
     </div>
 
@@ -99,6 +101,26 @@
         </form>
     </div>
 </div>
+
+
+<!-- Pop-up de Contato -->
+ <input type="checkbox" id="popup-contato-controle" style="display: none;">
+    <div class="popup-overlay" id="overlay-contato">
+      <div class="popup-conteudo-branco">
+        <label for="popup-contato-controle" class="popup-fechar">&times;</label>
+        <h2 class="titulo-popup">Fale Conosco</h2>
+        
+        <form class="formulario-login">
+          <input type="text" placeholder="Seu Nome" required>
+          <input type="email" placeholder="Seu E-mail" required>
+          <input type="text" placeholder="Assunto" required>
+          <textarea placeholder="Escreva sua mensagem aqui..." class="textarea-contato" rows="5" required></textarea>
+          
+          <button type="submit" id="entrar-login">Enviar Mensagem</button>
+        </form>
+      </div>
+    </div>
+
 
     <img src="Logo_Coffee_Time.png" alt="Logo" class="logo">
   </header>

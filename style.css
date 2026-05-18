@@ -74,14 +74,16 @@ body {
 }
 
 
-/* Estilo dos Links do Menu */
+/*Links do Menu*/
 .sidebar a {
-  display: block;
-  padding: 15px 25px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 15px;
   color: #5A2323;
   text-decoration: none;
   font-size: 18px;
-  font-family: 'itim', sans-serif;
+  font-family: 'Itim', sans-serif;
   transition: 0.2s;
 }
 
@@ -89,6 +91,12 @@ body {
 .sidebar a:hover {
   background-color: #F8D0D0;
   color: #3C1515;
+}
+
+.sidebar a i {
+  font-size: 20px;
+  width: 20px;
+  text-align: center;
 }
 
 .foto-perfil {
@@ -172,7 +180,7 @@ body {
 }
 
 .formulario-login input:focus {
-  border-color: #5D3A2E; /*Cor de destaque ao clicar*/
+  border-color: #5D3A2E;
 }
 
 /*Botão "Entrar" Marrom Largo*/
@@ -192,7 +200,7 @@ body {
 }
 
 #entrar-login:hover {
-  background-color: #e28929cc; /*Tom mais claro ao passar o mouse*/
+  background-color: #e28929cc;
 }
 
 /*Botões extras (Registrar/Esqueci Senha) - Estilo link */
@@ -209,11 +217,10 @@ body {
 
 .botoes-lado-a-lado {
   display: flex;
-  flex-direction: column; /*Colocando um abaixo do outro para focar no "Entrar"*/
+  flex-direction: column;
   align-items: center;
 }
 
-/*Botão de fechar (X) no topo direito*/
 .popup-fechar {
   position: absolute;
   top: 15px;
@@ -244,6 +251,66 @@ body {
 
 #overlay-registro {
   z-index: 10001;
+}
+
+/*Label do Contato*/
+.link-contatos-label {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 15px;
+  color: #5A2323;
+  text-decoration: none;
+  font-size: 18px;
+  font-family: 'Itim', sans-serif;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.link-contatos-label:hover {
+  background-color: #F8D0D0;
+  color: #3C1515;
+}
+
+.link-contatos-label i {
+  font-size: 20px;
+  width: 20px;
+  text-align: center;
+}
+
+.popup-conteudo-branco {
+  background: #F1C58B;;
+  width: 90%;
+  max-width: 450px;
+  padding: 40px;
+  border-radius: 25px;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.textarea-contato {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1.5px solid #ccc;
+  border-radius: 12px;
+  font-size: 16px;
+  outline: none;
+  font-family: 'Itim', cursive;
+  resize: none;
+}
+
+.textarea-contato:focus {
+  border-color: #5D3A2E;
+}
+
+#popup-contato-controle:checked + #overlay-contato {
+  display: flex;
+}
+
+#overlay-contato {
+  z-index: 10003;
 }
 
 /*Grid de Produtos*/
