@@ -10,14 +10,11 @@ Professores: Edjane Mikaelly Silva de Azevedo / Daniel
 ---
 # 👥 Desenvolvedores
 
-* Paula Jordania do Nascimento de Lima
-Curso: Ciência da Computação - UNP Campus Salgado Filho
+* Paula Jordania do Nascimento de Lima -
+Curso: Ciência da Computação - UNP Campus Salgado Filho - Turno: Manhã
 
-Turno: Manhã
-
- * Maria Eduarda Rodrigues Gonçalves
-Curso: ADS - UNP Campus Salgado Filho
-Turno: Manhã
+ * Maria Eduarda Rodrigues Gonçalves -
+Curso: ADS - UNP Campus Salgado Filho - Turno: Manhã
 
 ---
 #  👥 Perfis dos usuários
