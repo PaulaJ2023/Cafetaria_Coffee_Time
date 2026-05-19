@@ -15,7 +15,7 @@ public class Principal {
             System.out.println("2- Listar funcionario");
             System.out.println("3- Calcular folha salarial");
             System.out.println("4 - Cadastrar cliente");
-            System.out.println("5 - Cadastrar fornecedor");
+            //System.out.println("5 - Cadastrar fornecedor");
             System.out.println("0- Sair");
             System.out.println("escolha uma opçâo");
             opcao = leitor.nextInt();

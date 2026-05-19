@@ -23,15 +23,9 @@ Curso: ADS - UNP Campus Salgado Filho - Turno: Manhã
 * Realiza pedidos
 * Acompanha pedidos 
 
-## Fornecedores 👤
-* Gerencia produtos
-* Gerencia pedidos
-* Atualiza status
-* Visualiza avaliações
 
 ## Administrador 🛠️
 * Gerencia usuários
-* Gerencia fornecedores
 * Controla pedidos
 * Administra toda a plataforma
 
