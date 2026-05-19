@@ -20,8 +20,8 @@ public class TelaAdmin extends JFrame {
 
     // Componentes da Aba de Pedidos
     private JTextField txtNomeCliente, txtEndereco, txtTotalPedido;
-    private JTextArea areaProdutos, areaPedidos;
-    private JComboBox<String> comboPagamento;
+    private JTextArea areaProdutos, areaPedido;
+    private JComboBox<String> comboPagamento, retirarPedido;
 
     public TelaAdmin() {
         setTitle("Café Time ☕ - Painel Administrativo");
@@ -35,10 +35,6 @@ public class TelaAdmin extends JFrame {
         abas.addTab("Anotação de Pedidos", criarAbaPedidos());
 
         add(abas);
-
-        // Dados iniciais para teste
-        listaFuncionarios.add(new Funcionario("Carlos Silva", "111.111.111-11", 2000, 25, 160));
-        atualizarListaFuncionarios();
     }
 
     // --- ABA DE FUNCIONÁRIOS ---
@@ -107,13 +103,14 @@ public class TelaAdmin extends JFrame {
         JPanel painel = new JPanel(new BorderLayout(10, 10));
 
         // Formulário de Pedidos
-        JPanel form = new JPanel(new GridLayout(6, 2, 5, 5));
+        JPanel form = new JPanel(new GridLayout(7, 2, 8, 12));
         form.setBorder(BorderFactory.createTitledBorder("Anotar Novo Pedido"));
 
         txtNomeCliente = new JTextField();
         txtEndereco = new JTextField();
         areaProdutos = new JTextArea(3, 20);
         comboPagamento = new JComboBox<>(new String[] { "Pix", "Cartão de Crédito", "Cartão de Débito", "Dinheiro" });
+        retirarPedido = new JComboBox<>(new String[] { "Retirar da Loja", "Delivery", "Comer na Loja" });
         txtTotalPedido = new JTextField();
         JButton btnCadastrarPedido = new JButton("Anotar Pedido");
 
@@ -125,15 +122,17 @@ public class TelaAdmin extends JFrame {
         form.add(new JScrollPane(areaProdutos));
         form.add(new JLabel("Forma de Pagamento:"));
         form.add(comboPagamento);
-        form.add(new JLabel("Total a Pagar (R$):"));
+        form.add(new JLabel("Escolha uma retirada do seu pedido:"));
+        form.add(retirarPedido);
+        form.add(new JLabel("Total a pagar"));
         form.add(txtTotalPedido);
         form.add(new JLabel(""));
         form.add(btnCadastrarPedido);
 
         // Área de Exibição dos Pedidos
-        areaPedidos = new JTextArea();
-        areaPedidos.setEditable(false);
-        JScrollPane scroll = new JScrollPane(areaPedidos);
+        areaPedido = new JTextArea();
+        areaPedido.setEditable(false);
+        JScrollPane scroll = new JScrollPane(areaPedido);
 
         painel.add(form, BorderLayout.WEST);
         painel.add(scroll, BorderLayout.CENTER);
@@ -182,9 +181,10 @@ public class TelaAdmin extends JFrame {
             String endereco = txtEndereco.getText();
             String produtos = areaProdutos.getText();
             String pagamento = (String) comboPagamento.getSelectedItem();
+            String retirar = (String) retirarPedido.getSelectedItem();
             double total = Double.parseDouble(txtTotalPedido.getText());
 
-            Pedido p = new Pedido(contadorPedidos++, cliente, endereco, produtos, pagamento, total);
+            Pedido p = new Pedido(contadorPedidos++, cliente, endereco, produtos, pagamento, retirar, total);
             listaPedidos.add(p);
 
             atualizarListaPedidos();
@@ -211,14 +211,14 @@ public class TelaAdmin extends JFrame {
     }
 
     private void atualizarListaPedidos() {
-        areaPedidos.setText("");
+        areaPedido.setText("");
         for (Pedido p : listaPedidos) {
-            areaPedidos.append("Pedido Nº: #" + p.getNumeroPedido() + "\n");
-            areaPedidos.append("Cliente: " + p.getNomeCliente() + " | Endereço: " + p.getEndereco() + "\n");
-            areaPedidos.append("Produtos:\n" + p.getProdutosSelecionados() + "\n");
-            areaPedidos.append("Forma de Pagamento: " + p.getFormaPagamento() + "\n");
-            areaPedidos.append("Total: R$ " + String.format("%.2f", p.getTotalPagar()) + "\n");
-            areaPedidos.append("----------------------------------------------------------------------\n");
+            areaPedido.append("Pedido Nº: #" + p.getNumeroPedido() + "\n");
+            areaPedido.append("Cliente: " + p.getNomeCliente() + " | Endereço: " + p.getEndereco() + "\n");
+            areaPedido.append("Produtos:\n" + p.getProdutosSelecionados() + "\n");
+            areaPedido.append("Forma de Pagamento: " + p.getFormaPagamento() + "\n");
+            areaPedido.append("Total: R$ " + String.format("%.2f", p.getTotalPagar()) + "\n");
+            areaPedido.append("----------------------------------------------------------------------\n");
         }
     }
 
@@ -238,6 +238,8 @@ public class TelaAdmin extends JFrame {
         txtEndereco.setText("");
         areaProdutos.setText("");
         txtTotalPedido.setText("");
+        comboPagamento.setSelectedIndex(0);
+        retirarPedido.setSelectedIndex(0);
     }
 
     public static void main(String[] args) {

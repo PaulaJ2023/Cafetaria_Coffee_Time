@@ -6,15 +6,17 @@ public class Pedido {
     private String endereco;
     private String produtosSelecionados;
     private String formaPagamento;
+    private String retirarPedido;
     private double totalPagar;
 
     public Pedido(int numeroPedido, String nomeCliente, String endereco, String produtosSelecionados,
-            String formaPagamento, double totalPagar) {
+            String formaPagamento, String retirarPedido, double totalPagar) {
         this.numeroPedido = numeroPedido;
         this.nomeCliente = nomeCliente;
         this.endereco = endereco;
         this.produtosSelecionados = produtosSelecionados;
         this.formaPagamento = formaPagamento;
+        this.retirarPedido = retirarPedido;
         this.totalPagar = totalPagar;
     }
 
@@ -36,6 +38,10 @@ public class Pedido {
 
     public String getFormaPagamento() {
         return formaPagamento;
+    }
+
+    public String retirarPedido() {
+        return retirarPedido;
     }
 
     public double getTotalPagar() {
