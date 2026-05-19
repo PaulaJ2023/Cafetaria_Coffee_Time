@@ -1,5 +1,5 @@
 # ☕ Coffee Time
-Projeto A3 - Site para uma loja fisica e delivery de Cafés e doces como acompanhamento.
+Projeto A3 - Site para uma loja fisica e delivery de Cafés com doces e salgados como acompanhamento.
 
 ---
 # 📑 Sobre o Projeto
