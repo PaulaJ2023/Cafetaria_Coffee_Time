@@ -1,10 +1,10 @@
-package javas;
+package POOJava;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Telaclientes extends JFrame {
+public class TelaClientes extends JFrame {
 
     // Campos de texto adaptados exclusivamente para a classe Cliente
     private JTextField txtNome, txtCpf, txtTelefone, txtEndereco, txtPagamento;
@@ -14,7 +14,7 @@ public class Telaclientes extends JFrame {
     // Lista exclusiva para armazenar os Clientes
     private ArrayList<Cliente> listaClientes = new ArrayList<>();
 
-    public Telaclientes() {
+    public TelaClientes() {
         setTitle("Sistema de Gerenciamento de Clientes");
         setSize(500, 550);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -53,12 +53,12 @@ public class Telaclientes extends JFrame {
 
         // Painel Inferior (Botão de Cadastrar + Somatório de Recebimentos)
         JPanel painelInferior = new JPanel(new BorderLayout());
-        
+
         JButton btnCadastrar = new JButton("Cadastrar Cliente");
         btnCadastrar.setBackground(new Color(46, 139, 87)); // Cor verde para diferenciar de funcionários
         btnCadastrar.setForeground(Color.WHITE);
         btnCadastrar.setFont(new Font("Arial", Font.BOLD, 14));
-        
+
         lblTotalPagamentos = new JLabel("Total de Pagamentos Recebidos: R$ 0.00", SwingConstants.CENTER);
         lblTotalPagamentos.setFont(new Font("Arial", Font.BOLD, 14));
         lblTotalPagamentos.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -79,7 +79,7 @@ public class Telaclientes extends JFrame {
             String cpf = txtCpf.getText();
             String telefone = txtTelefone.getText();
             String endereco = txtEndereco.getText();
-            
+
             // Conversão do valor monetário do pagamento
             double pagamento = Double.parseDouble(txtPagamento.getText());
 
@@ -88,13 +88,14 @@ public class Telaclientes extends JFrame {
 
             // Salvando na lista correta
             listaClientes.add(c);
-            
+
             atualizarTela();
             limparCampos();
             JOptionPane.showMessageDialog(this, "Cliente cadastrado com sucesso!");
 
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Erro: Insira um valor numérico válido para o pagamento!", "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Erro: Insira um valor numérico válido para o pagamento!",
+                    "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro ao cadastrar: " + ex.getMessage());
         }
@@ -111,10 +112,10 @@ public class Telaclientes extends JFrame {
             areaResultado.append("Telefone: " + c.getTelefone() + " | Endereço: " + c.getEndereco() + "\n");
             // Supondo que sua classe Cliente tenha o método getPagamento() implementado
             areaResultado.append("Valor Pago: R$ " + String.format("%.2f", c.getPagamento()) + "\n");
-            
+
             totalRecebido += c.getPagamento();
         }
-        
+
         // Atualiza o painel inferior com a soma total dos pagamentos dos clientes
         lblTotalPagamentos.setText("Total de Pagamentos Recebidos: R$ " + String.format("%.2f", totalRecebido));
     }
@@ -129,7 +130,7 @@ public class Telaclientes extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new Telaclientes().setVisible(true);
+            new TelaClientes().setVisible(true);
         });
     }
 }

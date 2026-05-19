@@ -1,4 +1,5 @@
-package javas.extras;
+package POONãoUtilizado;
+/*package javas.extras;
 
 public class Fornecedor {
     private String nome;
@@ -59,4 +60,4 @@ public class Fornecedor {
         System.out.println("Endereço:" + endereco);
         System.out.println("Pagamento:" + pagamento);
     }
-}
+}*/

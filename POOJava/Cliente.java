@@ -1,4 +1,4 @@
-package javas;
+package POOJava;
 
 public class Cliente {
     private String nome;
@@ -6,44 +6,56 @@ public class Cliente {
     private String telefone;
     private String endereco;
     private double pagamento;
-    public Cliente(String nome, String cpf, String telefone, String endereco, double pagamento){
-        this.nome = nome; 
+
+    public Cliente(String nome, String cpf, String telefone, String endereco, double pagamento) {
+        this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
         this.endereco = endereco;
         this.pagamento = pagamento;
     }
-    public String getNome(){
+
+    public String getNome() {
         return nome;
     }
-    public String getCpf(){
+
+    public String getCpf() {
         return cpf;
     }
-    public String getTelefone(){
+
+    public String getTelefone() {
         return telefone;
     }
-    public String getEndereco(){
+
+    public String getEndereco() {
         return endereco;
     }
-    public double getPagamento(){
+
+    public double getPagamento() {
         return pagamento;
     }
-    public void setNome(String nome){
+
+    public void setNome(String nome) {
         this.nome = nome;
     }
-    public void setCpf(String cpf){
+
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-    public void setTelefone(String telefone){
+
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-    public void setEndereco(String endereco){
+
+    public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
-    public void setPagamento(double pagamento){
+
+    public void setPagamento(double pagamento) {
         this.pagamento = pagamento;
     }
-    public void exibirDados(){
+
+    public void exibirDados() {
         System.out.println("Nome:" + nome);
         System.out.println("CPF:" + cpf);
         System.out.println("Telefone:" + telefone);

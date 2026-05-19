@@ -1,4 +1,5 @@
-package javas.extras;
+package POONãoUtilizado;
+/*package javas.extras;
 
 import javax.swing.*;
 import java.awt.*;
@@ -137,4 +138,4 @@ public class TelaFornecedores extends JFrame {
             new TelaFornecedores().setVisible(true);
         });
     }
-}
+}*/

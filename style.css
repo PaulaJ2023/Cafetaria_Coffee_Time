@@ -29,7 +29,8 @@ body {
   position: sticky;
   top: 0;
   z-index: 1000;
-  border-bottom: 4px dashed #E7BCBC; /*Borda tracejada estilo craft*/
+  border-bottom: 4px dashed #E7BCBC;
+  /*Borda tracejada estilo craft*/
 }
 
 .logo {
@@ -39,7 +40,8 @@ body {
 }
 
 .logo:hover {
-  transform: scale(1.08) rotate(2deg); /*Efeito dinâmico fofo ao passar o mouse*/
+  transform: scale(1.08) rotate(2deg);
+  /*Efeito dinâmico fofo ao passar o mouse*/
 }
 
 .botao-menu {
@@ -58,8 +60,9 @@ body {
 }
 
 /*SIDEBAR*/
-.menu-check, .popup-toggle { 
-  display: none !important; 
+.menu-check,
+.popup-toggle {
+  display: none !important;
 }
 
 .sidebar {
@@ -74,11 +77,12 @@ body {
   display: flex;
   flex-direction: column;
   box-shadow: 5px 0 25px rgba(90, 35, 35, 0.15);
-  border-radius: 0 30px 30px 0; /*Bordas arredondadas*/
+  border-radius: 0 30px 30px 0;
+  /*Bordas arredondadas*/
 }
 
-.menu-check:checked ~ .sidebar { 
-  left: 0; 
+.menu-check:checked~.sidebar {
+  left: 0;
 }
 
 .botao-fechar {
@@ -120,7 +124,7 @@ body {
   justify-content: center;
   font-size: 20px;
   color: #E9B360;
-  box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .usuario-menu span {
@@ -129,7 +133,8 @@ body {
   font-weight: bold;
 }
 
-.sidebar a, .link-menu-label {
+.sidebar a,
+.link-menu-label {
   display: flex;
   align-items: center;
   gap: 15px;
@@ -143,13 +148,15 @@ body {
   margin: 2px 10px;
 }
 
-.sidebar a:hover, .link-menu-label:hover {
+.sidebar a:hover,
+.link-menu-label:hover {
   background-color: #F7D6D6;
   color: #5A2323;
   transform: translateX(8px);
 }
 
-.sidebar i, .link-menu-label i {
+.sidebar i,
+.link-menu-label i {
   width: 24px;
   text-align: center;
   font-size: 18px;
@@ -184,7 +191,8 @@ body {
 .popup-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(90, 35, 35, 0.4); /*backdrop harmônico*/
+  background: rgba(90, 35, 35, 0.4);
+  /*backdrop harmônico*/
   backdrop-filter: blur(4px);
   display: none;
   justify-content: center;
@@ -194,10 +202,10 @@ body {
 }
 
 /*Mapeamento de ativação via Radio Buttons*/
-#popup-login-controle:checked ~ .login-overlay,
-#popup-senha-controle:checked ~ .senha-overlay,
-#popup-registro-controle:checked ~ .registro-overlay,
-#popup-contato-controle:checked ~ .contato-overlay {
+#popup-login-controle:checked~.login-overlay,
+#popup-senha-controle:checked~.senha-overlay,
+#popup-registro-controle:checked~.registro-overlay,
+#popup-contato-controle:checked~.contato-overlay {
   display: flex;
 }
 
@@ -219,8 +227,15 @@ Você determina o que acontece desde o início (0%)) até o final da animação 
 Para um efeito de "pop-up", ele geralmente faz o elemento crescer do tamanho zero até o tamanho normal e surgir na tela, 
 podendo adicionar um efeito de "quicar" (bounce)*/
 @keyframes popupAparecer {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .titulo-popup {
@@ -230,7 +245,7 @@ podendo adicionar um efeito de "quicar" (bounce)*/
 }
 
 .texto-popup {
-  color: #723D3D; 
+  color: #723D3D;
   margin-bottom: 20px;
   font-size: 16px;
 }
@@ -251,7 +266,8 @@ podendo adicionar um efeito de "quicar" (bounce)*/
 }
 
 /*FORMULÁRIOS COMPARTILHADOS*/
-.formulario-estilo input, .textarea-contato {
+.formulario-estilo input,
+.textarea-contato {
   width: 100%;
   padding: 14px 18px;
   margin-bottom: 15px;
@@ -261,11 +277,12 @@ podendo adicionar um efeito de "quicar" (bounce)*/
   outline: none;
   font-family: 'Itim', cursive;
   color: #5A2323;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
   transition: all 0.2s ease;
 }
 
-.formulario-estilo input:focus, .textarea-contato:focus {
+.formulario-estilo input:focus,
+.textarea-contato:focus {
   border-color: #C06C84;
   box-shadow: 0 0 0 4px rgba(192, 108, 132, 0.15);
 }
@@ -286,7 +303,8 @@ podendo adicionar um efeito de "quicar" (bounce)*/
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   font-family: 'Itim', cursive;
-  box-shadow: 0 6px 0px #B36210; /*Efeito de botão 3D*/
+  box-shadow: 0 6px 0px #B36210;
+  /*Efeito de botão 3D*/
   margin-bottom: 10px;
 }
 
@@ -340,7 +358,7 @@ podendo adicionar um efeito de "quicar" (bounce)*/
   background-color: #FFF;
   color: #5A2323;
   border: 3px dashed #F5C2C2;
-  border-radius: 20px;    
+  border-radius: 20px;
   padding: 6px 25px;
   font-size: 24px;
   box-shadow: 0 5px 15px rgba(245, 194, 194, 0.3);
@@ -354,7 +372,7 @@ podendo adicionar um efeito de "quicar" (bounce)*/
 }
 
 .grid {
-  display: flex; 
+  display: flex;
   overflow-x: auto;
   scroll-behavior: smooth;
   gap: 25px;
@@ -367,10 +385,12 @@ podendo adicionar um efeito de "quicar" (bounce)*/
 .grid::-webkit-scrollbar {
   height: 8px;
 }
+
 .grid::-webkit-scrollbar-track {
   background: #FFF0F0;
   border-radius: 10px;
 }
+
 .grid::-webkit-scrollbar-thumb {
   background: #F7D6D6;
   border-radius: 10px;
@@ -404,7 +424,7 @@ podendo adicionar um efeito de "quicar" (bounce)*/
 .imagem-sticker {
   width: 130px;
   height: 130px;
-  object-fit: contain; 
+  object-fit: contain;
   filter: drop-shadow(4px 6px 0px rgba(241, 197, 139, 0.4));
   transition: transform 0.3s ease;
 }

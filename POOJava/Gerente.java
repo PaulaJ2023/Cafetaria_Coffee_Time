@@ -1,31 +1,39 @@
-package javas;
+package POOJava;
 
 public class Gerente extends Funcionario {
     private double gratificacao;
     private double participacaoLucros;
-    public Gerente(String nome, String cpf, double salario, double valorHora, double horasTrabalhadas, double gratificacao,double participacaoLucros){
+
+    public Gerente(String nome, String cpf, double salario, double valorHora, double horasTrabalhadas,
+            double gratificacao, double participacaoLucros) {
         super(nome, cpf, salario, valorHora, horasTrabalhadas);
         this.gratificacao = gratificacao;
         this.participacaoLucros = participacaoLucros;
     }
-    public double getGratificacao(){
+
+    public double getGratificacao() {
         return gratificacao;
     }
-    public double getPartipacaoLucros(){
+
+    public double getPartipacaoLucros() {
         return participacaoLucros;
     }
-    public void setGratificaca(double gratificacao){
+
+    public void setGratificaca(double gratificacao) {
         this.gratificacao = gratificacao;
     }
-    public void setParticipacaoLucros(double participacaoLucros){
+
+    public void setParticipacaoLucros(double participacaoLucros) {
         this.participacaoLucros = participacaoLucros;
     }
+
     @Override
-    public double calcularSalario(){
+    public double calcularSalario() {
         return getSalario() + gratificacao + participacaoLucros;
     }
+
     @Override
-    public void exibirDados(){
+    public void exibirDados() {
         System.out.println("Nome:" + getNome());
         System.out.println("CPF" + getCpf());
         System.out.println("Salário Base:" + getSalario());
@@ -33,5 +41,5 @@ public class Gerente extends Funcionario {
         System.out.println("Participação nos lucros:" + participacaoLucros);
         System.out.println("Salário a receber:" + calcularSalario());
     }
-    
+
 }
