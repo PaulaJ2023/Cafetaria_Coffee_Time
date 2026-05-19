@@ -1,4 +1,4 @@
-package javas;
+package javas.extras;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,12 +1,13 @@
 package javas;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Principal {
      public static void main(String[] args) {
         Scanner leitor = new Scanner (System.in);
         ArrayList<Funcionario> lista = new ArrayList<>();
         ArrayList<Cliente> listaClientes = new ArrayList<>();
-        ArrayList<Fornecedor> listaFornecedores = new ArrayList<>();
+       // ArrayList<Fornecedor> listaFornecedores = new ArrayList<>();
         int opcao;
         do{
             System.out.println("-menu-");
@@ -90,7 +91,7 @@ public class Principal {
                 Cliente c = new Cliente(nome, cpf, telefone, endereco, pagamento);
                 listaClientes.add(c);
                 System.out.println("cliente cadastrado com sucesso");
-            }else if (opcao == 5){
+            }/*else if (opcao == 5){
                 System.out.println("nome do fornecedor");
                 String nome = leitor.nextLine();
                 System.out.println("cpf do fornecedor");
@@ -106,8 +107,8 @@ public class Principal {
                 leitor.nextLine();//limpar buffer
                 Fornecedor f = new Fornecedor(nome, cpf, telefone, endereco, cnpj, pagamento);
                 listaFornecedores.add(f);
-                System.out.println("fornecedor cadastrado com sucesso");
-            }
+                System.out.println("fornecedor cadastrado com sucesso"); 
+            }*/
           }while (opcao != 0);
          leitor.close();
   }

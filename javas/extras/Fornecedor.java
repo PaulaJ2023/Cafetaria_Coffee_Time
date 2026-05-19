@@ -1,4 +1,4 @@
-package javas;
+package javas.extras;
 
 public class Fornecedor {
     private String nome;
