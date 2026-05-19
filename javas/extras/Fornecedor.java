@@ -10,7 +10,7 @@ public class Fornecedor {
     public Fornecedor(String nome, String cpf, String telefone, String endereco, String cnpj, double pagamento){
         this.nome = nome;
         this.cpf = cpf;
-        this .cnpj = cnpj;
+        this.cnpj = cnpj;
         this.telefone = telefone;
         this.endereco = endereco;
         this.pagamento = pagamento;
