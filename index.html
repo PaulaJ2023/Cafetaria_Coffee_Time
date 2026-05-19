@@ -5,194 +5,187 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coffee Time</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Itim&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header class="topo">
+  <!-- CONTROLES FLUTUANTES (SIDEBAR E POPUPS) -->
+  <!-- Menu Sidebar -->
+  <input type="checkbox" id="menu" class="menu-check">
+
+  <!-- Sistema de Popups com Radio Buttons (Evita bugs de sobreposição) -->
+  <input type="radio" name="popup-grupo" id="popup-fechar-todos" class="popup-toggle" checked>
+  <input type="radio" name="popup-grupo" id="popup-login-controle" class="popup-toggle">
+  <input type="radio" name="popup-grupo" id="popup-senha-controle" class="popup-toggle">
+  <input type="radio" name="popup-grupo" id="popup-registro-controle" class="popup-toggle">
+  <input type="radio" name="popup-grupo" id="popup-contato-controle" class="popup-toggle">
+
+  <!-- SIDEBAR (MENU LATERAL) -->
+  <nav class="sidebar">
+    <label for="menu" class="botao-fechar">&times;</label>
+    
+    <label for="popup-login-controle" class="usuario-menu">
+      <div class="foto-perfil"><i class="fas fa-user-cookie"></i></div>
+      <span>Entrar / Registrar</span>
+    </label>
+
+    <a href="#"><i class="fas fa-shopping-cart"></i> <span>Carrinho</span></a>
+    <a href="#"><i class="fas fa-coffee"></i> <span>Serviços</span></a>
+    <label for="popup-contato-controle" class="link-menu-label">
+      <i class="fas fa-envelope"></i> <span>Contatos</span>
+    </label>
+    <a href="#"><i class="fas fa-universal-access"></i> <span>Acessibilidade</span></a>
+    <a href="#"><i class="fas fa-cog"></i> <span>Configurações</span></a>
+    <a href="#"><i class="fas fa-question-circle"></i> <span>Ajuda</span></a>
+    <a href="#"><i class="fas fa-info-circle"></i> <span>Sobre nós</span></a>
+  </nav>
+
+  <!-- HEADER / TOPO -->
+  <header class="topo">
     <div class="menu-container">
-      <input type="checkbox" id="menu" class="menu-lateral-check">
       <label for="menu" class="botao-menu">
         <img src="imagens/menu-fofo.png" alt="Menu">
       </label>
-      
-      <nav class="sidebar">
-        <label for="menu" class="botao-fechar">&times;</label>
-        
-        <input type="checkbox" id="popup-controle">
-        <label for="popup-controle" class="usuario-menu">
-          <div class="foto-perfil"></div>
-          <span class="nome-usuario">Entrar / Registrar</span>
-        </label>
-
-        <div class="popup-overlay">
-          <<div class="popup-conteudo">
-    <label for="popup-controle" class="popup-fechar">&times;</label>
-    <h2 class="titulo-popup">Área de Login</h2>
-    <form class="formulario-login">
-        <input type="text" placeholder="E-mail ou Usuário" required>
-        <input type="password" placeholder="Senha" required>
-        
-        <button type="submit" id="entrar-login">Entrar</button>
-        
-        <div class="botoes-lado-a-lado">
-            <label for="popup-senha-controle" id="esqueci-senha" style="cursor:pointer;">Esqueci a senha</label>
-            <label for="popup-registro-controle" id="registrar" style="cursor:pointer;">Ainda não tem conta? Registrar</label>
-        </div>
-    </form>
-</div>
-        </div>
-        <!--Links do menu lateral-->
-        <a href="#"><i class="fas fa-shopping-cart"></i> <span>Carrinho</span></a>
-        <a href="#"><i class="fas fa-coffee"></i> <span>Serviços</span></a>
-        <label for="popup-contato-controle" class="link-contatos-label">
-         <i class="fas fa-envelope"></i> <span>Contatos</span></label>
-         <a href="#"><i class="fas fa-universal-access"></i> <span>Acessibilidade</span></a>
-        <a href="#"><i class="fas fa-cog"></i> <span>Configurações</span></a>
-        <a href="#"><i class="fas fa-question-circle"></i> <span>Ajuda</span></a>
-        <a href="#"><i class="fas fa-info-circle"></i> <span>Sobre o Coffee Time</span></a>
-      </nav>
     </div>
-
-    <!--Area de esqueci senha-->
-    <input type="checkbox" id="popup-senha-controle" style="display: none;">
-    <div class="popup-overlay" id="overlay-senha">
-    <div class="popup-conteudo">
-        <label for="popup-senha-controle" class="popup-fechar">&times;</label>
-        <h2 class="titulo-popup">Recuperar Senha</h2>
-        <p style="color: #5a2323; margin-bottom: 20px; font-family: 'Itim', cursive;">
-            Insira seu e-mail para receber as instruções de recuperação.
-        </p>
-        <form class="formulario-login">
-            <input type="email" placeholder="Seu e-mail cadastrado" required>
-            
-            <button type="submit" id="entrar-login">Enviar Instruções</button>
-            
-            <div class="botoes-lado-a-lado">
-                <label for="popup-senha-controle" id="registrar" style="text-decoration: underline; cursor: pointer;">
-                    Voltar para o Login
-                </label>
-            </div>
-        </form>
-    </div>
-</div>
-
-    <!-- Area de cadastro -->
-     <input type="checkbox" id="popup-registro-controle" style="display: none;">
-
-    <div class="popup-overlay" id="overlay-registro">
-    <div class="popup-conteudo">
-        <label for="popup-registro-controle" class="popup-fechar">&times;</label>
-        <h2 class="titulo-popup">Criar Conta</h2>
-        <form class="formulario-login">
-            <input type="text" placeholder="Nome Completo" required>
-            <input type="email" placeholder="E-mail" required>
-            <input type="password" placeholder="Crie uma Senha" required>
-            <input type="password" placeholder="Confirme a Senha" required>
-            
-            <button type="submit" id="entrar-login">Cadastrar</button>
-            
-            <div class="botoes-lado-a-lado">
-                <label for="popup-registro-controle" id="registrar" style="text-decoration: underline; cursor: pointer;">
-                    Já tem uma conta? Entrar
-                </label>
-            </div>
-        </form>
-    </div>
-</div>
-
-
-<!-- Pop-up de Contato -->
- <input type="checkbox" id="popup-contato-controle" style="display: none;">
-    <div class="popup-overlay" id="overlay-contato">
-      <div class="popup-conteudo-branco">
-        <label for="popup-contato-controle" class="popup-fechar">&times;</label>
-        <h2 class="titulo-popup">Fale Conosco</h2>
-        
-        <form class="formulario-login">
-          <input type="text" placeholder="Seu Nome" required>
-          <input type="email" placeholder="Seu E-mail" required>
-          <input type="text" placeholder="Assunto" required>
-          <textarea placeholder="Escreva sua mensagem aqui..." class="textarea-contato" rows="5" required></textarea>
-          
-          <button type="submit" id="entrar-login">Enviar Mensagem</button>
-        </form>
-      </div>
-    </div>
-
-
     <img src="imagens/Logo_Coffee_Time.png" alt="Logo" class="logo">
   </header>
 
+  <!-- HERO SECTION -->
   <section class="hero">
-    <h1>Seja Bem-Vindo ao Coffee Time!</h1>
+    <h1>Seja Bem-Vindo ao Coffee Time! ✨☕</h1>
   </section>
 
-  <!-- PRODUTOS -->
-   <main class="produtos">
+  <!-- POPUP: LOGIN -->
+  <div class="popup-overlay login-overlay">
+    <div class="popup-conteudo">
+      <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
+      <h2 class="titulo-popup">✨ Área de Login ✨</h2>
+      <form class="formulario-estilo" onsubmit="return false;">
+        <input type="text" placeholder="E-mail ou Usuário" required>
+        <input type="password" placeholder="Senha" required>
+        <button type="submit" class="btn-laranja">Entrar 🐾</button>
+        <div class="botoes-alternativos">
+          <label for="popup-senha-controle" class="link-clicavel">Esqueci a senha</label>
+          <label for="popup-registro-controle" class="link-clicavel">Ainda não tem conta? Registrar</label>
+        </div>
+      </form>
+    </div>
+  </div>
 
-    <h2><span class="titulo-categoria">Bebidas Quentes</span></h2>
+  <!-- POPUP: RECUPERAR SENHA -->
+  <div class="popup-overlay senha-overlay">
+    <div class="popup-conteudo">
+      <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
+      <h2 class="titulo-popup">🌸 Recuperar Senha 🌸</h2>
+      <p class="texto-popup">Insira seu e-mail para receber as instruções de recuperação.</p>
+      <form class="formulario-estilo" onsubmit="return false;">
+        <input type="email" placeholder="Seu e-mail cadastrado" required>
+        <button type="submit" class="btn-laranja">Enviar Instruções 💕</button>
+        <div class="botoes-alternativos">
+          <label for="popup-login-controle" class="link-clicavel">Voltar para o Login</label>
+        </div>
+      </form>
+    </div>
+  </div>
 
-    <div class="grid">
-      <div class="card">
-        <img src="imagens/cafe-preto.png" alt="Café Preto" class="imagem-sticker">
-        <h3>Café Preto</h3>
-        <p>R$ 1,50</p>
-        <button>+ adicionar</button>
+  <!-- POPUP: REGISTRO / CRIAR CONTA -->
+  <div class="popup-overlay registro-overlay">
+    <div class="popup-conteudo">
+      <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
+      <h2 class="titulo-popup">🌱 Criar Conta 🌱</h2>
+      <form class="formulario-estilo" onsubmit="return false;">
+        <input type="text" placeholder="Nome Completo" required>
+        <input type="email" placeholder="E-mail" required>
+        <input type="password" placeholder="Crie uma Senha" required>
+        <input type="password" placeholder="Confirme a Senha" required>
+        <button type="submit" class="btn-laranja">Cadastrar 🎀</button>
+        <div class="botoes-alternativos">
+          <label for="popup-login-controle" class="link-clicavel">Já tem uma conta? Entrar</label>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- POPUP: CONTATO -->
+  <div class="popup-overlay contato-overlay">
+    <div class="popup-conteudo">
+      <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
+      <h2 class="titulo-popup">💌 Fale Conosco 💌</h2>
+      <form class="formulario-estilo" onsubmit="return false;">
+        <input type="text" placeholder="Seu Nome" required>
+        <input type="email" placeholder="Seu E-mail" required>
+        <input type="text" placeholder="Assunto" required>
+        <textarea placeholder="Escreva sua mensagem aqui..." class="textarea-contato" rows="4" required></textarea>
+        <button type="submit" class="btn-laranja">Enviar Mensagem 🕊️</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- VITRINE DE PRODUTOS -->
+  <main class="produtos">
+
+    <h2><span class="titulo-categoria">☕ Bebidas Quentes ☕</span></h2>
+    <div class="carrossel-container">
+      <div class="grid">
+        <div class="card">
+          <img src="imagens/cafe-preto.png" alt="Café Preto" class="imagem-sticker">
+          <h3>Café Preto</h3>
+          <p class="preco">R$ 1,50</p>
+          <button class="btn-adicionar"><i class="fas fa-plus"></i> adicionar</button>
+        </div>
+        <div class="card">
+          <img src="imagens/cafe-expresso.png" alt="Café Expresso" class="imagem-sticker">
+          <h3>Café Expresso</h3>
+          <p class="preco">R$ 2,50</p>
+          <button class="btn-adicionar"><i class="fas fa-plus"></i> adicionar</button>
+        </div>
+        <div class="card">
+          <img src="imagens/cafe-cappuccino.png" alt="Cappuccino" class="imagem-sticker">
+          <h3>Cappuccino</h3>
+          <p class="preco">R$ 4,99</p>
+          <button class="btn-adicionar"><i class="fas fa-plus"></i> adicionar</button>
+        </div>
+        <div class="card">
+          <img src="imagens/cafe-americano.png" alt="Café Americano" class="imagem-sticker">
+          <h3>Café Americano</h3>
+          <p class="preco">R$ 3,50</p>
+          <button class="btn-adicionar"><i class="fas fa-plus"></i> adicionar</button>
+        </div>
       </div>
-
-      <div class="card">
-        <img src="imagens/cafe-expresso.png" alt="Café Expresso" class="imagem-sticker">
-        <h3>Café Expresso</h3>
-        <p>R$ 2,50</p>
-        <button>+ adicionar</button>
+    </div>
+    
+    <h2><span class="titulo-categoria">🧊 Bebidas Geladas 🧊</span></h2>
+    <div class="carrossel-container">
+      <div class="grid">
+        <div class="card">
+          <img src="imagens/cafe-gelado.png" alt="Café Gelado" class="imagem-sticker">
+          <h3>Café Gelado</h3>
+          <p class="preco">R$ 12,00</p>
+          <button class="btn-adicionar"><i class="fas fa-plus"></i> adicionar</button>
+        </div>
+        <div class="card">
+          <img src="imagens/frappuccino.png" alt="Frappuccino" class="imagem-sticker">
+          <h3>Frappuccino</h3>
+          <p class="preco">R$ 17,90</p>
+          <button class="btn-adicionar"><i class="fas fa-plus"></i> adicionar</button>
+        </div>
+        <div class="card">
+          <img src="imagens/cafe-shake.png" alt="Café Shake" class="imagem-sticker">
+          <h3>Café Shake</h3>
+          <p class="preco">R$ 12,00</p>
+          <button class="btn-adicionar"><i class="fas fa-plus"></i> adicionar</button>
+        </div>
+        <div class="card">
+          <img src="imagens/espresso-tonica.png" alt="Espresso Tônica" class="imagem-sticker">
+          <h3>Espresso Tônica</h3>
+          <p class="preco">R$ 19,90</p>
+          <button class="btn-adicionar"><i class="fas fa-plus"></i> adicionar</button>
+        </div>
       </div>
+    </div> 
 
-      <div class="card">
-        <img src="imagens/cafe-cappuccino.png" alt="Cappuccino" class="imagem-sticker">
-        <h3>Cappuccino</h3>
-        <p>R$ 4,99</p>
-        <button>+ adicionar</button>
-      </div>
-
-      <div class="card">
-        <img src="imagens/cafe-americano.png" alt="Café Americano" class="imagem-sticker">
-        <h3>Café Americano</h3>
-        <p>R$ 3,50</p>
-        <button>+ adicionar</button>
-      </div>
-    </div> <h2><span class="titulo-categoria">Bebidas Geladas</span></h2>
-
-    <div class="grid">
-      <div class="card">
-        <img src="imagens/cafe-gelado.png" alt="Café Gelado" class="imagem-sticker">
-        <h3>Café Gelado</h3>
-        <p>R$ 12,00</p>
-        <button>+ adicionar</button>
-      </div>
-
-      <div class="card">
-        <img src="imagens/frappuccino.png" alt="Frappuccino" class="imagem-sticker">
-        <h3>Frappuccino</h3>
-        <p>R$ 17,90</p>
-        <button>+ adicionar</button>
-      </div>
-
-      <div class="card">
-        <img src="imagens/cafe-shake.png" alt="Café Shake" class="imagem-sticker">
-        <h3>Café Shake</h3>
-        <p>R$ 12,00</p>
-        <button>+ adicionar</button>
-      </div>
-
-      <div class="card">
-        <img src="imagens/espresso-tonica.png" alt="Espresso Tônica" class="imagem-sticker">
-        <h3>Espresso Tônica</h3>
-        <p>R$ 19,90</p>
-        <button>+ adicionar</button>
-      </div>
-    </div> </main>
+  </main>
 
 </body>
 </html>
