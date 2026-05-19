@@ -32,5 +32,15 @@ Curso: ADS - UNP Campus Salgado Filho - Turno: Manhã
 ---
 # Funcionalidades Principais ⚙️
 
+---
+# Requísitos Aplicados 📋
+Uso de nove classes
+Criação de objetos
+Atributos e métodos
+Encapsulamento
+Herança
+Polimorfismo
+Cadastro, listagem e consulta de dados
+Organização do código
 
 
