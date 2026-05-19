@@ -34,13 +34,13 @@ Curso: ADS - UNP Campus Salgado Filho - Turno: Manhã
 
 ---
 # Requísitos Aplicados 📋
-Uso de nove classes
-Criação de objetos
-Atributos e métodos
-Encapsulamento
-Herança
-Polimorfismo
-Cadastro, listagem e consulta de dados
-Organização do código
+* Uso de nove classes
+* Criação de objetos
+* Atributos e métodos
+* Encapsulamento
+* Herança
+* Polimorfismo
+* Cadastro, listagem e consulta de dados
+* Organização do código
 
 
