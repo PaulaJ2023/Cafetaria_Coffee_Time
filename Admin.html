@@ -1,11 +1,199 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administração</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coffee Time - Painel Admin ✨</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"> 
+  <link rel="stylesheet" href="admin.css"> 
 </head>
-<body>
-    
+
+<body class="admin-body">
+  
+  <header class="topo-admin">
+    <div class="admin-perfil-topo">
+      <div class="foto-perfil-admin"><i class="fas fa-user-shield"></i></div>
+      <div class="boas-vindas">
+        <span>Olá, Paula Souza! 💕</span>
+        <small>Gerente Geral</small>
+      </div>
+    </div>
+    <img src="imagens/Logo_Coffee_Time.png" alt="Logo" class="logo-admin">
+    <a href="index.html" class="btn-voltar"><i class="fas fa-store"></i> Ver Loja</a>
+  </header>
+
+  <section class="hero-admin">
+    <h1>Painel de Controle 🛠️☕</h1>
+    <p>Gerencie seus pedidos, equipe e faturamento com muito amor e café!</p>
+  </section>
+
+  <main class="admin-container">
+
+    <section class="dashboard-cards">
+      <div class="card-metrica-admin">
+        <div class="icone-wrapper rosa"><i class="fas fa-shopping-basket"></i></div>
+        <h3>Pedidos de Hoje</h3>
+        <p class="numero-metrica">12</p>
+      </div>
+      <div class="card-metrica-admin">
+        <div class="icone-wrapper roxo"><i class="fas fa-truck"></i></div>
+        <h3>Para Entrega</h3>
+        <p class="numero-metrica alert">4 Pendentes</p>
+      </div>
+      <div class="card-metrica-admin">
+        <div class="icone-wrapper laranja"><i class="fas fa-users"></i></div>
+        <h3>Equipe Ativa</h3>
+        <p class="numero-metrica">6 Membros</p>
+      </div>
+      <div class="card-metrica-admin">
+        <div class="icone-wrapper verde"><i class="fas fa-cash-register"></i></div>
+        <h3>Faturamento</h3>
+        <p class="numero-metrica">R$ 342,80</p>
+      </div>
+    </section>
+
+    <div class="admin-grid-layout">
+      
+      <section class="painel-secao">
+        <div class="secao-header">
+          <h2><i class="fas fa-clipboard-list icon-titulo"></i> Pedidos & Delivery</h2>
+          <div class="filtros-fofos">
+            <span class="filtro-btn ativo">Todos</span>
+            <span class="filtro-btn">Pendentes</span>
+            <span class="filtro-btn">Preparando</span>
+          </div>
+        </div>
+        
+        <div class="tabela-responsiva">
+          <table class="tabela-admin">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Itens Pedidos</th>
+                <th>Tipo</th>
+                <th>Pagamento</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>#2041</strong></td>
+                <td>Mariana Silva</td>
+                <td>1x Cappuccino, 1x Croissant</td>
+                <td><span class="badge-fofo tipo-delivery"><i class="fas fa-motorcycle"></i> Delivery</span></td>
+                <td>Cartão (App)</td>
+                <td><span class="badge-fofo status-preparo"><i class="fas fa-spinner fa-spin"></i> Em Preparo</span></td>
+                <td>
+                  <button class="btn-acao avancar" title="Avançar Status"><i class="fas fa-check"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>#2042</strong></td>
+                <td>Carlos Eduardo</td>
+                <td>2x Café Expresso, 2x Pão de Queijo</td>
+                <td><span class="badge-fofo tipo-balcao"><i class="fas fa-store"></i> Retirada</span></td>
+                <td>Dinheiro</td>
+                <td><span class="badge-fofo status-pendente">Pendente</span></td>
+                <td>
+                  <button class="btn-acao avancar" title="Aceitar Pedido"><i class="fas fa-check"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>#2043</strong></td>
+                <td>Ana Beatriz</td>
+                <td>1x Frappuccino, 1x Cookie Chocolate</td>
+                <td><span class="badge-fofo tipo-delivery"><i class="fas fa-motorcycle"></i> Delivery</span></td>
+                <td>Pix</td>
+                <td><span class="badge-fofo status-caminho"><i class="fas fa-shipping-fast"></i> Na Rua</span></td>
+                <td>
+                  <button class="btn-acao concluido" title="Finalizar"><i class="fas fa-thumbtack"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>#2040</strong></td>
+                <td>Pedro Henrique</td>
+                <td>1x Café Gelado, 1x Bolo de Cenoura</td>
+                <td><span class="badge-fofo tipo-balcao"><i class="fas fa-store"></i> Retirada</span></td>
+                <td>Cartão</td>
+                <td><span class="badge-fofo status-entregue">Finalizado 🎉</span></td>
+                <td>
+                  <button class="btn-acao desativado" disabled><i class="fas fa-check-double"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="coluna-lateral-admin">
+        
+        <section class="painel-secao">
+          <h2><i class="fas fa-user-plus icon-titulo"></i> Nova Estrela da Equipe</h2>
+
+          <div class="formulario-cadastro-admin">
+            <form class="formulario-estilo" onsubmit="return false;">
+              <div class="input-container-fofo">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Nome do Funcionário" required>
+              </div>
+              <div class="input-container-fofo">
+                <i class="fas fa-envelope"></i>
+                <input type="email" placeholder="E-mail Corporativo" required>
+              </div>
+              
+              <div class="select-customizado">
+                <select required>
+                  <option value="" disabled selected>Selecione o Cargo...</option>
+                  <option value="gerente">Gerente Geral</option>
+                  <option value="normal">Atendente</option>
+                  <option value="estagiario">Estagiário</option>
+                </select>
+              </div>
+              
+              <button type="submit" class="btn-salvar-admin">Salvar Colaborador ✨</button>
+            </form>
+          </div>
+        </section>
+
+        <section class="painel-secao">
+          <h2><i class="fas fa-heart icon-titulo"></i> Membros Ativos</h2>
+          
+          <div class="lista-funcionarios">
+            <div class="item-funcionario-fofo">
+              <div class="avatar-func rosa"><i class="fas fa-mug-hot"></i></div>
+              <div class="func-info">
+                <strong>Paula Souza</strong>
+                <span>paula@coffeetime.com</span>
+              </div>
+              <span class="badge-cargo cargo-gerente">Gerente</span>
+            </div>
+
+            <div class="item-funcionario-fofo">
+              <div class="avatar-func marrom"><i class="fas fa-cookie-bite"></i></div>
+              <div class="func-info">
+                <strong>Lucas Ribeiro</strong>
+                <span>lucas@coffeetime.com</span>
+              </div>
+              <span class="badge-cargo cargo-normal">Barista</span>
+            </div>
+
+            <div class="item-funcionario-fofo">
+              <div class="avatar-func amarelo"><i class="fas fa-seedling"></i></div>
+              <div class="func-info">
+                <strong>Julia Costa</strong>
+                <span>julia@coffeetime.com</span>
+              </div>
+              <span class="badge-cargo cargo-estagiario">Estagiária</span>
+            </div>
+          </div>
+        </section>
+
+      </div> </div> </main>
 </body>
+
 </html>
