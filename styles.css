@@ -1,20 +1,20 @@
-/* CONFIGURAÇÃO GERAL E BACKGROUND AMIGÁVEL */
+/*CONFIGURAÇÃO GERAL E BACKGROUND*/
 .admin-body {
-  background-color: #FFFDF9; /* Creme bem clarinho e fofo */
+  background-color: #FFFDF9;
   font-family: 'Itim', cursive;
   margin: 0;
   padding: 0;
   color: #5A2323;
 }
 
-/* CONTAINER PRINCIPAL */
+/*CONTAINER PRINCIPAL*/
 .admin-container {
   padding: 20px 4%;
   max-width: 1400px;
   margin: 0 auto;
 }
 
-/* TOPO DO ADMIN REFORMULADO */
+/*TOPO DO ADMIN*/
 .topo-admin {
   background: #FFF;
   border-bottom: 4px dashed #FCE1B6;
@@ -82,7 +82,7 @@
   transform: scale(1.05);
 }
 
-/* HERO ADMIN */
+/*HERO ADMIN*/
 .hero-admin {
   text-align: center;
   padding: 30px 20px 10px 20px;
@@ -100,7 +100,7 @@
   font-size: 16px;
 }
 
-/* CARDS DE MÉTRICAS (ESTILO ADESIVOS REDONDOS) */
+/*CARDS DE MÉTRICAS*/
 .dashboard-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -114,7 +114,7 @@
   border-radius: 24px;
   text-align: center;
   border: 3px solid #FCE1B6;
-  box-shadow: 0 8px 0px #FCE1B6; /* Efeito 3D durinho de sticker */
+  box-shadow: 0 8px 0px #FCE1B6;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   position: relative;
   display: flex;
@@ -213,7 +213,7 @@
   color: #C06C84;
 }
 
-/* FILTROS INTERATIVOS FOFO */
+/*FILTROS INTERATIVOS*/
 .filtros-fofos {
   display: flex;
   gap: 8px;
@@ -235,7 +235,7 @@
   border-color: #C06C84;
 }
 
-/* TABELA DE PEDIDOS PREMIUM ESTILO GUMMY */
+/*TABELA DE PEDIDOS*/
 .tabela-responsiva {
   overflow-x: auto;
   border-radius: 18px;
@@ -267,7 +267,7 @@
   background-color: #FFF9F9;
 }
 
-/* BADGES DE STATUS REDONDOS */
+/*BADGES*/
 .badge-fofo {
   display: inline-flex;
   align-items: center;
@@ -286,7 +286,7 @@
 .tipo-delivery { background: #FFF0F0; color: #C06C84; }
 .tipo-balcao   { background: #FADCA5; color: #5A2323; }
 
-/* BOTÕES DE AÇÃO NA TABELA */
+/*BOTÕES DE AÇÃO NA TABELA*/
 .btn-acao {
   border: none;
   width: 32px;
@@ -307,7 +307,7 @@
   transform: scale(1.15);
 }
 
-/* FORMULÁRIO DE CADASTRO INTERNO */
+/*FORMULÁRIO DE CADASTRO INTERNO*/
 .formulario-cadastro-admin {
   background: #FFF9F9;
   padding: 15px;
@@ -396,7 +396,7 @@
   box-shadow: 0 2px 0px #B36210;
 }
 
-/* LISTA DE COMPONENTES DE FUNCIONÁRIOS (REESTILIZADO) */
+/*LISTA DE COMPONENTES DE FUNCIONÁRIOS*/
 .lista-funcionarios {
   display: flex;
   flex-direction: column;
