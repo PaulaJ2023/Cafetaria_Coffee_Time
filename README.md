@@ -1,6 +1,7 @@
 # ☕ Coffee Time
 Projeto A3 - Site para uma loja fisica e delivery de Cafés com doces e salgados como acompanhamento.
-
+Site: [Link](https://paulaj2023.github.io/Coffee_Time/)
+Administração: Link 
 ---
 # 📑 Sobre o Projeto
 O **Coffee Time** é uma plataforma completa para uma loja fisica e delivery especializada em cafés especiais com salgados e doces artesanais. A plataforma conecta clientes, funcionários e administradores, centralizando o gerenciamento de pedidos, pagamentos e avaliações em um único lugar.
