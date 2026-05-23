@@ -18,13 +18,13 @@ formFuncionario.addEventListener('submit', function (evento) {
     const novoItem = document.createElement('div');
     novoItem.classList.add('item-funcionario-fofo');
 
-    // Escolhemos um ícone bonitinho dependendo do cargo selecionado
+    //Escolhe um ícone dependendo do cargo selecionado
     let icone = 'fa-mug-hot';
     let classeCor = 'rosa';
     if (cargo === 'Barista') { icone = 'fa-cookie-bite'; classeCor = 'marrom'; }
     if (cargo === 'Estagiário') { icone = 'fa-seedling'; classeCor = 'amarelo'; }
 
-    // Colocamos o código HTML de dentro do funcionário de forma simples
+    //Coloca o código HTML de dentro do funcionário
     novoItem.innerHTML = `
         <div class="avatar-func ${classeCor}"><i class="fas ${icone}"></i></div>
         <div class="func-info">
@@ -34,22 +34,22 @@ formFuncionario.addEventListener('submit', function (evento) {
         <span class="badge-cargo cargo-normal">${cargo}</span>
     `;
 
-    // Adicionamos esse novo funcionário na nossa lista visual!
+    //Adiciona novo funcionário na lista
     listaFuncionariosHtml.appendChild(novoItem);
 
-    // Mostramos uma mensagem fofa de sucesso
+    //Mostra uma mensagem de sucesso
     alert(`✨ Colaborador(a) ${nome} cadastrado(a) com sucesso no sistema!`);
 
-    // Limpamos o formulário para o próximo cadastro
+    //Limpa o formulário para o próximo cadastro
     formFuncionario.reset();
 });
 
-// FUNÇÃO EXTRA BÔNUS: Recuperar o pedido feito na página inicial!
+//Recuperar o pedido feito na página inicial!
 window.addEventListener('load', function () {
     const totalPedido = localStorage.getItem('ultimoTotal');
     const produtosPedido = localStorage.getItem('ultimosProdutos');
 
-    // Se existir algum pedido vindo da lojinha, avisa o Administrador
+    //Se existir algum pedido vindo da lojinha, avisa o Administrador
     if (totalPedido) {
         console.log(`☕ Alerta de Novo Pedido: Itens [${produtosPedido}] - Total: R$ ${totalPedido}`);
     }
