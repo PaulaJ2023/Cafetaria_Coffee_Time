@@ -66,6 +66,33 @@ if (formularioRegistro) {
     });
 }
 
+//SISTEMA DE RECUPERAÇÃO DE SENHA
+const formularioRecuperar = document.getElementById('formulario-recuperar');
+const campoEmailRecuperar = document.getElementById('campo-email-recuperar');
+
+if (formularioRecuperar) {
+    formularioRecuperar.addEventListener('submit', function(event) {
+        //Evita que a página recarregue
+        event.preventDefault();
+
+        //Pega o e-mail digitado
+        const emailDigitado = campoEmailRecuperar.value.trim();
+
+        if (emailDigitado !== "") {
+            //Mostra o alerta fofo confirmando o envio para o e-mail digitado
+            alert(`🌸 Sucesso! As instruções de recuperação foram enviadas para:\n💌 ${emailDigitado}`);
+
+            //Limpa o campo de texto depois de enviar
+            campoEmailRecuperar.value = "";
+
+            //Fecha o popup simulando o clique no botão de fechar todos
+            if (fecharPopupTodos) {
+                fecharPopupTodos.checked = true;
+            }
+        }
+    });
+}
+
 //SISTEMA DO CARRINHO DE COMPRAS
 //Cria uma lista vazia para colocar os produtos que o cliente escolher
 let carrinho = [];
