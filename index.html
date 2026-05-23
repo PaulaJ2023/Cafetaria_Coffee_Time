@@ -39,7 +39,7 @@
     <a href="#"><i class="fas fa-shopping-cart"></i> <span>Carrinho</span></a>
     <a href="#"><i class="fas fa-coffee"></i> <span>Serviços</span></a>
     <label for="popup-contato-controle" class="link-menu-label">
-      <i class="fas fa-envelope"></i> <span>Contatos</span>
+      <i class="fas fa-envelope"></i> <span>Contato</span>
     </label>
     <a href="#"><i class="fas fa-universal-access"></i> <span>Acessibilidade</span></a>
     <a href="#"><i class="fas fa-cog"></i> <span>Configurações</span></a>
@@ -118,8 +118,8 @@
     <div class="popup-conteudo">
       <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
       <h2 class="titulo-popup">💌 Fale Conosco 💌</h2>
-      <form class="formulario-estilo" onsubmit="return false;">
-        <input type="text" placeholder="Seu Nome" required>
+      <form id="formulario-contato" class="formulario-estilo" onsubmit="return false;">
+        <input type="text" id="campo-nome-contato" placeholder="Seu Nome" required>
         <input type="email" placeholder="Seu E-mail" required>
         <input type="text" placeholder="Assunto" required>
         <textarea placeholder="Escreva sua mensagem aqui..." class="textarea-contato" rows="4" required></textarea>

@@ -9,9 +9,9 @@ const formularioLogin = document.getElementById('formulario-login');
 const campoUsuario = document.getElementById('campo-usuario');
 
 if (formularioLogin) {
-    formularioLogin.addEventListener('submit', function(event) {
+    formularioLogin.addEventListener('submit', function (event) {
         //Evita que a página recarregue
-        event.preventDefault(); 
+        event.preventDefault();
 
         //Pega o valor digitado pelo usuário
         const nomeDigitado = campoUsuario.value.trim();
@@ -39,7 +39,7 @@ const formularioRegistro = document.getElementById('formulario-registro');
 const campoNomeRegistro = document.getElementById('campo-nome-registro');
 
 if (formularioRegistro) {
-    formularioRegistro.addEventListener('submit', function(event) {
+    formularioRegistro.addEventListener('submit', function (event) {
         //Evita o recarregamento da página
         event.preventDefault();
 
@@ -71,7 +71,7 @@ const formularioRecuperar = document.getElementById('formulario-recuperar');
 const campoEmailRecuperar = document.getElementById('campo-email-recuperar');
 
 if (formularioRecuperar) {
-    formularioRecuperar.addEventListener('submit', function(event) {
+    formularioRecuperar.addEventListener('submit', function (event) {
         //Evita que a página recarregue
         event.preventDefault();
 
@@ -86,6 +86,33 @@ if (formularioRecuperar) {
             campoEmailRecuperar.value = "";
 
             //Fecha o popup simulando o clique no botão de fechar todos
+            if (fecharPopupTodos) {
+                fecharPopupTodos.checked = true;
+            }
+        }
+    });
+}
+
+//SISTEMA DE CONTATO
+const formularioContato = document.getElementById('formulario-contato');
+const campoNomeContato = document.getElementById('campo-nome-contato');
+
+if (formularioContato) {
+    formularioContato.addEventListener('submit', function (event) {
+        //Evita que a página recarregue ao enviar o formulário
+        event.preventDefault();
+
+        //Pega o nome da pessoa e limpa os espaços sobrando
+        const nomeContato = campoNomeContato.value.trim();
+
+        if (nomeContato !== "") {
+            //Mostra o alerta de confirmação
+            alert(`💌 Obrigado pelo contato, ${nomeContato}!\n✨ Sua mensagem foi enviada com sucesso para a equipe do Coffee Time.`);
+
+            //Limpa o formulário todo após o envio
+            formularioContato.reset();
+
+            //Fecha o popup
             if (fecharPopupTodos) {
                 fecharPopupTodos.checked = true;
             }
