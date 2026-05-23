@@ -471,3 +471,112 @@ podendo adicionar um efeito de "quicar" (bounce)*/
   transform: translateY(2px);
   box-shadow: 0 2px 0px #4A3E55;
 }
+
+/*Carrinho*/
+.modal-carrinho-fofo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(90, 35, 35, 0.4); /* Fundo escurinho leve atrás */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000;
+  padding: 20px;
+}
+
+.conteudo-carrinho {
+  background: #FFFDF9;
+  border: 4px dashed #F5C2C2;
+  border-radius: 30px;
+  width: 100%;
+  max-width: 420px;
+  padding: 25px;
+  box-shadow: 0 15px 30px rgba(90, 35, 35, 0.1);
+  animation: abrirFofo 0.3s ease-out;
+}
+
+.topo-carrinho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid #FCE1B6;
+  padding-bottom: 12px;
+  margin-bottom: 15px;
+}
+
+.topo-carrinho h2 {
+  font-size: 22px;
+  color: #5A2323;
+  margin: 0;
+}
+
+#btn-fechar-carrinho {
+  background: #FFF0F0;
+  border: none;
+  color: #C06C84;
+  font-size: 28px;
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+#btn-fechar-carrinho:hover {
+  background: #C06C84;
+  color: white;
+}
+
+#itens-do-carrinho {
+  max-height: 240px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  padding-right: 5px;
+}
+
+.carrinho-vazio-txt {
+  text-align: center;
+  color: #a18181;
+  font-style: italic;
+  padding: 20px 0;
+}
+
+.total-carrinho {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  color: #5A2323;
+  border-top: 3px solid #FCE1B6;
+  padding-top: 15px;
+  margin-bottom: 20px;
+}
+
+#btn-finalizar-pedido {
+  width: 100%;
+  background: #C06C84;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-family: 'Itim', cursive;
+  font-size: 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 0px #964F64;
+  transition: all 0.1s;
+}
+
+#btn-finalizar-pedido:hover {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0px #964F64;
+}
+
+@keyframes abrirFofo {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}

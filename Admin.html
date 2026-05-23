@@ -7,12 +7,12 @@
   <title>Coffee Time - Painel Admin ✨</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css"> 
-  <link rel="stylesheet" href="admin.css"> 
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="admin.css">
 </head>
 
 <body class="admin-body">
-  
+
   <header class="topo-admin">
     <div class="admin-perfil-topo">
       <div class="foto-perfil-admin"><i class="fas fa-user-shield"></i></div>
@@ -56,7 +56,7 @@
     </section>
 
     <div class="admin-grid-layout">
-      
+
       <section class="painel-secao">
         <div class="secao-header">
           <h2><i class="fas fa-clipboard-list icon-titulo"></i> Pedidos & Delivery</h2>
@@ -66,7 +66,7 @@
             <span class="filtro-btn">Preparando</span>
           </div>
         </div>
-        
+
         <div class="tabela-responsiva">
           <table class="tabela-admin">
             <thead>
@@ -87,7 +87,8 @@
                 <td>1x Cappuccino, 1x Croissant</td>
                 <td><span class="badge-fofo tipo-delivery"><i class="fas fa-motorcycle"></i> Delivery</span></td>
                 <td>Cartão (App)</td>
-                <td><span class="badge-fofo status-preparo"><i class="fas fa-spinner fa-spin"></i> Em Preparo</span></td>
+                <td><span class="badge-fofo status-preparo"><i class="fas fa-spinner fa-spin"></i> Em Preparo</span>
+                </td>
                 <td>
                   <button class="btn-acao avancar" title="Avançar Status"><i class="fas fa-check"></i></button>
                 </td>
@@ -131,30 +132,32 @@
       </section>
 
       <div class="coluna-lateral-admin">
-        
+
         <section class="painel-secao">
           <h2><i class="fas fa-user-plus icon-titulo"></i> Nova Estrela da Equipe</h2>
 
           <div class="formulario-cadastro-admin">
-            <form class="formulario-estilo" onsubmit="return false;">
+            <form class="formulario-estilo" id="form-cadastro-colaborador">
+
               <div class="input-container-fofo">
                 <i class="fas fa-user"></i>
-                <input type="text" placeholder="Nome do Funcionário" required>
+                <input type="text" id="nome-func" placeholder="Nome do Funcionário" required>
               </div>
+
               <div class="input-container-fofo">
                 <i class="fas fa-envelope"></i>
-                <input type="email" placeholder="E-mail Corporativo" required>
+                <input type="email" id="email-func" placeholder="E-mail Corporativo" required>
               </div>
-              
+
               <div class="select-customizado">
-                <select required>
+                <select id="cargo-func" required>
                   <option value="" disabled selected>Selecione o Cargo...</option>
-                  <option value="gerente">Gerente Geral</option>
-                  <option value="normal">Atendente</option>
-                  <option value="estagiario">Estagiário</option>
+                  <option value="Gerente Geral">Gerente</option>
+                  <option value="Barista">Barista</option>
+                  <option value="Estagiário">Estagiário</option>
                 </select>
               </div>
-              
+
               <button type="submit" class="btn-salvar-admin">Salvar Colaborador ✨</button>
             </form>
           </div>
@@ -162,7 +165,7 @@
 
         <section class="painel-secao">
           <h2><i class="fas fa-heart icon-titulo"></i> Membros Ativos</h2>
-          
+
           <div class="lista-funcionarios">
             <div class="item-funcionario-fofo">
               <div class="avatar-func rosa"><i class="fas fa-mug-hot"></i></div>
@@ -193,7 +196,11 @@
           </div>
         </section>
 
-      </div> </div> </main>
+      </div>
+    </div>
+  </main>
+
+  <script src="admin.js"></script>
 </body>
 
 </html>
