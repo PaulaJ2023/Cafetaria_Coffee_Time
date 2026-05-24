@@ -4,6 +4,7 @@
 //VARIÁVEIS GERAIS
 const nomeUsuarioSidebar = document.getElementById('nome-usuario-sidebar');
 const fecharPopupTodos = document.getElementById('popup-fechar-todos');
+
 //SISTEMA DE LOGIN
 const formularioLogin = document.getElementById('formulario-login');
 const campoUsuario = document.getElementById('campo-usuario');
@@ -17,13 +18,16 @@ if (formularioLogin) {
         const nomeDigitado = campoUsuario.value.trim();
 
         if (nomeDigitado !== "") {
-            // Atualiza o texto do menu lateral com o nome da pessoa
+            // AJUSTE ANTERIOR: Pega apenas o primeiro nome (ou antes do @ se for um e-mail)
+            const primeiroNome = nomeDigitado.split(" ")[0].split("@")[0];
+
+            // Atualiza o texto do menu lateral com o primeiro nome
             if (nomeUsuarioSidebar) {
-                nomeUsuarioSidebar.innerText = `Olá, ${nomeDigitado}! ✨`;
+                nomeUsuarioSidebar.innerText = `Olá, ${primeiroNome}! ✨`;
             }
 
-            // Alerta mostrado em cima
-            alert(`🌸 Bem-vindo(a) de volta, ${nomeDigitado}!`);
+            // Alerta mostrado em cima com o primeiro nome
+            alert(`🌸 Bem-vindo(a) de volta, ${primeiroNome}!`);
 
             // Fecha o popup
             if (fecharPopupTodos) {
@@ -37,14 +41,25 @@ if (formularioLogin) {
 //SISTEMA DE CADASTRO
 const formularioRegistro = document.getElementById('formulario-registro');
 const campoNomeRegistro = document.getElementById('campo-nome-registro');
+// NOVOS CAMPOS: Seleciona os campos de senha do formulário
+const campoSenhaRegistro = document.getElementById('campo-senha-registro');
+const campoConfirmarSenhaRegistro = document.getElementById('campo-confirmar-senha-registro');
 
 if (formularioRegistro) {
     formularioRegistro.addEventListener('submit', function (event) {
         //Evita o recarregamento da página
         event.preventDefault();
 
-        //Pega o nome completo digitado e remove espaços extras
+        // Pega os valores digitados e remove espaços extras
         const nomeCompleto = campoNomeRegistro.value.trim();
+        const senha = campoSenhaRegistro ? campoSenhaRegistro.value : "";
+        const confirmarSenha = campoConfirmarSenhaRegistro ? campoConfirmarSenhaRegistro.value : "";
+
+        // NOVA VALIDAÇÃO: Verifica se as duas senhas são diferentes
+        if (senha !== confirmarSenha) {
+            alert("⚠️ Atenção: As senhas digitadas não são iguais! Por favor, verifique.");
+            return; // O 'return' para a execução aqui e não deixa o cadastro continuar
+        }
 
         if (nomeCompleto !== "") {
             //Pegar apenas o primeiro nome digitado
@@ -57,6 +72,9 @@ if (formularioRegistro) {
 
             //Alerta em cima
             alert(`🌱 Conta criada com sucesso! Seja bem-vindo(a), ${primeiroNome}!`);
+
+            // Limpa o formulário de registro após o sucesso
+            formularioRegistro.reset();
 
             //Fecha o popup e limpa as seleções
             if (fecharPopupTodos) {

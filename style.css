@@ -479,7 +479,8 @@ podendo adicionar um efeito de "quicar" (bounce)*/
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(90, 35, 35, 0.4); /* Fundo escurinho leve atrás */
+  background: rgba(90, 35, 35, 0.4);
+  /* Fundo escurinho leve atrás */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -577,6 +578,13 @@ podendo adicionar um efeito de "quicar" (bounce)*/
 }
 
 @keyframes abrirFofo {
-  from { transform: scale(0.9); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }

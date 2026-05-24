@@ -68,7 +68,7 @@
       <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
       <h2 class="titulo-popup">✨ Área de Login ✨</h2>
       <form id="formulario-login" class="formulario-estilo" onsubmit="return false;"> <input type="text"
-          id="campo-usuario" placeholder="E-mail ou Usuário" required> <input type="password" placeholder="Senha"
+          id="campo-usuario" placeholder="Usuário ou E-mail" required> <input type="password" placeholder="Senha"
           required>
         <button type="submit" class="btn-laranja">Entrar</button>
         <div class="botoes-alternativos">
@@ -96,22 +96,23 @@
   </div>
 
   <!-- POPUP: REGISTRO / CRIAR CONTA -->
- <div class="popup-overlay registro-overlay">
-  <div class="popup-conteudo">
-    <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
-    <h2 class="titulo-popup">🌱 Criar Conta 🌱</h2>
-    <form id="formulario-registro" class="formulario-estilo" onsubmit="return false;">
-      <input type="text" id="campo-nome-registro" placeholder="Nome Completo" required>
-      <input type="email" placeholder="E-mail" required>
-      <input type="password" placeholder="Crie uma Senha" required>
-      <input type="password" placeholder="Confirme a Senha" required>
-      <button type="submit" class="btn-laranja">Cadastrar</button>
-      <div class="botoes-alternativos">
-        <label for="popup-login-controle" class="link-clicavel">Já tem uma conta? Entrar</label>
-      </div>
-    </form>
+  <div class="popup-overlay registro-overlay">
+    <div class="popup-conteudo">
+      <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
+      <h2 class="titulo-popup">🌱 Criar Conta 🌱</h2>
+      <form id="formulario-registro" class="formulario-estilo" onsubmit="return false;">
+        <input type="text" id="campo-nome-registro" placeholder="Nome Completo" required>
+        <input type="text" id="campo-usuario-registro" placeholder="Usuario" required>
+        <input type="email" placeholder="E-mail" required>
+        <input type="password" id="campo-senha-registro" placeholder="Criar senha">
+        <input type="password" id="campo-confirmar-senha-registro" placeholder="Confirme sua senha">
+        <button type="submit" class="btn-laranja">Cadastrar</button>
+        <div class="botoes-alternativos">
+          <label for="popup-login-controle" class="link-clicavel">Já tem uma conta? Entrar</label>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
 
   <!-- POPUP: CONTATO -->
   <div class="popup-overlay contato-overlay">
