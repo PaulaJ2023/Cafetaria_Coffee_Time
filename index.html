@@ -46,12 +46,13 @@
 
     <a href="#" id="btn-acessibilidade"><i class="fas fa-universal-access" aria-hidden="true"></i>
       <span>Acessibilidade</span></a>
-
+    
     <label for="popup-config-controle" class="link-menu-label" tabindex="0" role="button"
       onkeydown="if(event.key==='Enter'||event.key===' '){this.click(); event.preventDefault()}">
       <i class="fas fa-cog" aria-hidden="true"></i> <span>Configurações</span>
     </label>
 
+    <a href="#"><i class="fas fa-question-circle" aria-hidden="true"></i> <span>Ajuda</span></a>
     <a href="#"><i class="fas fa-info-circle" aria-hidden="true"></i> <span>Sobre nós</span></a>
   </nav>
 
@@ -138,6 +139,11 @@
       <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
       <h2 class="titulo-popup">⚙️ Configurações ⚙️</h2>
       <form id="formulario-config" class="formulario-estilo" onsubmit="return false;">
+        
+        <div class="item-config">
+          <label for="cfg-tema-escuro">🌙 Tema Escuro</label>
+          <input type="checkbox" id="cfg-tema-escuro">
+        </div>
 
         <div class="item-config">
           <label for="cfg-notificacoes">🔔 Receber Promoções</label>
@@ -211,18 +217,18 @@
       </div>
 
       <div class="dados-entrega-carrinho"
-        style="padding: 10px; background: #FFF5E4; border-radius: 10px; margin-top: 10px; font-family: 'Itim'; text-align: left;">
-        <h4 style="margin: 0 0 10px 0; color: #5A2323;">✨ Detalhes do Pedido</h4>
+        style="padding: 10px; background: var(--bg-carrinho-entrega); border-radius: 10px; margin-top: 10px; font-family: 'Itim'; text-align: left;">
+        <h4 style="margin: 0 0 10px 0; color: var(--cor-texto);">✨ Detalhes do Pedido</h4>
 
         <div style="margin-bottom: 8px;">
           <input type="text" id="cart-nome-cliente" placeholder="Seu Nome Completo"
-            style="width: 100%; padding: 6px; border: 1px solid #FCE1B6; border-radius: 5px;" required>
+            style="width: 100%; padding: 6px; border: 1px solid var(--borda-card); border-radius: 5px;" required>
         </div>
 
         <div style="margin-bottom: 8px;">
-          <label style="color: #5A2323;">Opção de Retirada:</label>
+          <label style="color: var(--cor-texto);">Opção de Retirada:</label>
           <select id="cart-tipo-entrega"
-            style="width: 100%; padding: 6px; border: 1px solid #FCE1B6; border-radius: 5px;">
+            style="width: 100%; padding: 6px; border: 1px solid var(--borda-card); border-radius: 5px;">
             <option value="Retirada">Retirada no Balcão 🏪</option>
             <option value="Delivery">Delivery / Entrega 🏍️</option>
           </select>
@@ -230,13 +236,13 @@
 
         <div id="bloco-endereco-entrega" style="margin-bottom: 8px; display: none;">
           <input type="text" id="cart-endereco-cliente" placeholder="Endereço de Entrega (Rua, Nº, Bairro)"
-            style="width: 100%; padding: 6px; border: 1px solid #FCE1B6; border-radius: 5px;">
+            style="width: 100%; padding: 6px; border: 1px solid var(--borda-card); border-radius: 5px;">
         </div>
 
         <div style="margin-bottom: 8px;">
-          <label style="color: #5A2323;">Forma de Pagamento:</label>
+          <label style="color: var(--cor-texto);">Forma de Pagamento:</label>
           <select id="cart-forma-pagamento"
-            style="width: 100%; padding: 6px; border: 1px solid #FCE1B6; border-radius: 5px;">
+            style="width: 100%; padding: 6px; border: 1px solid var(--borda-card); border-radius: 5px;">
             <option value="Pix">Pix ✨</option>
             <option value="Cartão">Cartão de Crédito/Débito 💳</option>
             <option value="Dinheiro">Dinheiro 💵</option>

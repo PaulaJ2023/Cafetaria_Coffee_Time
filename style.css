@@ -4,6 +4,34 @@
   Isso deixará o código mais organizado e menus confuso. 
   Bjs da Paula <3 */
 
+/* SISTEMA DE CORES COMPARTILHADAS (TEMA CLARO E ESCURO) */
+:root {
+  --bg-principal: #FFF9F9;
+  --bg-topo: #F7D6D6;
+  --borda-topo: #E7BCBC;
+  --bg-sidebar: #FFF0F0;
+  --bg-usuario-menu: #FADCA5;
+  --borda-usuario-menu: #E9B360;
+  --cor-texto: #5A2323;
+  --bg-card: #FFFFFF;
+  --borda-card: #FCE1B6;
+  --bg-carrinho-entrega: #FFF5E4;
+}
+
+/* VARIÁVEIS PARA O TEMA ESCURO */
+body.tema-escuro {
+  --bg-principal: #2E1A1A;
+  --bg-topo: #422828;
+  --borda-topo: #5C3A3A;
+  --bg-sidebar: #382020;
+  --bg-usuario-menu: #513629;
+  --borda-usuario-menu: #704F3D;
+  --cor-texto: #FFF0F0;
+  --bg-card: #3D2424;
+  --borda-card: #5C3D32;
+  --bg-carrinho-entrega: #4B3126;
+}
+
 /*CONFIGURAÇÕES GERAIS*/
 * {
   margin: 0;
@@ -17,15 +45,16 @@ html {
 
 body {
   font-family: 'Itim', cursive, sans-serif;
-  background: #FFF9F9;
+  background: var(--bg-principal);
   overflow-x: hidden;
-  color: #5A2323;
+  color: var(--cor-texto);
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 /*HEADER / TOPO*/
 .topo {
   height: 90px;
-  background: #F7D6D6;
+  background: var(--bg-topo);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -33,7 +62,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 1000;
-  border-bottom: 4px dashed #E7BCBC;
+  border-bottom: 4px dashed var(--borda-topo);
   /*Borda tracejada estilo craft*/
 }
 
@@ -75,7 +104,7 @@ body {
   left: -280px;
   width: 260px;
   height: 100vh;
-  background: #FFF0F0;
+  background: var(--bg-sidebar);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   z-index: 9999;
   display: flex;
@@ -102,7 +131,7 @@ body {
 
 .botao-fechar:hover {
   transform: scale(1.2) rotate(90deg);
-  color: #5A2323;
+  color: var(--cor-texto);
 }
 
 /*LINK DA SIDEBAR*/
@@ -110,10 +139,10 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  background: #FADCA5;
+  background: var(--bg-usuario-menu);
   padding: 35px 20px;
   cursor: pointer;
-  border-bottom: 3px dashed #E9B360;
+  border-bottom: 3px dashed var(--borda-usuario-menu);
   border-radius: 0 30px 0 0;
 }
 
@@ -133,7 +162,7 @@ body {
 
 .usuario-menu span {
   font-size: 1.125rem;
-  color: #5A2323;
+  color: var(--cor-texto);
   font-weight: bold;
 }
 
@@ -143,7 +172,7 @@ body {
   align-items: center;
   gap: 15px;
   padding: 16px 22px;
-  color: #5A2323;
+  color: var(--cor-texto);
   text-decoration: none;
   font-size: 1.125rem; /* Mudado de 18px para relativo (1.125rem) */
   cursor: pointer;
@@ -154,8 +183,8 @@ body {
 
 .sidebar a:hover,
 .link-menu-label:hover {
-  background-color: #F7D6D6;
-  color: #5A2323;
+  background-color: var(--bg-topo);
+  color: var(--cor-texto);
   transform: translateX(8px);
 }
 
@@ -180,6 +209,12 @@ body {
   border-bottom: 3px dashed #F5C2C2;
 }
 
+body.tema-escuro .hero {
+  background-color: #4A3333;
+  background-image: radial-gradient(#5C3E3E 15%, transparent 16%);
+  border-bottom: 3px dashed #5C3E3E;
+}
+
 .hero h1 {
   font-size: clamp(1.8rem, 6vw, 3rem);
   color: #5A2323;
@@ -189,6 +224,12 @@ body {
   padding: 15px 35px;
   border-radius: 50px;
   box-shadow: 0 8px 20px rgba(90, 35, 35, 0.05);
+}
+
+body.tema-escuro .hero h1 {
+  background: #3D2424;
+  color: #FFF0F0;
+  text-shadow: 3px 3px 0px #2E1A1A, 5px 5px 0px rgba(0, 0, 0, 0.3);
 }
 
 /*POPUPS E POPUP OVERLAYS COM RADIO BUTTONS*/
@@ -227,10 +268,11 @@ body {
   animation: popupAparecer 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15);
 }
 
-/*A regra @keyframes permite controlar as etapas de uma animação especificando o visual do elemento em diferentes momentos. 
-Você determina o que acontece desde o início (0%)) até o final da animação (100%)
-Para um efeito de "pop-up", ele geralmente faz o elemento crescer do tamanho zero até o tamanho normal e surgir na tela, 
-podendo adicionar um efeito de "quicar" (bounce)*/
+body.tema-escuro .popup-conteudo {
+  background: #513629;
+  border: 4px solid #704F3D;
+}
+
 @keyframes popupAparecer {
   from {
     transform: scale(0.8);
@@ -245,12 +287,13 @@ podendo adicionar um efeito de "quicar" (bounce)*/
 
 .titulo-popup {
   font-size: 1.625rem;
-  color: #5A2323;
+  color: var(--cor-texto);
   margin-bottom: 20px;
 }
 
 .texto-popup {
-  color: #723D3D;
+  color: var(--cor-texto);
+  opacity: 0.9;
   margin-bottom: 20px;
   font-size: 1rem;
 }
@@ -260,7 +303,7 @@ podendo adicionar um efeito de "quicar" (bounce)*/
   top: 15px;
   right: 20px;
   font-size: 28px;
-  color: #5A2323;
+  color: var(--cor-texto);
   cursor: pointer;
   font-weight: bold;
   transition: transform 0.2s;
@@ -284,6 +327,13 @@ podendo adicionar um efeito de "quicar" (bounce)*/
   color: #5A2323;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
   transition: all 0.2s ease;
+}
+
+body.tema-escuro .formulario-estilo input,
+body.tema-escuro .textarea-contato {
+  background: #3D2424;
+  border: 2px solid #5C3D32;
+  color: #FFF0F0;
 }
 
 .formulario-estilo input:focus,
@@ -331,8 +381,12 @@ podendo adicionar um efeito de "quicar" (bounce)*/
   padding: 12px 5px;
   border-bottom: 1px dashed #ffffff;
   font-size: 1.1rem;
-  color: #5A2323;
+  color: var(--cor-texto);
   text-align: left;
+}
+
+body.tema-escuro .item-config {
+  border-bottom: 1px dashed #704F3D;
 }
 
 .item-config label {
@@ -367,6 +421,12 @@ podendo adicionar um efeito de "quicar" (bounce)*/
   outline: none;
 }
 
+body.tema-escuro .seletor-config {
+  background-color: #3D2424;
+  border: 2px solid #5C3D32;
+  color: #FFF0F0;
+}
+
 /*Ajustes de redirecionamento interno dos links nos Popups*/
 .botoes-alternativos {
   display: flex;
@@ -377,7 +437,7 @@ podendo adicionar um efeito de "quicar" (bounce)*/
 }
 
 .link-clicavel {
-  color: #723D3D;
+  color: var(--cor-texto);
   text-decoration: none;
   border-bottom: 2px dashed #C06C84;
   font-size: 1rem;
@@ -414,13 +474,13 @@ podendo adicionar um efeito de "quicar" (bounce)*/
 }
 
 .conteudo-modal-acc {
-    background-color: white;
+    background-color: var(--bg-card);
     padding: 25px;
     border-radius: 20px;
     width: 90%;
     max-width: 360px;
     box-shadow: 0 10px 30px rgba(90, 35, 35, 0.15);
-    border: 3px solid #FCE1B6;
+    border: 3px solid var(--borda-card);
 }
 
 .topo-modal-acc {
@@ -428,12 +488,12 @@ podendo adicionar um efeito de "quicar" (bounce)*/
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-    border-bottom: 2px dashed #FCE1B6;
+    border-bottom: 2px dashed var(--borda-card);
     padding-bottom: 12px;
 }
 
 .topo-modal-acc h3 {
-    color: #5A2323;
+    color: var(--cor-texto);
     margin: 0;
     font-size: 1.25rem;
 }
@@ -453,6 +513,10 @@ podendo adicionar um efeito de "quicar" (bounce)*/
     transition: all 0.2s;
 }
 
+body.tema-escuro .btn-fechar-acc {
+    background: #4A2E2E;
+}
+
 .btn-fechar-acc:hover {
     background: #C06C84;
     color: white;
@@ -464,9 +528,9 @@ podendo adicionar um efeito de "quicar" (bounce)*/
     justify-content: space-between;
     align-items: center;
     padding: 14px 0;
-    border-bottom: 1px dashed #F5EBE6;
+    border-bottom: 1px dashed var(--borda-card);
     font-size: 1.125rem;
-    color: #5A2323;
+    color: var(--cor-texto);
 }
 
 .item-acc label { cursor: pointer; flex-grow: 1; }
@@ -539,7 +603,7 @@ body.acc-alto-contraste select {
 
 body.acc-alto-contraste img,
 body.acc-alto-contraste i {
-    filter: brightness(1.2) contrast(1.5) !important; /* Deixa os ícones/imagens super acesos */
+    filter: brightness(1.2) contrast(1.5) !important;
     background: transparent !important;
 }
 
@@ -551,9 +615,9 @@ body.acc-alto-contraste .logo {
 
 /* 2. Tamanho do Texto*/
 .grupo-botoes button {
-    background-color: #FFF0F0;
-    border: 2px solid #FCE1B6;
-    color: #5A2323;
+    background-color: var(--bg-sidebar);
+    border: 2px solid var(--borda-card);
+    color: var(--cor-texto);
     padding: 6px 14px;
     font-weight: bold;
     font-family: 'Itim', cursive;
@@ -565,7 +629,7 @@ body.acc-alto-contraste .logo {
 }
 
 .grupo-botoes button:hover {
-    background-color: #FCE1B6;
+    background-color: var(--borda-card);
     transform: scale(1.05);
 }
 
@@ -588,7 +652,6 @@ html.acc-inverter-cores i {
 }
 
 /*ACESSIBILIDADE (FOCO VISUAL)*/
-/* Cria uma borda visível ao navegar via teclado (Tab) */
 [tabindex="0"]:focus-visible,
 a:focus-visible,
 button:focus-visible,
@@ -599,7 +662,6 @@ select:focus-visible {
   outline-offset: 3px;
 }
 
-/*Dá um feedback visual extra nos botões customizados quando focados*/
 .link-clicavel:focus-visible,
 .botao-menu:focus-visible,
 .botao-fechar:focus-visible,
@@ -621,13 +683,13 @@ select:focus-visible {
 
 .titulo-categoria {
   display: inline-block;
-  background-color: #FFF;
-  color: #5A2323;
-  border: 3px dashed #F5C2C2;
+  background-color: var(--bg-card);
+  color: var(--cor-texto);
+  border: 3px dashed var(--borda-topo);
   border-radius: 20px;
   padding: 6px 25px;
-  font-size: 1.5rem; /* Equivalente a 24px */
-  box-shadow: 0 5px 15px rgba(245, 194, 194, 0.3);
+  font-size: 1.5rem;
+  box-shadow: 0 5px 15px rgba(245, 194, 194, 0.1);
 }
 
 /*SCROLL CONTAINER (CARROSSEL)*/
@@ -647,27 +709,26 @@ select:focus-visible {
   -webkit-overflow-scrolling: touch;
 }
 
-/*Barra de rolagem horizontal*/
 .grid::-webkit-scrollbar {
   height: 8px;
 }
 
 .grid::-webkit-scrollbar-track {
-  background: #FFF0F0;
+  background: var(--bg-sidebar);
   border-radius: 10px;
 }
 
 .grid::-webkit-scrollbar-thumb {
-  background: #F7D6D6;
+  background: var(--borda-topo);
   border-radius: 10px;
-  border: 2px solid #FFF0F0;
+  border: 2px solid var(--bg-sidebar);
 }
 
 /*CARDS DOS PRODUTOS ESTILO ADESIVO/STICKER*/
 .card {
   flex: 0 0 260px;
   scroll-snap-align: center;
-  background: #FFF;
+  background: var(--bg-card);
   padding: 25px 20px;
   border-radius: 30px;
   text-align: center;
@@ -676,15 +737,15 @@ select:focus-visible {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  border: 3px solid #FCE1B6;
+  border: 3px solid var(--borda-card);
   box-shadow: 0 8px 20px rgba(90, 35, 35, 0.04);
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .card:hover {
   transform: translateY(-8px) scale(1.02);
-  border-color: #F5C2C2;
-  box-shadow: 0 15px 30px rgba(245, 194, 194, 0.4);
+  border-color: var(--borda-topo);
+  box-shadow: 0 15px 30px rgba(245, 194, 194, 0.2);
 }
 
 .imagem-sticker {
@@ -700,7 +761,7 @@ select:focus-visible {
 }
 
 .card h3 {
-  color: #5A2323;
+  color: var(--cor-texto);
   font-size: 1.3125rem;
   font-weight: normal;
 }
@@ -709,7 +770,7 @@ select:focus-visible {
   color: #C06C84;
   font-size: 1.25rem;
   font-weight: bold;
-  background: #FFF0F0;
+  background: var(--bg-sidebar);
   padding: 2px 15px;
   border-radius: 30px;
 }
@@ -746,7 +807,6 @@ select:focus-visible {
   width: 100%;
   height: 100%;
   background: rgba(90, 35, 35, 0.4);
-  /* Fundo escurinho leve atrás */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -755,8 +815,8 @@ select:focus-visible {
 }
 
 .conteudo-carrinho {
-  background: #FFFDF9;
-  border: 4px dashed #F5C2C2;
+  background: var(--bg-principal);
+  border: 4px dashed var(--borda-topo);
   border-radius: 30px;
   width: 100%;
   max-width: 420px;
@@ -769,19 +829,19 @@ select:focus-visible {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 3px solid #FCE1B6;
+  border-bottom: 3px solid var(--borda-card);
   padding-bottom: 12px;
   margin-bottom: 15px;
 }
 
 .topo-carrinho h2 {
   font-size: 22px;
-  color: #5A2323;
+  color: var(--cor-texto);
   margin: 0;
 }
 
 #btn-fechar-carrinho {
-  background: #FFF0F0;
+  background: var(--bg-sidebar);
   border: none;
   color: #C06C84;
   font-size: 28px;
@@ -809,7 +869,8 @@ select:focus-visible {
 
 .carrinho-vazio-txt {
   text-align: center;
-  color: #a18181;
+  color: var(--cor-texto);
+  opacity: 0.6;
   font-style: italic;
   padding: 20px 0;
 }
@@ -818,8 +879,8 @@ select:focus-visible {
   display: flex;
   justify-content: space-between;
   font-size: 18px;
-  color: #5A2323;
-  border-top: 3px solid #FCE1B6;
+  color: var(--cor-texto);
+  border-top: 3px solid var(--borda-card);
   padding-top: 15px;
   margin-bottom: 20px;
 }

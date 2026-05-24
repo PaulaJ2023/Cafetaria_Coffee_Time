@@ -61,10 +61,11 @@ if (formularioRegistro) {
 }
 
 //SISTEMA DE RECUPERAÇÃO DE SENHA
-const formularioRecuperar = document.getElementById('formulario-recuperar');
+const formularioRecuperar = document.getElementById('formulario-recover'); // Ajustado para corresponder ao HTML
 
-if (formularioRecuperar) {
-    formularioRecuperar.addEventListener('submit', function (event) {
+const formRecuperarReal = document.getElementById('formulario-recuperar') || formularioRecuperar;
+if (formRecuperarReal) {
+    formRecuperarReal.addEventListener('submit', function (event) {
         event.preventDefault();
         const campoEmailRecuperar = document.getElementById('campo-email-recuperar');
         const emailDigitado = campoEmailRecuperar.value.trim();
@@ -98,14 +99,28 @@ if (formularioContato) {
     });
 }
 
-//SISTEMA DE CONFIGURAÇÕES
+//SISTEMA DE CONFIGURAÇÕES (INCLUINDO TEMA ESCURO)
 const formularioConfig = document.getElementById('formulario-config');
 const popupConfigControle = document.getElementById('popup-config-controle');
 
-// Carregar configurações salvas ao iniciar a página
+// Função rápida para aplicar ou remover a classe do tema escuro no body
+function aplicarTemaEscuro(ativar) {
+    if (ativar) {
+        document.body.classList.add('tema-escuro');
+    } else {
+        document.body.classList.remove('tema-escuro');
+    }
+}
+
+// Carregar todas as configurações salvas ao iniciar a página
 document.addEventListener('DOMContentLoaded', () => {
     const configsSalvas = JSON.parse(localStorage.getItem('coffeeTimeConfigs'));
     if (configsSalvas) {
+        if (document.getElementById('cfg-tema-escuro')) {
+            document.getElementById('cfg-tema-escuro').checked = configsSalvas.temaEscuro || false;
+            // Aplica o tema logo no carregamento se estiver ativo
+            aplicarTemaEscuro(configsSalvas.temaEscuro);
+        }
         if (document.getElementById('cfg-notificacoes')) {
             document.getElementById('cfg-notificacoes').checked = configsSalvas.notificacoes;
         }
@@ -118,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Fechar a sidebar quando clicar em Configurações (comportamento nativo das labels)
+// Fechar a sidebar quando clicar em Configurações
 if (popupConfigControle) {
     popupConfigControle.addEventListener('change', function() {
         if (this.checked) {
@@ -128,16 +143,21 @@ if (popupConfigControle) {
     });
 }
 
-// Evento de salvamento das Configurações
+// Salvar Preferências
 if (formularioConfig) {
     formularioConfig.addEventListener('submit', function (event) {
         event.preventDefault();
         
+        const temaEscuro = document.getElementById('cfg-tema-escuro').checked;
         const notificacoes = document.getElementById('cfg-notificacoes').checked;
         const salvarDados = document.getElementById('cfg-salvar-dados').checked;
         const moeda = document.getElementById('cfg-moeda').value;
 
-        const objetoConfig = { notificacoes, salvarDados, moeda };
+        // Atualiza o tema escuro em tempo real na tela
+        aplicarTemaEscuro(temaEscuro);
+
+        // Guarda no localStorage do navegador
+        const objetoConfig = { temaEscuro, notificacoes, salvarDados, moeda };
         localStorage.setItem('coffeeTimeConfigs', JSON.stringify(objetoConfig));
 
         alert("⚙️ Preferências atualizadas com sucesso e aplicadas!");
@@ -244,10 +264,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 //SISTEMA DO CARRINHO
-
 let carrinho = [];
 
-// Elementos da interface mapeados
 const btnCarrinhoSidebar = document.getElementById('btn-carrinho');
 const modalCarrinho = document.getElementById('modal-carrinho');
 const btnFecharCarrinho = document.getElementById('btn-fechar-carrinho');
@@ -256,11 +274,9 @@ const elementoValorTotal = document.getElementById('valor-total-carrinho');
 const btnFinalizarPedido = document.getElementById('btn-finalizar-pedido');
 const botoesAdicionar = document.querySelectorAll('.btn-adicionar');
 
-// Novos elementos do formulário do carrinho
 const cartTipoEntrega = document.getElementById('cart-tipo-entrega');
 const blocoEnderecoEntrega = document.getElementById('bloco-endereco-entrega');
 
-// Monitora mudança no tipo de entrega para mostrar/esconder endereço
 if (cartTipoEntrega && blocoEnderecoEntrega) {
     cartTipoEntrega.addEventListener('change', function () {
         if (this.value === 'Delivery') {
@@ -273,7 +289,6 @@ if (cartTipoEntrega && blocoEnderecoEntrega) {
     });
 }
 
-// 1. Abrir e Fechar o Carrinho Visual
 if (btnCarrinhoSidebar && modalCarrinho) {
     btnCarrinhoSidebar.addEventListener('click', function (e) {
         e.preventDefault();
@@ -291,7 +306,6 @@ if (btnFecharCarrinho && modalCarrinho) {
     });
 }
 
-// 2. Adicionar Itens ao Carrinho
 botoesAdicionar.forEach(botao => {
     botao.addEventListener('click', function () {
         const card = botao.parentElement;
@@ -316,7 +330,6 @@ botoesAdicionar.forEach(botao => {
     });
 });
 
-// 3. Atualizar a visualização interna do carrinho
 function renderizarCarrinhoVisual() {
     if (!conteinerItensCarrinho) return;
 
@@ -338,15 +351,15 @@ function renderizarCarrinhoVisual() {
         divItem.style.justifyContent = 'space-between';
         divItem.style.alignItems = 'center';
         divItem.style.padding = '8px 0';
-        divItem.style.borderBottom = '1px dashed #FCE1B6';
+        divItem.style.borderBottom = '1px dashed var(--borda-card)';
 
         divItem.innerHTML = `
             <div>
-                <span style="font-weight: bold; color: #5A2323;">${item.quantidade}x</span> ${item.nome}
+                <span style="font-weight: bold; color: var(--cor-texto);">${item.quantidade}x</span> ${item.nome}
                 <div style="font-size: 13px; color: #C06C84;">R$ ${item.preco.toFixed(2).replace('.', ',')} cada</div>
             </div>
             <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-weight: bold; color: #5A2323;">R$ ${custoItem.toFixed(2).replace('.', ',')}</span>
+                <span style="font-weight: bold; color: var(--cor-texto);">R$ ${custoItem.toFixed(2).replace('.', ',')}</span>
                 <button class="btn-remover-item" data-index="${index}" style="background: none; border: none; color: #C06C84; cursor: pointer; font-size: 16px;"><i class="fas fa-trash-alt"></i></button>
             </div>
         `;
@@ -366,7 +379,6 @@ function renderizarCarrinhoVisual() {
     });
 }
 
-// 4. Finalizar Compra e Salvar no Banco de Dados Local do Admin
 if (btnFinalizarPedido) {
     btnFinalizarPedido.addEventListener('click', function () {
         if (carrinho.length === 0) {
@@ -374,7 +386,6 @@ if (btnFinalizarPedido) {
             return;
         }
 
-        // Validações dos novos inputs
         const nomeCliente = document.getElementById('cart-nome-cliente').value.trim();
         const tipoEntrega = document.getElementById('cart-tipo-entrega').value;
         const formaPagamento = document.getElementById('cart-forma-pagamento').value;
@@ -393,7 +404,6 @@ if (btnFinalizarPedido) {
         let total = carrinho.reduce((acc, item) => acc + (item.preco * item.quantidade), 0);
         let itensTexto = carrinho.map(item => `${item.quantidade}x ${item.nome}`).join(', ');
 
-        // Criando a estrutura do pedido para a tabela do Admin
         const novoPedido = {
             id: "#" + Math.floor(2000 + Math.random() * 9000),
             cliente: nomeCliente,
@@ -401,17 +411,15 @@ if (btnFinalizarPedido) {
             tipo: tipoEntrega,
             endereco: tipoEntrega === 'Delivery' ? enderecoCliente : 'Retirada no Balcão',
             pagamento: formaPagamento,
-            total: total.toFixed(2) // Certifique-se de manter o .toFixed(2) aqui!
+            total: total.toFixed(2)
         };
 
-        // Pegar pedidos já existentes ou começar uma lista nova
         let listaPedidos = JSON.parse(localStorage.getItem('pedidosAdmin')) || [];
-        listaPedidos.unshift(novoPedido); // Adiciona no início da fila
+        listaPedidos.unshift(novoPedido);
         localStorage.setItem('pedidosAdmin', JSON.stringify(listaPedidos));
 
         alert(`🎉 Pedido Finalizado com Sucesso!\n✨ Obrigado por comprar no Coffee Time, ${nomeCliente}!\n💰 Total: R$ ${total.toFixed(2).replace('.', ',')}`);
 
-        // Limpa o carrinho e reseta os inputs
         carrinho = [];
         document.getElementById('cart-nome-cliente').value = '';
         document.getElementById('cart-endereco-cliente').value = '';
