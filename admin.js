@@ -2,7 +2,7 @@
 // Ele pega os dados do formulário de funcionário e também puxa os pedidos da loja!
 
 document.addEventListener('DOMContentLoaded', function () {
-    // 1. CARREGAR E RENDERIZAR PEDIDOS VINDOS DA WEB
+
     carregarPedidosDaLoja();
 
     // 2. SISTEMA DE CADASTRO DE FUNCIONÁRIOS
@@ -50,22 +50,27 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Função que integra os pedidos salvos no LocalStorage dentro da Tabela Administrativa
-function carregarPedidosDaLoja() {
+function carregarPedidosDaLoja(filtroSelecionado = 'todos') {
     const tabelaCorpo = document.querySelector('.tabela-admin tbody');
     if (!tabelaCorpo) return;
 
-    // Limpa a tabela antes de renderizar para não duplicar
     tabelaCorpo.innerHTML = '';
 
-    // Pega a lista de pedidos integrados da loja
     let listaPedidos = JSON.parse(localStorage.getItem('pedidosAdmin')) || [];
 
-    // Variáveis para somar nas métricas estáticas da página
     let faturamentoExtra = 0;
     let novosPedidosContagem = listaPedidos.length;
     let pendentesExtra = 0;
 
     listaPedidos.forEach(pedido => {
+        // Define o status atual do pedido (se não houver, assume 'Pendente')
+        const statusAtual = pedido.status || 'Pendente';
+
+        // LÓGICA DE FILTRAGEM: Se o filtro não for 'todos' e for diferente do status do pedido, ignora este pedido
+        if (filtroSelecionado !== 'todos' && statusAtual !== filtroSelecionado) {
+            return; // Salta para o próximo pedido sem colocar na tabela
+        }
+
         const novaLinha = document.createElement('tr');
         novaLinha.style.background = "#FFF9F3";
 
@@ -163,7 +168,23 @@ window.atualizarStatusPedido = function (idPedido, botao) {
         }
 
         localStorage.setItem('pedidosAdmin', JSON.stringify(listaPedidos));
-        carregarPedidosDaLoja();
+       carregarPedidosDaLoja();
+
+    // SITEMA DE FILTROS DOS PEDIDOS (ADICIONE ESTE BLOCO AQUI):
+    const botoesFiltro = document.querySelectorAll('.filtros-fofos .filtro-btn');
+    botoesFiltro.forEach(botao => {
+        botao.addEventListener('click', function() {
+            // Remove a classe 'ativo' de todos os botões de filtro
+            botoesFiltro.forEach(btn => btn.classList.remove('ativo'));
+            // Adiciona a classe 'ativo' apenas no botão clicado
+            this.classList.add('ativo');
+
+            // Pega o tipo de filtro (todos, Pendente ou Preparo)
+            const filtro = this.getAttribute('data-filtro');
+            // Recarrega a tabela aplicando o filtro escolhido!
+            carregarPedidosDaLoja(filtro);
+        });
+    });
     }
 };
 
@@ -212,10 +233,11 @@ window.addEventListener('load', function () {
     });
 });
 
-// ADICIONADO PARA SINCRO EM TEMPO REAL ENTRE ABAS ✨
 window.addEventListener('storage', function (evento) {
     if (evento.key === 'pedidosAdmin') {
-        carregarPedidosDaLoja();
+        const filtroAtivo = document.querySelector('.filtro-btn.ativo');
+        const filtro = filtroAtivo ? filtroAtivo.getAttribute('data-filtro') : 'todos';
+        carregarPedidosDaLoja(filtro);
     }
 });
 
