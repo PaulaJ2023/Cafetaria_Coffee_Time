@@ -1,9 +1,41 @@
 package POOJava;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import javax.swing.*;
+import java.awt.*;
 
 public class Principal {
+    public static void main(String[] args) {
+        // Garante que a interface gráfica corre na thread correta do Swing
+        SwingUtilities.invokeLater(() -> {
+            JFrame menuPrincipal = new JFrame("Coffee Time ☕ - Sistema Integrado");
+            menuPrincipal.setSize(400, 300);
+            menuPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            menuPrincipal.setLocationRelativeTo(null);
+            menuPrincipal.setLayout(new GridLayout(4, 1, 10, 10));
+
+            JLabel titulo = new JLabel("Selecione o Módulo do Sistema", SwingConstants.CENTER);
+            titulo.setFont(new Font("Arial", Font.BOLD, 16));
+            menuPrincipal.add(titulo);
+
+            JButton btnAdmin = new JButton("Painel Administrativo Completo");
+            JButton btnFuncionarios = new JButton("Gerenciar Funcionários");
+            JButton btnClientes = new JButton("Gerenciar Clientes");
+
+            // Ligações com as telas existentes
+            btnAdmin.addActionListener(e -> new TelaAdmin().setVisible(true));
+            btnFuncionarios.addActionListener(e -> new TelaFuncionarios().setVisible(true));
+            btnClientes.addActionListener(e -> new TelaClientes().setVisible(true));
+
+            menuPrincipal.add(btnAdmin);
+            menuPrincipal.add(btnFuncionarios);
+            menuPrincipal.add(btnClientes);
+
+            menuPrincipal.setVisible(true);
+        });
+    }
+}
+
+/*public class Principal {
   public static void main(String[] args) {
     Scanner leitor = new Scanner(System.in);
     ArrayList<Funcionario> lista = new ArrayList<>();
@@ -92,7 +124,13 @@ public class Principal {
         Cliente c = new Cliente(nome, cpf, telefone, endereco, pagamento);
         listaClientes.add(c);
         System.out.println("cliente cadastrado com sucesso");
-      } /*
+      } 
+    } while (opcao != 0);
+    leitor.close();
+  }
+}*/
+
+/*Parte do gerente desativado
          * else if (opcao == 5){
          * System.out.println("nome do fornecedor");
          * String nome = leitor.nextLine();
@@ -113,7 +151,3 @@ public class Principal {
          * System.out.println("fornecedor cadastrado com sucesso");
          * }
          */
-    } while (opcao != 0);
-    leitor.close();
-  }
-}

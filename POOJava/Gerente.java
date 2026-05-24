@@ -15,11 +15,11 @@ public class Gerente extends Funcionario {
         return gratificacao;
     }
 
-    public double getPartipacaoLucros() {
+    public double getParticipacaoLucros() {
         return participacaoLucros;
     }
 
-    public void setGratificaca(double gratificacao) {
+    public void setGratificacao(double gratificacao) {
         this.gratificacao = gratificacao;
     }
 

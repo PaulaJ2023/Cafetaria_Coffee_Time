@@ -54,3 +54,35 @@ window.addEventListener('load', function () {
         console.log(`☕ Alerta de Novo Pedido: Itens [${produtosPedido}] - Total: R$ ${totalPedido}`);
     }
 });
+
+window.addEventListener('load', function () {
+    const totalPedido = localStorage.getItem('ultimoTotal');
+    const produtosPedido = localStorage.getItem('ultimosProdutos');
+    
+    const painelPedidosWeb = document.createElement('section');
+    painelPedidosWeb.classList.add('painel-secao');
+    painelPedidosWeb.innerHTML = `
+        <h2><i class="fas fa-coffee"></i> Último Pedido da Web (Integração)</h2>
+        <div style="background: #fff; padding: 15px; border-radius: 15px; border: 2px dashed #C06C84;">
+            <p><strong>Produtos:</strong> ${produtosPedido || 'Nenhum pedido detetado'}</p>
+            <p><strong>Total:</strong> R$ ${totalPedido || '0.00'}</p>
+            <button id="btn-gerar-token" style="background: #C06C84; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-family: 'Itim';">
+                Copiar Dados para o Java ☕
+            </button>
+        </div>
+    `;
+    
+    const container = document.querySelector('.admin-container') || document.body;
+    container.appendChild(painelPedidosWeb);
+
+    document.getElementById('btn-gerar-token').addEventListener('click', function() {
+        if (!totalPedido) {
+            alert("Não há pedidos no carrinho para exportar!");
+            return;
+        }
+        // Formato legível para partilha rápida ou parse
+        const token = `CLIENTE: WebCliente | ENDERECO: Retirada Balcão | PRODUTOS: ${produtosPedido} | TOTAL: ${totalPedido}`;
+        navigator.clipboard.writeText(token);
+        alert("✨ Dados do pedido copiados! Vá à Tela do Java e use a Aba de Anotação de Pedidos.");
+    });
+});
