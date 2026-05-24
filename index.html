@@ -11,16 +11,8 @@
 </head>
 
 <body>
-  <!-- ANOTAÇÕES DE PAULA: 
-   Use esses espaços com setas para fazer anotações, 
-   deixar lembretes, dicas e explições de cada coisa do codigo faz.
-   Isso deixará o código mais organizado e menus confuso. Bjs da Paula <3 -->
-
-  <!-- CONTROLES FLUTUANTES (SIDEBAR E POPUPS) -->
-  <!-- Menu Sidebar -->
   <input type="checkbox" id="menu" class="menu-check" aria-hidden="true" tabindex="-1">
 
-  <!-- Sistema de Popups com Radio Buttons (Evita bugs de sobreposição) -->
   <input type="radio" name="popup-grupo" id="popup-fechar-todos" class="popup-toggle" checked aria-hidden="true"
     tabindex="-1">
   <input type="radio" name="popup-grupo" id="popup-login-controle" class="popup-toggle" aria-hidden="true"
@@ -32,7 +24,6 @@
   <input type="radio" name="popup-grupo" id="popup-contato-controle" class="popup-toggle" aria-hidden="true"
     tabindex="-1">
 
-  <!-- SIDEBAR (MENU LATERAL) -->
   <nav class="sidebar" role="navigation" aria-label="Menu Lateral">
     <label for="menu" class="botao-fechar" tabindex="0" role="button" aria-label="Fechar menu lateral"
       onkeydown="if(event.key==='Enter'||event.key===' '){this.click(); event.preventDefault();}">&times;</label>
@@ -44,8 +35,7 @@
       <span id="nome-usuario-sidebar">Entrar / Registrar</span>
     </label>
 
-    <a href="#"><i class="fas fa-shopping-cart" aria-hidden="true"></i> <span>Carrinho</span></a>
-    <a href="#"><i class="fas fa-coffee" aria-hidden="true"></i> <span>Serviços</span></a>
+    <a href="#" id="btn-carrinho"><i class="fas fa-shopping-cart" aria-hidden="true"></i> <span>Carrinho</span></a>
 
     <label for="popup-contato-controle" class="link-menu-label" tabindex="0" role="button"
       onkeydown="if(event.key==='Enter'||event.key===' '){this.click(); event.preventDefault()}">
@@ -59,7 +49,6 @@
     <a href="#"><i class="fas fa-info-circle" aria-hidden="true"></i> <span>Sobre nós</span></a>
   </nav>
 
-  <!-- HEADER / TOPO -->
   <header class="topo">
     <div class="menu-container">
       <label for="menu" class="botao-menu" tabindex="0" role="button" aria-label="Abrir menu de navegação"
@@ -71,19 +60,17 @@
       class="logo">
   </header>
 
-  <!-- HERO SECTION -->
   <section class="hero">
     <h1>Seja Bem-Vindo ao Coffee Time! ✨☕</h1>
   </section>
 
-  <!-- POPUP: LOGIN -->
   <div class="popup-overlay login-overlay">
     <div class="popup-conteudo">
       <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
       <h2 class="titulo-popup">✨ Área de Login ✨</h2>
-      <form id="formulario-login" class="formulario-estilo" onsubmit="return false;"> <input type="text"
-          id="campo-usuario" placeholder="Usuário ou E-mail" required> <input type="password" placeholder="Senha"
-          required>
+      <form id="formulario-login" class="formulario-estilo" onsubmit="return false;"> 
+        <input type="text" id="campo-usuario" placeholder="Usuário ou E-mail" required> 
+        <input type="password" placeholder="Senha" required>
         <button type="submit" class="btn-laranja">Entrar</button>
         <div class="botoes-alternativos">
           <label for="popup-senha-controle" class="link-clicavel">Esqueci a senha</label>
@@ -93,7 +80,6 @@
     </div>
   </div>
 
-  <!-- POPUP: RECUPERAR SENHA -->
   <div class="popup-overlay senha-overlay">
     <div class="popup-conteudo">
       <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
@@ -109,7 +95,6 @@
     </div>
   </div>
 
-  <!-- POPUP: REGISTRO / CRIAR CONTA -->
   <div class="popup-overlay registro-overlay">
     <div class="popup-conteudo">
       <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
@@ -118,8 +103,8 @@
         <input type="text" id="campo-nome-registro" placeholder="Nome Completo" required>
         <input type="text" id="campo-usuario-registro" placeholder="Usuario" required>
         <input type="email" placeholder="E-mail" required>
-        <input type="password" id="campo-senha-registro" placeholder="Criar senha">
-        <input type="password" id="campo-confirmar-senha-registro" placeholder="Confirme sua senha">
+        <input type="password" id="campo-senha-registro" placeholder="Criar senha" required>
+        <input type="password" id="campo-confirmar-senha-registro" placeholder="Confirme sua senha" required>
         <button type="submit" class="btn-laranja">Cadastrar</button>
         <div class="botoes-alternativos">
           <label for="popup-login-controle" class="link-clicavel">Já tem uma conta? Entrar</label>
@@ -128,7 +113,6 @@
     </div>
   </div>
 
-  <!-- POPUP: CONTATO -->
   <div class="popup-overlay contato-overlay">
     <div class="popup-conteudo">
       <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
@@ -142,8 +126,6 @@
       </form>
     </div>
   </div>
-
-  <!-- POPUP: ACESSIBILIDADE -->
 
   <div id="popup-acessibilidade" class="modal-acessibilidade">
     <div class="conteudo-modal-acc">
@@ -178,10 +160,25 @@
       </div>
     </div>
   </div>
-  <!-- VITRINE DE PRODUTOS -->
+
+  <div id="modal-carrinho" class="modal-carrinho-fofo" style="display: none;">
+    <div class="conteudo-carrinho">
+      <div class="topo-carrinho">
+        <h2>🛒 Seu Carrinho</h2>
+        <button id="btn-fechar-carrinho">&times;</button>
+      </div>
+      <div id="itens-do-carrinho">
+        </div>
+      <div class="total-carrinho">
+        <span>Total:</span>
+        <span id="valor-total-carrinho">R$ 0,00</span>
+      </div>
+      <button id="btn-finalizar-pedido">Finalizar Pedido ✨</button>
+    </div>
+  </div>
+
   <main class="produtos">
 
-    <!--BEBIDAS QUENTES-->
     <h2><span class="titulo-categoria">☕ Bebidas Quentes ☕</span></h2>
     <div class="carrossel-container">
       <div class="grid">
@@ -212,7 +209,6 @@
       </div>
     </div>
 
-    <!--BEBIDAS GELADAS-->
     <h2><span class="titulo-categoria">🧊 Bebidas Geladas 🧊</span></h2>
     <div class="carrossel-container">
       <div class="grid">
@@ -243,7 +239,6 @@
       </div>
     </div>
 
-    <!-- 🥐 CATEGORIA: SALGADOS -->
     <h2><span class="titulo-categoria">🥐 Salgados Time 🥐</span></h2>
     <div class="carrossel-container">
       <div class="grid">
@@ -274,7 +269,6 @@
       </div>
     </div>
 
-    <!--DOCES-->
     <h2><span class="titulo-categoria">🍰 Doces Time 🍰</span></h2>
     <div class="carrossel-container">
       <div class="grid">
@@ -308,10 +302,7 @@
 
   </main>
 
-  //Área do avaScript
   <script src="loja.js"></script>
-</body>
-
 </body>
 
 </html>
