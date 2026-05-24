@@ -424,7 +424,83 @@ podendo adicionar um efeito de "quicar" (bounce)*/
 .item-acc label { cursor: pointer; flex-grow: 1; }
 .item-acc input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
 
-/* BOTÕES DE FONTE A+ E A- */
+/*ACESSIBILIDADE ATIVA*/
+
+/* 1. Alto Contraste */
+body.acc-alto-contraste {
+    background-color: #000000 !important;
+    background-image: none !important;
+    color: #FFFFFF !important;
+}
+
+body.acc-alto-contraste h1,
+body.acc-alto-contraste h2,
+body.acc-alto-contraste h3,
+body.acc-alto-contraste p,
+body.acc-alto-contraste span,
+body.acc-alto-contraste label {
+    background: #000000 !important;
+    color: #FFFF00 !important;
+    text-shadow: none !important;
+}
+
+body.acc-alto-contraste .topo,
+body.acc-alto-contraste .sidebar,
+body.acc-alto-contraste .card,
+body.acc-alto-contraste .popup-conteudo,
+body.acc-alto-contraste .conteudo-modal-acc,
+body.acc-alto-contraste .usuario-menu {
+    background-color: #000000 !important;
+    border: 3px solid #FFFF00 !important;
+    box-shadow: none !important;
+}
+
+body.acc-alto-contraste .btn-laranja,
+body.acc-alto-contraste .btn-adicionar,
+body.acc-alto-contraste #btn-finalizar-pedido,
+body.acc-alto-contraste .btn-fechar-acc,
+body.acc-alto-contraste #btn-fechar-carrinho {
+    background-color: #000000 !important;
+    color: #FFFF00 !important;
+    border: 2px solid #FFFF00 !important;
+    box-shadow: none !important;
+    border-radius: 4px !important;
+}
+
+body.acc-alto-contraste .btn-laranja:hover,
+body.acc-alto-contraste .btn-adicionar:hover,
+body.acc-alto-contraste .sidebar a:hover,
+body.acc-alto-contraste .link-menu-label:hover {
+    background-color: #FFFF00 !important;
+    color: #000000 !important;
+}
+
+body.acc-alto-contraste .sidebar a:hover span,
+body.acc-alto-contraste .link-menu-label:hover span {
+    background-color: #FFFF00 !important;
+    color: #000000 !important;
+}
+
+body.acc-alto-contraste input,
+body.acc-alto-contraste textarea {
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+    border: 2px solid #FFFF00 !important;
+}
+
+body.acc-alto-contraste img,
+body.acc-alto-contraste i {
+    filter: brightness(1.2) contrast(1.5) !important; /* Deixa os ícones/imagens super acesos */
+    background: transparent !important;
+}
+
+body.acc-alto-contraste .imagem-sticker,
+body.acc-alto-contraste .botao-menu img,
+body.acc-alto-contraste .logo {
+    filter: drop-shadow(2px 2px 0px #FFFF00) drop-shadow(-2px -2px 0px #FFFF00) !important;
+}
+
+/* 2. Tamanho do Texto*/
 .grupo-botoes button {
     background-color: #FFF0F0;
     border: 2px solid #FCE1B6;
@@ -443,30 +519,14 @@ podendo adicionar um efeito de "quicar" (bounce)*/
     transform: scale(1.05);
 }
 
-/* ==========================================
-   CLASSES MODIFICADORAS (ACESSIBILIDADE ATIVA)
-========================================== */
-
-/* 1. Alto Contraste */
-body.acc-alto-contraste {
-    background-color: #000000 !important;
-    color: #ffff00 !important;
-}
-body.acc-alto-contraste * {
-    background-color: #000000 !important;
-    color: #ffff00 !important;
-    border-color: #ffff00 !important;
-    box-shadow: none !important;
-}
-
-/* 4. Links e Botões Sublinhados */
+/* 3. Links e Botões Sublinhados */
 body.acc-links-sublinhados a, 
 body.acc-links-sublinhados button,
 body.acc-links-sublinhados label {
     text-decoration: underline !important;
 }
 
-/* 5. Inverter Cores */
+/* 4. Inverter Cores */
 html.acc-inverter-cores {
   filter: invert(1) hue-rotate(180deg);
 }
@@ -488,7 +548,7 @@ textarea:focus-visible {
   outline-offset: 3px;
 }
 
-/* Dá um feedback visual extra nos botões customizados quando focados */
+/*Dá um feedback visual extra nos botões customizados quando focados*/
 .link-clicavel:focus-visible,
 .botao-menu:focus-visible,
 .botao-fechar:focus-visible,
