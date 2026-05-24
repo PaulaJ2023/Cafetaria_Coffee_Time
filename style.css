@@ -11,6 +11,10 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 16px; /* Base para o cálculo do rem */
+}
+
 body {
   font-family: 'Itim', cursive, sans-serif;
   background: #FFF9F9;
@@ -89,7 +93,7 @@ body {
   position: absolute;
   top: 15px;
   right: 20px;
-  font-size: 32px;
+  font-size: 2rem; /* Mudado de 32px para relativo (2rem) */
   color: #A64B2A;
   cursor: pointer;
   font-weight: bold;
@@ -128,7 +132,7 @@ body {
 }
 
 .usuario-menu span {
-  font-size: 18px;
+  font-size: 1.125rem;
   color: #5A2323;
   font-weight: bold;
 }
@@ -141,7 +145,7 @@ body {
   padding: 16px 22px;
   color: #5A2323;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 1.125rem; /* Mudado de 18px para relativo (1.125rem) */
   cursor: pointer;
   transition: all 0.2s ease;
   border-radius: 15px;
@@ -239,7 +243,7 @@ podendo adicionar um efeito de "quicar" (bounce)*/
 }
 
 .titulo-popup {
-  font-size: 26px;
+  font-size: 1.625rem;
   color: #5A2323;
   margin-bottom: 20px;
 }
@@ -247,7 +251,7 @@ podendo adicionar um efeito de "quicar" (bounce)*/
 .texto-popup {
   color: #723D3D;
   margin-bottom: 20px;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .popup-fechar {
@@ -273,7 +277,7 @@ podendo adicionar um efeito de "quicar" (bounce)*/
   margin-bottom: 15px;
   border: 2px solid #ffffff;
   border-radius: 18px;
-  font-size: 16px;
+  font-size: 1rem; /* Mudado de 16px para relativo (1rem) */
   outline: none;
   font-family: 'Itim', cursive;
   color: #5A2323;
@@ -298,13 +302,12 @@ podendo adicionar um efeito de "quicar" (bounce)*/
   color: white;
   border: none;
   border-radius: 18px;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   font-family: 'Itim', cursive;
   box-shadow: 0 6px 0px #B36210;
-  /*Efeito de botão 3D*/
   margin-bottom: 10px;
 }
 
@@ -332,7 +335,7 @@ podendo adicionar um efeito de "quicar" (bounce)*/
   color: #723D3D;
   text-decoration: none;
   border-bottom: 2px dashed #C06C84;
-  font-size: 16px;
+  font-size: 1rem;
   cursor: pointer;
   padding-bottom: 2px;
   transition: color 0.2s;
@@ -387,7 +390,7 @@ podendo adicionar um efeito de "quicar" (bounce)*/
 .topo-modal-acc h3 {
     color: #5A2323;
     margin: 0;
-    font-size: 20px;
+    font-size: 1.25rem;
 }
 
 .btn-fechar-acc {
@@ -417,7 +420,7 @@ podendo adicionar um efeito de "quicar" (bounce)*/
     align-items: center;
     padding: 14px 0;
     border-bottom: 1px dashed #F5EBE6;
-    font-size: 18px;
+    font-size: 1.125rem;
     color: #5A2323;
 }
 
@@ -512,6 +515,7 @@ body.acc-alto-contraste .logo {
     border-radius: 10px;
     margin-left: 5px;
     transition: all 0.2s;
+    font-size: 1rem;
 }
 
 .grupo-botoes button:hover {
@@ -575,7 +579,7 @@ textarea:focus-visible {
   border: 3px dashed #F5C2C2;
   border-radius: 20px;
   padding: 6px 25px;
-  font-size: 24px;
+  font-size: 1.5rem; /* Equivalente a 24px */
   box-shadow: 0 5px 15px rgba(245, 194, 194, 0.3);
 }
 
@@ -650,13 +654,13 @@ textarea:focus-visible {
 
 .card h3 {
   color: #5A2323;
-  font-size: 21px;
+  font-size: 1.3125rem;
   font-weight: normal;
 }
 
 .card p.preco {
   color: #C06C84;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: bold;
   background: #FFF0F0;
   padding: 2px 15px;
