@@ -22,20 +22,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
             let icone = 'fa-mug-hot';
             let classeCor = 'rosa';
-            if (cargo === 'Barista') { icone = 'fa-cookie-bite'; classeCor = 'marrom'; }
-            if (cargo === 'Estagiário') { icone = 'fa-seedling'; classeCor = 'amarelo'; }
-
+            let classeBadge = 'cargo-normal';
+            if (cargo === 'Gerente') classeBadge = 'cargo-gerente';
+            if (cargo === 'Estagiário') classeBadge = 'cargo-estagiario';
             novoItem.innerHTML = `
                 <div class="avatar-func ${classeCor}"><i class="fas ${icone}"></i></div>
                 <div class="func-info">
                     <strong>${nome}</strong>
                     <span>${email}</span>
                 </div>
-                <span class="badge-cargo cargo-normal">${cargo}</span>
+                <span class="badge-cargo ${classeBadge}">${cargo}</span>    
             `;
 
             listaFuncionariosHtml.appendChild(novoItem);
-            
+
             // Atualiza dinamicamente o card de Equipe Ativa (Card de índice 2)
             atualizarCardEquipe();
 
@@ -63,7 +63,7 @@ function carregarPedidosDaLoja() {
 
     listaPedidos.forEach(pedido => {
         const novaLinha = document.createElement('tr');
-        novaLinha.style.background = "#FFF9F3"; 
+        novaLinha.style.background = "#FFF9F3";
 
         // Configura ícone e badge de tipo de entrega
         let badgeTipo = '';
@@ -138,10 +138,11 @@ function atualizarCardsMetricas(novosPedidos, valorExtra, novosPendentes) {
 
 // Atualiza o contador de equipe baseado nos itens visíveis na lista
 function atualizarCardEquipe() {
-    const cards = document.querySelectorAll('.card-metrica-admin .numero-metrica');
-    const totalFuncionarios = document.querySelectorAll('.lista-funcionarios .item-funcionario-fofo').length;
-    if (cards.length >= 3) {
-        cards[2].innerText = totalFuncionarios;
+    const totalMembros = document.querySelectorAll('.lista-funcionarios .item-funcionario-fofo').length;
+    // Assumindo que o card da equipe seja o terceiro .numero-metrica
+    const cardEquipe = document.querySelectorAll('.numero-metrica')[2];
+    if (cardEquipe) {
+        cardEquipe.textContent = totalMembros;
     }
 }
 
@@ -158,10 +159,10 @@ window.atualizarStatusPedido = function (idPedido, botao) {
         } else if (pedido.status === 'A Caminho') {
             pedido.status = 'Finalizado';
         }
-        
+
         // Salva a alteração de volta no LocalStorage
         localStorage.setItem('pedidosAdmin', JSON.stringify(listaPedidos));
-        
+
         // Recarrega a tabela e métricas instantaneamente
         carregarPedidosDaLoja();
     }
@@ -171,13 +172,13 @@ window.atualizarStatusPedido = function (idPedido, botao) {
 window.excluirPedido = function (idPedido) {
     if (confirm("Deseja realmente apagar o histórico deste pedido?")) {
         let listaPedidos = JSON.parse(localStorage.getItem('pedidosAdmin')) || [];
-        
+
         // Filtra a lista removendo o pedido com o ID correspondente
         listaPedidos = listaPedidos.filter(p => p.id == idPedido);
-        
+
         // Atualiza o LocalStorage
         localStorage.setItem('pedidosAdmin', JSON.stringify(listaPedidos));
-        
+
         // Recarrega a tela atualizada
         carregarPedidosDaLoja();
     }

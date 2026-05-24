@@ -61,11 +61,11 @@ if (formularioRegistro) {
 }
 
 //SISTEMA DE RECUPERAÇÃO DE SENHA
-const formularioRecuperar = document.getElementById('formulario-recover'); // Ajustado para bater com HTML se necessário
-const formRecuperarReal = document.getElementById('formulario-recuperar');
+const formularioRecuperar = document.getElementById('formulario-recover');
+const formularioRecuperar = document.getElementById('formulario-recuperar');
 
-if (formRecuperarReal) {
-    formRecuperarReal.addEventListener('submit', function (event) {
+if (formularioRecuperar) {
+    formularioRecuperar.addEventListener('submit', function (event) {
         event.preventDefault();
         const campoEmailRecuperar = document.getElementById('campo-email-recuperar');
         const emailDigitado = campoEmailRecuperar.value.trim();
@@ -156,7 +156,7 @@ if (toggleSublinhado) {
 }
 
 if (toggleInverter) {
-    toggleInverter.addEventListener('change', function() {
+    toggleInverter.addEventListener('change', function () {
         document.documentElement.classList.toggle('acc-inverter-cores', this.checked);
     });
 }
@@ -213,14 +213,14 @@ const blocoEnderecoEntrega = document.getElementById('bloco-endereco-entrega');
 
 // Monitora mudança no tipo de entrega para mostrar/esconder endereço
 if (cartTipoEntrega && blocoEnderecoEntrega) {
-    cartTipoEntrega.addEventListener('change', function() {
+    cartTipoEntrega.addEventListener('change', function () {
         if (this.value === 'Delivery') {
             blocoEnderecoEntrega.style.display = 'block';
             document.getElementById('cart-endereco-cliente').setAttribute('required', 'true');
         } else {
             blocoEnderecoEntrega.style.display = 'none';
             document.getElementById('cart-endereco-cliente').removeAttribute('required');
-        }
+        }   
     });
 }
 
@@ -230,7 +230,7 @@ if (btnCarrinhoSidebar && modalCarrinho) {
         e.preventDefault();
         const menuCheck = document.getElementById('menu');
         if (menuCheck) menuCheck.checked = false;
-        
+
         modalCarrinho.style.display = 'flex';
         renderizarCarrinhoVisual();
     });
@@ -294,10 +294,10 @@ function renderizarCarrinhoVisual() {
         divItem.innerHTML = `
             <div>
                 <span style="font-weight: bold; color: #5A2323;">${item.quantidade}x</span> ${item.nome}
-                <div style="font-size: 13px; color: #C06C84;">R$ ${item.preco.toFixed(2).replace('.',',')} cada</div>
+                <div style="font-size: 13px; color: #C06C84;">R$ ${item.preco.toFixed(2).replace('.', ',')} cada</div>
             </div>
             <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-weight: bold; color: #5A2323;">R$ ${custoItem.toFixed(2).replace('.',',')}</span>
+                <span style="font-weight: bold; color: #5A2323;">R$ ${custoItem.toFixed(2).replace('.', ',')}</span>
                 <button class="btn-remover-item" data-index="${index}" style="background: none; border: none; color: #C06C84; cursor: pointer; font-size: 16px;"><i class="fas fa-trash-alt"></i></button>
             </div>
         `;
@@ -305,7 +305,7 @@ function renderizarCarrinhoVisual() {
         conteinerItensCarrinho.appendChild(divItem);
     });
 
-    elementoValorTotal.innerText = `R$ ${totalAcumulado.toFixed(2).replace('.',',')}`;
+    elementoValorTotal.innerText = `R$ ${totalAcumulado.toFixed(2).replace('.', ',')}`;
 
     const botoesRemover = document.querySelectorAll('.btn-remover-item');
     botoesRemover.forEach(btn => {
@@ -346,13 +346,13 @@ if (btnFinalizarPedido) {
 
         // Criando a estrutura do pedido para a tabela do Admin
         const novoPedido = {
-            id: "#" + Math.floor(2000 + Math.random() * 9000), // Gera ID aleatório fofo tipo #2481
+            id: "#" + Math.floor(2000 + Math.random() * 9000),
             cliente: nomeCliente,
             itens: itensTexto,
             tipo: tipoEntrega,
             endereco: tipoEntrega === 'Delivery' ? enderecoCliente : 'Retirada no Balcão',
             pagamento: formaPagamento,
-            total: total.toFixed(2)
+            total: total.toFixed(2) // Certifique-se de manter o .toFixed(2) aqui!
         };
 
         // Pegar pedidos já existentes ou começar uma lista nova
@@ -360,14 +360,14 @@ if (btnFinalizarPedido) {
         listaPedidos.unshift(novoPedido); // Adiciona no início da fila
         localStorage.setItem('pedidosAdmin', JSON.stringify(listaPedidos));
 
-        alert(`🎉 Pedido Finalizado com Sucesso!\n✨ Obrigado por comprar no Coffee Time, ${nomeCliente}!\n💰 Total: R$ ${total.toFixed(2).replace('.',',')}`);
-        
+        alert(`🎉 Pedido Finalizado com Sucesso!\n✨ Obrigado por comprar no Coffee Time, ${nomeCliente}!\n💰 Total: R$ ${total.toFixed(2).replace('.', ',')}`);
+
         // Limpa o carrinho e reseta os inputs
         carrinho = [];
         document.getElementById('cart-nome-cliente').value = '';
         document.getElementById('cart-endereco-cliente').value = '';
-        if(blocoEnderecoEntrega) blocoEnderecoEntrega.style.display = 'none';
-        
+        if (blocoEnderecoEntrega) blocoEnderecoEntrega.style.display = 'none';
+
         renderizarCarrinhoVisual();
         if (modalCarrinho) modalCarrinho.style.display = 'none';
     });
