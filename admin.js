@@ -145,14 +145,16 @@ function carregarPedidosDaLoja(filtroSelecionado = 'todos') {
 function atualizarCardsMetricas(novosPedidos, valorExtra, novosPendentes) {
     const cards = document.querySelectorAll('.card-metrica-admin .numero-metrica');
     if (cards.length >= 4) {
-        let totalPedidosHoje = 4 + novosPedidos;
+        // 1. Pedidos de Hoje (Começa em 0 e conta o total de pedidos reais na lista)
+        let totalPedidosHoje = novosPedidos;
         cards[0].innerText = totalPedidosHoje;
 
-        let totalPendentesEntrega = 1 + novosPendentes;
+        // 2. Para Entrega (Começa em 0 e conta apenas os pedidos Delivery que estão Pendentes ou em Preparo)
+        let totalPendentesEntrega = novosPendentes;
         cards[1].innerText = `${totalPendentesEntrega} Pendente${totalPendentesEntrega !== 1 ? 's' : ''}`;
 
-        let faturamentoBase = 342.80;
-        let faturamentoTotal = faturamentoBase + valorExtra;
+        // 3. Faturamento (Começa em 0.00 e soma o total de todos os pedidos reais)
+        let faturamentoTotal = valorExtra;
         cards[3].innerText = `R$ ${faturamentoTotal.toFixed(2).replace('.', ',')}`;
     }
 }
