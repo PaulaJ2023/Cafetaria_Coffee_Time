@@ -66,6 +66,9 @@ document.addEventListener('DOMContentLoaded', function () {
             formFuncionario.reset();
         });
     }
+
+    // Inicializa a caixinha de integração após renderizar a página
+    inicializarPainelIntegracao();
 });
 
 // Função que integra os pedidos salvos no LocalStorage dentro da Tabela Administrativa
@@ -82,45 +85,41 @@ function carregarPedidosDaLoja(filtroSelecionado = 'todos') {
     let pendentesExtra = 0;
 
     listaPedidos.forEach(pedido => {
-        // Define o status atual do pedido (se não houver, assume 'Pendente')
         const statusAtual = pedido.status || 'Pendente';
 
-        // LÓGICA DE FILTRAGEM: Se o filtro não for 'todos' e for diferente do status do pedido, ignora este pedido
+        // LÓGICA DE FILTRAGEM
         if (filtroSelecionado !== 'todos' && statusAtual !== filtroSelecionado) {
-            return; // Salta para o próximo pedido sem colocar na tabela
+            return; 
         }
 
         const novaLinha = document.createElement('tr');
         novaLinha.style.background = "#FFF9F3";
 
-        // Configura ícone e badge de tipo de entrega
         let badgeTipo = '';
         if (pedido.tipo === 'Delivery') {
             badgeTipo = `<span class="badge-fofo tipo-delivery" title="Endereço: ${pedido.endereco}"><i class="fas fa-motorcycle"></i> Delivery</span>`;
-            if (pedido.status !== 'Finalizado') {
+            if (statusAtual === 'Pendente') {
                 pendentesExtra++;
             }
         } else {
             badgeTipo = `<span class="badge-fofo tipo-balcao"><i class="fas fa-store"></i> Retirada</span>`;
         }
 
-        // Calcula faturamento total dos novos itens
         faturamentoExtra += parseFloat(pedido.total || 0);
 
-        // Define a estrutura do Badge de Status baseado no que está salvo
         let badgeStatus = '';
         let acaoBotao = '';
 
-        if (!pedido.status || pedido.status === 'Pendente') {
+        if (statusAtual === 'Pendente') {
             badgeStatus = `<span class="badge-fofo status-pendente">Pendente</span>`;
             acaoBotao = `<button class="btn-acao avancar" title="Aceitar Pedido" onclick="atualizarStatusPedido('${pedido.id}', this)"><i class="fas fa-check"></i></button>`;
-        } else if (pedido.status === 'Preparo') {
+        } else if (statusAtual === 'Preparo') {
             badgeStatus = `<span class="badge-fofo status-preparo"><i class="fas fa-spinner fa-spin"></i> Em Preparo</span>`;
             acaoBotao = `<button class="btn-acao avancar" title="Despachar / Avisar Pronto" onclick="atualizarStatusPedido('${pedido.id}', this)"><i class="fas fa-check"></i></button>`;
-        } else if (pedido.status === 'A Caminho') {
+        } else if (statusAtual === 'A Caminho') {
             badgeStatus = `<span class="badge-fofo status-caminho"><i class="fas fa-shipping-fast"></i> A Caminho</span>`;
             acaoBotao = `<button class="btn-acao avancar" title="Finalizar Pedido" onclick="atualizarStatusPedido('${pedido.id}', this)"><i class="fas fa-check"></i></button>`;
-        } else if (pedido.status === 'Finalizado') {
+        } else if (statusAtual === 'Finalizado') {
             badgeStatus = `<span class="badge-fofo status-entregue">Finalizado 🎉</span>`;
             acaoBotao = `<button class="btn-acao excluir" title="Excluir Pedido" onclick="excluirPedido('${pedido.id}')" style="background: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;"><i class="fas fa-trash"></i></button>`;
         }
@@ -135,11 +134,9 @@ function carregarPedidosDaLoja(filtroSelecionado = 'todos') {
             <td>${acaoBotao}</td>
         `;
 
-        // Coloca o novo pedido no topo da tabela de controle
         tabelaCorpo.insertBefore(novaLinha, tabelaCorpo.firstChild);
     });
 
-    // Atualiza dinamicamente os Cards de Métricas do topo da página!
     atualizarCardsMetricas(novosPedidosContagem, faturamentoExtra, pendentesExtra);
     atualizarCardEquipe();
 }
@@ -148,15 +145,12 @@ function carregarPedidosDaLoja(filtroSelecionado = 'todos') {
 function atualizarCardsMetricas(novosPedidos, valorExtra, novosPendentes) {
     const cards = document.querySelectorAll('.card-metrica-admin .numero-metrica');
     if (cards.length >= 4) {
-        // Pedidos de hoje
         let totalPedidosHoje = 4 + novosPedidos;
         cards[0].innerText = totalPedidosHoje;
 
-        // Para Entrega
         let totalPendentesEntrega = 1 + novosPendentes;
-        cards[1].innerText = `${totalPendentesEntrega} Pendentes`;
+        cards[1].innerText = `${totalPendentesEntrega} Pendente${totalPendentesEntrega !== 1 ? 's' : ''}`;
 
-        // Faturamento
         let faturamentoBase = 342.80;
         let faturamentoTotal = faturamentoBase + valorExtra;
         cards[3].innerText = `R$ ${faturamentoTotal.toFixed(2).replace('.', ',')}`;
@@ -178,17 +172,17 @@ window.atualizarStatusPedido = function (idPedido, botao) {
     let pedido = listaPedidos.find(p => p.id == idPedido);
 
     if (pedido) {
-        if (!pedido.status || pedido.status === 'Pendente') {
+        const statusAtual = pedido.status || 'Pendente';
+        if (statusAtual === 'Pendente') {
             pedido.status = 'Preparo';
-        } else if (pedido.status === 'Preparo') {
+        } else if (statusAtual === 'Preparo') {
             pedido.status = 'A Caminho';
-        } else if (pedido.status === 'A Caminho') {
+        } else if (statusAtual === 'A Caminho') {
             pedido.status = 'Finalizado';
         }
 
         localStorage.setItem('pedidosAdmin', JSON.stringify(listaPedidos));
 
-        // Mantém o filtro atual ao recarregar a lista após a mudança de status
         const filtroAtivo = document.querySelector('.filtro-btn.ativo');
         const filtro = filtroAtivo ? filtroAtivo.getAttribute('data-filtro') : 'todos';
         carregarPedidosDaLoja(filtro);
@@ -200,29 +194,38 @@ window.excluirPedido = function (idPedido) {
     if (confirm("Deseja realmente apagar o histórico deste pedido?")) {
         let listaPedidos = JSON.parse(localStorage.getItem('pedidosAdmin')) || [];
 
-        // Filtra para remover apenas o item selecionado
         listaPedidos = listaPedidos.filter(p => p.id != idPedido);
-
         localStorage.setItem('pedidosAdmin', JSON.stringify(listaPedidos));
 
         const filtroAtivo = document.querySelector('.filtro-btn.ativo');
         const filtro = filtroAtivo ? filtroAtivo.getAttribute('data-filtro') : 'todos';
         carregarPedidosDaLoja(filtro);
+        inicializarPainelIntegracao(); // Atualiza a caixinha do Java caso o último pedido mude
     }
 };
 
-// Seção de Integração de logs da Web (Exibição da caixa pontilhada de cópia)
-window.addEventListener('load', function () {
-    const totalPedido = localStorage.getItem('ultimoTotal');
-    const produtosPedido = localStorage.getItem('ultimosProdutos');
+// Seção de Integração de logs da Web atualizada e corrigida
+function inicializarPainelIntegracao() {
+    let painelExistente = document.getElementById('painel-integracao-java');
+    if (painelExistente) painelExistente.remove();
+
+    let listaPedidos = JSON.parse(localStorage.getItem('pedidosAdmin')) || [];
+    // Pega o último pedido inserido no LocalStorage (primeiro do array unshift)
+    let ultimoPedido = listaPedidos[0]; 
+
+    const produtosPedido = ultimoPedido ? ultimoPedido.itens : 'Nenhum pedido detectado';
+    const totalPedido = ultimoPedido ? ultimoPedido.total : '0.00';
+    const clientePedido = ultimoPedido ? ultimoPedido.cliente : 'WebCliente';
+    const enderecoPedido = ultimoPedido ? ultimoPedido.endereco : 'Retirada Balcão';
 
     const painelPedidosWeb = document.createElement('section');
+    painelPedidosWeb.id = 'painel-integracao-java';
     painelPedidosWeb.classList.add('painel-secao');
     painelPedidosWeb.innerHTML = `
         <h2 style="text-align: center;"><i class="fas fa-coffee"></i> Último Pedido da Web (Integração)</h2>
         <div style="background: #fff; padding: 15px; border-radius: 15px; border: 2px dashed #C06C84; text-align: center;">
-            <p><strong>Produtos:</strong> ${produtosPedido || 'Nenhum pedido detectado'}</p>
-            <p><strong>Total:</strong> R$ ${totalPedido || '0.00'}</p>
+            <p><strong>Produtos:</strong> ${produtosPedido}</p>
+            <p><strong>Total:</strong> R$ ${parseFloat(totalPedido).toFixed(2).replace('.', ',')}</p>
             <button id="btn-gerar-token" style="background: #C06C84; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-family: 'Itim'; margin-top: 10px;">
                 Copiar Dados para o Java ☕
             </button>
@@ -233,15 +236,15 @@ window.addEventListener('load', function () {
     container.appendChild(painelPedidosWeb);
 
     document.getElementById('btn-gerar-token').addEventListener('click', function () {
-        if (!totalPedido) {
-            alert("Não há pedidos no carrinho para exportar!");
+        if (!ultimoPedido) {
+            alert("Não há pedidos no sistema para exportar!");
             return;
         }
-        const token = `CLIENTE: WebCliente | ENDERECO: Retirada Balcão | PRODUTOS: ${produtosPedido} | TOTAL: ${totalPedido}`;
+        const token = `CLIENTE: ${clientePedido} | ENDERECO: ${enderecoPedido} | PRODUTOS: ${produtosPedido} | TOTAL: ${totalPedido}`;
         navigator.clipboard.writeText(token);
         alert("✨ Dados do pedido copiados! Vá à Tela do Java e use a Aba de Anotação de Pedidos.");
     });
-});
+}
 
 // Sincronização entre abas abertas caso o LocalStorage mude
 window.addEventListener('storage', function (evento) {
@@ -249,5 +252,6 @@ window.addEventListener('storage', function (evento) {
         const filtroAtivo = document.querySelector('.filtro-btn.ativo');
         const filtro = filtroAtivo ? filtroAtivo.getAttribute('data-filtro') : 'todos';
         carregarPedidosDaLoja(filtro);
+        inicializarPainelIntegracao();
     }
 });
