@@ -98,6 +98,56 @@ if (formularioContato) {
     });
 }
 
+//SISTEMA DE CONFIGURAÇÕES
+const formularioConfig = document.getElementById('formulario-config');
+const popupConfigControle = document.getElementById('popup-config-controle');
+
+// Carregar configurações salvas ao iniciar a página
+document.addEventListener('DOMContentLoaded', () => {
+    const configsSalvas = JSON.parse(localStorage.getItem('coffeeTimeConfigs'));
+    if (configsSalvas) {
+        if (document.getElementById('cfg-notificacoes')) {
+            document.getElementById('cfg-notificacoes').checked = configsSalvas.notificacoes;
+        }
+        if (document.getElementById('cfg-salvar-dados')) {
+            document.getElementById('cfg-salvar-dados').checked = configsSalvas.salvarDados;
+        }
+        if (document.getElementById('cfg-moeda')) {
+            document.getElementById('cfg-moeda').value = configsSalvas.moeda;
+        }
+    }
+});
+
+// Fechar a sidebar quando clicar em Configurações (comportamento nativo das labels)
+if (popupConfigControle) {
+    popupConfigControle.addEventListener('change', function() {
+        if (this.checked) {
+            const menuCheck = document.getElementById('menu');
+            if (menuCheck) menuCheck.checked = false;
+        }
+    });
+}
+
+// Evento de salvamento das Configurações
+if (formularioConfig) {
+    formularioConfig.addEventListener('submit', function (event) {
+        event.preventDefault();
+        
+        const notificacoes = document.getElementById('cfg-notificacoes').checked;
+        const salvarDados = document.getElementById('cfg-salvar-dados').checked;
+        const moeda = document.getElementById('cfg-moeda').value;
+
+        const objetoConfig = { notificacoes, salvarDados, moeda };
+        localStorage.setItem('coffeeTimeConfigs', JSON.stringify(objetoConfig));
+
+        alert("⚙️ Preferências atualizadas com sucesso e aplicadas!");
+        
+        if (fecharPopupTodos) {
+            fecharPopupTodos.checked = true;
+        }
+    });
+}
+
 //SISTEMA DE ACESSIBILIDADE
 const botaoAcessibilidade = document.getElementById('btn-acessibilidade');
 const popupAcessibilidade = document.getElementById('popup-acessibilidade');

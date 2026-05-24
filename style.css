@@ -209,7 +209,8 @@ body {
 #popup-login-controle:checked~.login-overlay,
 #popup-senha-controle:checked~.senha-overlay,
 #popup-registro-controle:checked~.registro-overlay,
-#popup-contato-controle:checked~.contato-overlay {
+#popup-contato-controle:checked~.contato-overlay,
+#popup-config-controle:checked~.config-overlay {
   display: flex;
 }
 
@@ -320,6 +321,50 @@ podendo adicionar um efeito de "quicar" (bounce)*/
 .btn-laranja:active {
   transform: translateY(4px);
   box-shadow: 0 2px 0px #B36210;
+}
+
+/*ESTILOS DO POPUP DE CONFIGURAÇÃO*/
+.item-config {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 5px;
+  border-bottom: 1px dashed #ffffff;
+  font-size: 1.1rem;
+  color: #5A2323;
+  text-align: left;
+}
+
+.item-config label {
+  cursor: pointer;
+  flex-grow: 1;
+}
+
+.item-config input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+.item-config-seletor {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 5px;
+  text-align: left;
+  font-size: 1.1rem;
+}
+
+.seletor-config {
+  width: 100%;
+  padding: 10px;
+  border-radius: 12px;
+  border: 2px solid #ffffff;
+  font-family: 'Itim', cursive;
+  color: #5A2323;
+  background-color: #ffffff;
+  outline: none;
 }
 
 /*Ajustes de redirecionamento interno dos links nos Popups*/
@@ -485,7 +530,8 @@ body.acc-alto-contraste .link-menu-label:hover span {
 }
 
 body.acc-alto-contraste input,
-body.acc-alto-contraste textarea {
+body.acc-alto-contraste textarea,
+body.acc-alto-contraste select {
     background-color: #000000 !important;
     color: #FFFFFF !important;
     border: 2px solid #FFFF00 !important;
@@ -547,7 +593,8 @@ html.acc-inverter-cores i {
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
-textarea:focus-visible {
+textarea:focus-visible,
+select:focus-visible {
   outline: 3px solid #C06C84 !important;
   outline-offset: 3px;
 }
