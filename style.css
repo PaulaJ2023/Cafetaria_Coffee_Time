@@ -342,6 +342,138 @@ podendo adicionar um efeito de "quicar" (bounce)*/
   color: #C06C84;
 }
 
+/* POPUP MODAL DE ACESSIBILIDADE */
+.modal-acessibilidade {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(90, 35, 35, 0.4); /* Tom de café transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* Quando tiver a classe 'ativo', o popup aparece */
+.modal-acessibilidade.ativo {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.conteudo-modal-acc {
+    background-color: white;
+    padding: 25px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 360px;
+    box-shadow: 0 10px 30px rgba(90, 35, 35, 0.15);
+    border: 3px solid #FCE1B6;
+}
+
+.topo-modal-acc {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 2px dashed #FCE1B6;
+    padding-bottom: 12px;
+}
+
+.topo-modal-acc h3 {
+    color: #5A2323;
+    margin: 0;
+    font-size: 20px;
+}
+
+.btn-fechar-acc {
+    background: #FFF0F0;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #C06C84;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.btn-fechar-acc:hover {
+    background: #C06C84;
+    color: white;
+}
+
+/* OPÇÕES INTERNAS */
+.item-acc, .item-acc-botoes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px dashed #F5EBE6;
+    font-size: 18px;
+    color: #5A2323;
+}
+
+.item-acc label { cursor: pointer; flex-grow: 1; }
+.item-acc input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
+
+/* BOTÕES DE FONTE A+ E A- */
+.grupo-botoes button {
+    background-color: #FFF0F0;
+    border: 2px solid #FCE1B6;
+    color: #5A2323;
+    padding: 6px 14px;
+    font-weight: bold;
+    font-family: 'Itim', cursive;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-left: 5px;
+    transition: all 0.2s;
+}
+
+.grupo-botoes button:hover {
+    background-color: #FCE1B6;
+    transform: scale(1.05);
+}
+
+/* ==========================================
+   CLASSES MODIFICADORAS (ACESSIBILIDADE ATIVA)
+========================================== */
+
+/* 1. Alto Contraste */
+body.acc-alto-contraste {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+}
+body.acc-alto-contraste * {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+    border-color: #ffff00 !important;
+    box-shadow: none !important;
+}
+
+/* 4. Links e Botões Sublinhados */
+body.acc-links-sublinhados a, 
+body.acc-links-sublinhados button,
+body.acc-links-sublinhados label {
+    text-decoration: underline !important;
+}
+
+/* 5. Inverter Cores */
+body.acc-inverter-cores {
+    filter: invert(1) hue-rotate(180deg);
+}
+body.acc-inverter-cores img {
+    filter: invert(1) hue-rotate(180deg);
+}
+
 /*PRODUTOS*/
 .produtos {
   padding: 30px 0 60px 0;

@@ -41,7 +41,7 @@
     <label for="popup-contato-controle" class="link-menu-label">
       <i class="fas fa-envelope"></i> <span>Contato</span>
     </label>
-    <a href="#"><i class="fas fa-universal-access"></i> <span>Acessibilidade</span></a>
+    <a href="#" id="btn-acessibilidade"><i class="fas fa-universal-access"></i> <span>Acessibilidade</span></a>
     <a href="#"><i class="fas fa-cog"></i> <span>Configurações</span></a>
     <a href="#"><i class="fas fa-question-circle"></i> <span>Ajuda</span></a>
     <a href="#"><i class="fas fa-info-circle"></i> <span>Sobre nós</span></a>
@@ -129,6 +129,41 @@
     </div>
   </div>
 
+  <!-- POPUP: ACESSIBILIDADE -->
+
+  <div id="popup-acessibilidade" class="modal-acessibilidade">
+    <div class="conteudo-modal-acc">
+      <div class="topo-modal-acc">
+        <h3>✨ Opções de Acessibilidade</h3>
+        <button id="fechar-acessibilidade" class="btn-fechar-acc">&times;</button>
+      </div>
+
+      <div class="opcoes-acc">
+        <div class="item-acc">
+          <label for="acc-contraste">🖤 Alto Contraste</label>
+          <input type="checkbox" id="acc-contraste">
+        </div>
+
+        <div class="item-acc-botoes">
+          <span>🔍 Tamanho do Texto</span>
+          <div class="grupo-botoes">
+            <button id="acc-diminuir" title="Diminuir Texto">A-</button>
+            <button id="acc-aumentar" title="Aumentar Texto">A+</button>
+          </div>
+        </div>
+
+        <div class="item-acc">
+          <label for="acc-sublinhado">🔗 Sublinhar Links</label>
+          <input type="checkbox" id="acc-sublinhado">
+        </div>
+
+        <div class="item-acc">
+          <label for="acc-inverter">🔄 Inverter Cores</label>
+          <input type="checkbox" id="acc-inverter">
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- VITRINE DE PRODUTOS -->
   <main class="produtos">
 

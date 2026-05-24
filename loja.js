@@ -138,6 +138,76 @@ if (formularioContato) {
     });
 }
 
+//SISTEMA DE ACESSIBILIDADE
+//Elementos do Popup
+const botaoAcessibilidade = document.getElementById('btn-acessibilidade');
+const popupAcessibilidade = document.getElementById('popup-acessibilidade');
+const fecharAcessibilidade = document.getElementById('fechar-acessibilidade');
+
+// Ações para abrir e fechar o popup na tela
+if (botaoAcessibilidade && popupAcessibilidade) {
+    botaoAcessibilidade.addEventListener('click', function (event) {
+        event.preventDefault(); // Evita que o link '#' recarregue ou suba a página
+        popupAcessibilidade.classList.add('ativo');
+    });
+}
+
+if (fecharAcessibilidade && popupAcessibilidade) {
+    fecharAcessibilidade.addEventListener('click', function () {
+        popupAcessibilidade.classList.remove('ativo');
+    });
+}
+
+// Elementos de ativação das opções
+const toggleContraste = document.getElementById('acc-contraste');
+const btnAumentarTexto = document.getElementById('acc-aumentar');
+const btnDiminuirTexto = document.getElementById('acc-diminuir');
+const toggleSublinhado = document.getElementById('acc-sublinhado');
+const toggleInverter = document.getElementById('acc-inverter');
+
+let tamanhoFonteAtual = 100; // Começa em 100%
+
+// 1. Ativar Alto Contraste
+if (toggleContraste) {
+    toggleContraste.addEventListener('change', function() {
+        document.body.classList.toggle('acc-alto-contraste', this.checked);
+    });
+}
+
+// 2. Aumentar Tamanho das Fontes
+if (btnAumentarTexto) {
+    btnAumentarTexto.addEventListener('click', function() {
+        if (tamanhoFonteAtual < 140) { // Define um limite máximo seguro
+            tamanhoFonteAtual += 10;
+            document.documentElement.style.fontSize = `${tamanhoFonteAtual}%`;
+        }
+    });
+}
+
+// 3. Diminuir/Resetar Tamanho das Fontes
+if (btnDiminuirTexto) {
+    btnDiminuirTexto.addEventListener('click', function() {
+        if (tamanhoFonteAtual > 100) { // Não deixa ficar menor que o padrão da loja
+            tamanhoFonteAtual -= 10;
+            document.documentElement.style.fontSize = `${tamanhoFonteAtual}%`;
+        }
+    });
+}
+
+// 4. Sublinhar Elementos Clicáveis
+if (toggleSublinhado) {
+    toggleSublinhado.addEventListener('change', function() {
+        document.body.classList.toggle('acc-links-sublinhados', this.checked);
+    });
+}
+
+// 5. Inverter Cores Globais
+if (toggleInverter) {
+    toggleInverter.addEventListener('change', function() {
+        document.body.classList.toggle('acc-inverter-cores', this.checked);
+    });
+}
+
 //SISTEMA DO CARRINHO DE COMPRAS
 //Cria uma lista vazia para colocar os produtos que o cliente escolher
 let carrinho = [];
