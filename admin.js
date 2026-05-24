@@ -23,8 +23,12 @@ document.addEventListener('DOMContentLoaded', function () {
             let icone = 'fa-mug-hot';
             let classeCor = 'rosa';
             let classeBadge = 'cargo-normal';
-            if (cargo === 'Gerente') classeBadge = 'cargo-gerente';
-            if (cargo === 'Estagiário') classeBadge = 'cargo-estagiario';
+
+            // Correção aqui: "Gerente Geral" para bater com o select do HTML
+            if (cargo === 'Gerente Geral') classeBadge = 'cargo-gerente';
+            if (cargo === 'Barista') { icone = 'fa-cookie-bite'; classeCor = 'marrom'; }
+            if (cargo === 'Estagiário') { icone = 'fa-seedling'; classeCor = 'amarelo'; classeBadge = 'cargo-estagiario'; }
+
             novoItem.innerHTML = `
                 <div class="avatar-func ${classeCor}"><i class="fas ${icone}"></i></div>
                 <div class="func-info">
@@ -36,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             listaFuncionariosHtml.appendChild(novoItem);
 
-            // Atualiza dinamicamente o card de Equipe Ativa (Card de índice 2)
+            // Atualiza dinamicamente o card de Equipe Ativa
             atualizarCardEquipe();
 
             alert(`✨ Colaborador(a) ${nome} cadastrado(a) com sucesso no sistema!`);
@@ -76,7 +80,7 @@ function carregarPedidosDaLoja() {
             badgeTipo = `<span class="badge-fofo tipo-balcao"><i class="fas fa-store"></i> Retirada</span>`;
         }
 
-        // Calcula faturamento total dos novos itens (Apenas se não foi deletado/excluído)
+        // Calcula faturamento total dos novos itens
         faturamentoExtra += parseFloat(pedido.total || 0);
 
         // Define a estrutura do Badge de Status baseado no que está salvo
@@ -94,7 +98,6 @@ function carregarPedidosDaLoja() {
             acaoBotao = `<button class="btn-acao avancar" title="Finalizar Pedido" onclick="atualizarStatusPedido('${pedido.id}', this)"><i class="fas fa-check"></i></button>`;
         } else if (pedido.status === 'Finalizado') {
             badgeStatus = `<span class="badge-fofo status-entregue">Finalizado 🎉</span>`;
-            // Quando finalizado, mostra o botão de EXCLUIR (lixeira)
             acaoBotao = `<button class="btn-acao excluir" title="Excluir Pedido" onclick="excluirPedido('${pedido.id}')" style="background: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;"><i class="fas fa-trash"></i></button>`;
         }
 
@@ -121,15 +124,15 @@ function carregarPedidosDaLoja() {
 function atualizarCardsMetricas(novosPedidos, valorExtra, novosPendentes) {
     const cards = document.querySelectorAll('.card-metrica-admin .numero-metrica');
     if (cards.length >= 4) {
-        // Pedidos de hoje (4 estáticos do HTML base + novos do site)
+        // Pedidos de hoje
         let totalPedidosHoje = 4 + novosPedidos;
         cards[0].innerText = totalPedidosHoje;
 
-        // Para Entrega (1 estático + novos pendentes de delivery)
+        // Para Entrega
         let totalPendentesEntrega = 1 + novosPendentes;
         cards[1].innerText = `${totalPendentesEntrega} Pendentes`;
 
-        // Faturamento (R$ 342,80 estáticos + soma dos valores enviados pela loja)
+        // Faturamento
         let faturamentoBase = 342.80;
         let faturamentoTotal = faturamentoBase + valorExtra;
         cards[3].innerText = `R$ ${faturamentoTotal.toFixed(2).replace('.', ',')}`;
@@ -139,7 +142,6 @@ function atualizarCardsMetricas(novosPedidos, valorExtra, novosPendentes) {
 // Atualiza o contador de equipe baseado nos itens visíveis na lista
 function atualizarCardEquipe() {
     const totalMembros = document.querySelectorAll('.lista-funcionarios .item-funcionario-fofo').length;
-    // Assumindo que o card da equipe seja o terceiro .numero-metrica
     const cardEquipe = document.querySelectorAll('.numero-metrica')[2];
     if (cardEquipe) {
         cardEquipe.textContent = totalMembros;
@@ -160,10 +162,7 @@ window.atualizarStatusPedido = function (idPedido, botao) {
             pedido.status = 'Finalizado';
         }
 
-        // Salva a alteração de volta no LocalStorage
         localStorage.setItem('pedidosAdmin', JSON.stringify(listaPedidos));
-
-        // Recarrega a tabela e métricas instantaneamente
         carregarPedidosDaLoja();
     }
 };
@@ -173,13 +172,10 @@ window.excluirPedido = function (idPedido) {
     if (confirm("Deseja realmente apagar o histórico deste pedido?")) {
         let listaPedidos = JSON.parse(localStorage.getItem('pedidosAdmin')) || [];
 
-        // Filtra a lista removendo o pedido com o ID correspondente
-        listaPedidos = listaPedidos.filter(p => p.id == idPedido);
+        // Correção aqui: alterado de "==" para "!=" para excluir apenas o selecionado
+        listaPedidos = listaPedidos.filter(p => p.id != idPedido);
 
-        // Atualiza o LocalStorage
         localStorage.setItem('pedidosAdmin', JSON.stringify(listaPedidos));
-
-        // Recarrega a tela atualizada
         carregarPedidosDaLoja();
     }
 };
@@ -214,4 +210,24 @@ window.addEventListener('load', function () {
         navigator.clipboard.writeText(token);
         alert("✨ Dados do pedido copiados! Vá à Tela do Java e use a Aba de Anotação de Pedidos.");
     });
+});
+
+// ADICIONADO PARA SINCRO EM TEMPO REAL ENTRE ABAS ✨
+window.addEventListener('storage', function (evento) {
+    if (evento.key === 'pedidosAdmin') {
+        carregarPedidosDaLoja();
+    }
+});
+
+const container = document.querySelector('.admin-container') || document.body;
+container.appendChild(painelPedidosWeb);
+
+document.getElementById('btn-gerar-token').addEventListener('click', function () {
+    if (!totalPedido) {
+        alert("Não há pedidos no carrinho para exportar!");
+        return;
+    }
+    const token = `CLIENTE: WebCliente | ENDERECO: Retirada Balcão | PRODUTOS: ${produtosPedido} | TOTAL: ${totalPedido}`;
+    navigator.clipboard.writeText(token);
+    alert("✨ Dados do pedido copiados! Vá à Tela do Java e use a Aba de Anotação de Pedidos.");
 });

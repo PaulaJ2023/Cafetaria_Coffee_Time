@@ -61,7 +61,6 @@ if (formularioRegistro) {
 }
 
 //SISTEMA DE RECUPERAÇÃO DE SENHA
-const formularioRecuperar = document.getElementById('formulario-recover');
 const formularioRecuperar = document.getElementById('formulario-recuperar');
 
 if (formularioRecuperar) {
