@@ -169,14 +169,14 @@ let tamanhoFonteAtual = 100; // Começa em 100%
 
 // 1. Ativar Alto Contraste
 if (toggleContraste) {
-    toggleContraste.addEventListener('change', function() {
+    toggleContraste.addEventListener('change', function () {
         document.body.classList.toggle('acc-alto-contraste', this.checked);
     });
 }
 
 // 2. Aumentar Tamanho das Fontes
 if (btnAumentarTexto) {
-    btnAumentarTexto.addEventListener('click', function() {
+    btnAumentarTexto.addEventListener('click', function () {
         if (tamanhoFonteAtual < 140) { // Define um limite máximo seguro
             tamanhoFonteAtual += 10;
             document.documentElement.style.fontSize = `${tamanhoFonteAtual}%`;
@@ -186,7 +186,7 @@ if (btnAumentarTexto) {
 
 // 3. Diminuir/Resetar Tamanho das Fontes
 if (btnDiminuirTexto) {
-    btnDiminuirTexto.addEventListener('click', function() {
+    btnDiminuirTexto.addEventListener('click', function () {
         if (tamanhoFonteAtual > 100) { // Não deixa ficar menor que o padrão da loja
             tamanhoFonteAtual -= 10;
             document.documentElement.style.fontSize = `${tamanhoFonteAtual}%`;
@@ -196,17 +196,54 @@ if (btnDiminuirTexto) {
 
 // 4. Sublinhar Elementos Clicáveis
 if (toggleSublinhado) {
-    toggleSublinhado.addEventListener('change', function() {
+    toggleSublinhado.addEventListener('change', function () {
         document.body.classList.toggle('acc-links-sublinhados', this.checked);
     });
 }
 
-// 5. Inverter Cores Globais
+//Inverter Cores Globais
 if (toggleInverter) {
     toggleInverter.addEventListener('change', function() {
-        document.body.classList.toggle('acc-inverter-cores', this.checked);
+        // Altera para documentElement para aplicar a classe na tag <html>
+        document.documentElement.classList.toggle('acc-inverter-cores', this.checked);
     });
 }
+
+//PARA ACESSIBILIDADE DIGITAL
+document.addEventListener('DOMContentLoaded', () => {
+    const toggles = document.querySelectorAll('.popup-toggle, .menu-check');
+
+    function atualizarVisibilidadeAria() {
+        // Controla o estado dos popups/overlays
+        document.querySelectorAll('.popup-overlay').forEach(overlay => {
+            const estiloComputado = window.getComputedStyle(overlay).display;
+            if (estiloComputado === 'flex') {
+                overlay.removeAttribute('aria-hidden');
+            } else {
+                overlay.setAttribute('aria-hidden', 'true');
+            }
+        });
+
+        // Controla o estado do menu lateral
+        const sidebar = document.querySelector('.sidebar');
+        const menuCheck = document.getElementById('menu');
+        if (sidebar && menuCheck) {
+            if (menuCheck.checked) {
+                sidebar.removeAttribute('aria-hidden');
+            } else {
+                sidebar.setAttribute('aria-hidden', 'true');
+            }
+        }
+    }
+
+    // Escuta as alterações nos inputs seletores
+    toggles.forEach(toggle => {
+        toggle.addEventListener('change', atualizarVisibilidadeAria);
+    });
+
+    // Corre uma primeira vez para definir os estados iniciais corretos
+    atualizarVisibilidadeAria();
+});
 
 //SISTEMA DO CARRINHO DE COMPRAS
 //Cria uma lista vazia para colocar os produtos que o cliente escolher

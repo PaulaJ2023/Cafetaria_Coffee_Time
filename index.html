@@ -18,43 +18,57 @@
 
   <!-- CONTROLES FLUTUANTES (SIDEBAR E POPUPS) -->
   <!-- Menu Sidebar -->
-  <input type="checkbox" id="menu" class="menu-check">
+  <input type="checkbox" id="menu" class="menu-check" aria-hidden="true" tabindex="-1">
 
   <!-- Sistema de Popups com Radio Buttons (Evita bugs de sobreposição) -->
-  <input type="radio" name="popup-grupo" id="popup-fechar-todos" class="popup-toggle" checked>
-  <input type="radio" name="popup-grupo" id="popup-login-controle" class="popup-toggle">
-  <input type="radio" name="popup-grupo" id="popup-senha-controle" class="popup-toggle">
-  <input type="radio" name="popup-grupo" id="popup-registro-controle" class="popup-toggle">
-  <input type="radio" name="popup-grupo" id="popup-contato-controle" class="popup-toggle">
+  <input type="radio" name="popup-grupo" id="popup-fechar-todos" class="popup-toggle" checked aria-hidden="true"
+    tabindex="-1">
+  <input type="radio" name="popup-grupo" id="popup-login-controle" class="popup-toggle" aria-hidden="true"
+    tabindex="-1">
+  <input type="radio" name="popup-grupo" id="popup-senha-controle" class="popup-toggle" aria-hidden="true"
+    tabindex="-1">
+  <input type="radio" name="popup-grupo" id="popup-registro-controle" class="popup-toggle" aria-hidden="true"
+    tabindex="-1">
+  <input type="radio" name="popup-grupo" id="popup-contato-controle" class="popup-toggle" aria-hidden="true"
+    tabindex="-1">
 
   <!-- SIDEBAR (MENU LATERAL) -->
-  <nav class="sidebar">
-    <label for="menu" class="botao-fechar">&times;</label>
+  <nav class="sidebar" role="navigation" aria-label="Menu Lateral">
+    <label for="menu" class="botao-fechar" tabindex="0" role="button" aria-label="Fechar menu lateral"
+      onkeydown="if(event.key==='Enter'||event.key===' '){this.click(); event.preventDefault();}">&times;</label>
 
-    <label for="popup-login-controle" class="usuario-menu">
-      <div class="foto-perfil"><i class="fas fa-user-cookie"></i></div>
+    <label for="popup-login-controle" class="usuario-menu" tabindex="0" role="button"
+      aria-label="Área do usuário: Entrar ou Registrar"
+      onkeydown="if(event.key==='Enter'||event.key===' '){this.click(); event.preventDefault()}">
+      <div class="foto-perfil"><i class="fas fa-user-cookie" aria-hidden="true"></i></div>
       <span id="nome-usuario-sidebar">Entrar / Registrar</span>
     </label>
 
-    <a href="#"><i class="fas fa-shopping-cart"></i> <span>Carrinho</span></a>
-    <a href="#"><i class="fas fa-coffee"></i> <span>Serviços</span></a>
-    <label for="popup-contato-controle" class="link-menu-label">
-      <i class="fas fa-envelope"></i> <span>Contato</span>
+    <a href="#"><i class="fas fa-shopping-cart" aria-hidden="true"></i> <span>Carrinho</span></a>
+    <a href="#"><i class="fas fa-coffee" aria-hidden="true"></i> <span>Serviços</span></a>
+
+    <label for="popup-contato-controle" class="link-menu-label" tabindex="0" role="button"
+      onkeydown="if(event.key==='Enter'||event.key===' '){this.click(); event.preventDefault()}">
+      <i class="fas fa-envelope" aria-hidden="true"></i> <span>Contato</span>
     </label>
-    <a href="#" id="btn-acessibilidade"><i class="fas fa-universal-access"></i> <span>Acessibilidade</span></a>
-    <a href="#"><i class="fas fa-cog"></i> <span>Configurações</span></a>
-    <a href="#"><i class="fas fa-question-circle"></i> <span>Ajuda</span></a>
-    <a href="#"><i class="fas fa-info-circle"></i> <span>Sobre nós</span></a>
+
+    <a href="#" id="btn-acessibilidade"><i class="fas fa-universal-access" aria-hidden="true"></i>
+      <span>Acessibilidade</span></a>
+    <a href="#"><i class="fas fa-cog" aria-hidden="true"></i> <span>Configurações</span></a>
+    <a href="#"><i class="fas fa-question-circle" aria-hidden="true"></i> <span>Ajuda</span></a>
+    <a href="#"><i class="fas fa-info-circle" aria-hidden="true"></i> <span>Sobre nós</span></a>
   </nav>
 
   <!-- HEADER / TOPO -->
   <header class="topo">
     <div class="menu-container">
-      <label for="menu" class="botao-menu">
-        <img src="imagens/menu-fofo.png" alt="Menu">
+      <label for="menu" class="botao-menu" tabindex="0" role="button" aria-label="Abrir menu de navegação"
+        onkeydown="if(event.key==='Enter'||event.key===' '){this.click(); event.preventDefault()}">
+        <img src="imagens/menu-fofo.png" alt="Ícone de três barras horizontais para abrir o menu">
       </label>
     </div>
-    <img src="imagens/Logo_Coffee_Time.png" alt="Logo" class="logo">
+    <img src="imagens/Logo_Coffee_Time.png" alt="Logótipo Coffee Time - Uma xícara de café estilizada com corações"
+      class="logo">
   </header>
 
   <!-- HERO SECTION -->

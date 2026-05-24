@@ -467,11 +467,34 @@ body.acc-links-sublinhados label {
 }
 
 /* 5. Inverter Cores */
-body.acc-inverter-cores {
-    filter: invert(1) hue-rotate(180deg);
+html.acc-inverter-cores {
+  filter: invert(1) hue-rotate(180deg);
 }
-body.acc-inverter-cores img {
-    filter: invert(1) hue-rotate(180deg);
+
+html.acc-inverter-cores .foto-perfil,
+html.acc-inverter-cores .avatar-func,
+html.acc-inverter-cores i {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/*ACESSIBILIDADE (FOCO VISUAL)*/
+/* Cria uma borda visível ao navegar via teclado (Tab) */
+[tabindex="0"]:focus-visible,
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #C06C84 !important;
+  outline-offset: 3px;
+}
+
+/* Dá um feedback visual extra nos botões customizados quando focados */
+.link-clicavel:focus-visible,
+.botao-menu:focus-visible,
+.botao-fechar:focus-visible,
+.link-menu-label:focus-visible {
+  transform: scale(1.05);
+  color: #C06C84;
 }
 
 /*PRODUTOS*/
