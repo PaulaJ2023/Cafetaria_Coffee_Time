@@ -194,9 +194,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// ==========================================
-// REESTRUTURAÇÃO: SISTEMA DO CARRINHO DE COMPRAS
-// ==========================================
+//SISTEMA DO CARRINHO
+
 let carrinho = [];
 
 // Elementos da interface mapeados
@@ -208,11 +207,27 @@ const elementoValorTotal = document.getElementById('valor-total-carrinho');
 const btnFinalizarPedido = document.getElementById('btn-finalizar-pedido');
 const botoesAdicionar = document.querySelectorAll('.btn-adicionar');
 
+// Novos elementos do formulário do carrinho
+const cartTipoEntrega = document.getElementById('cart-tipo-entrega');
+const blocoEnderecoEntrega = document.getElementById('bloco-endereco-entrega');
+
+// Monitora mudança no tipo de entrega para mostrar/esconder endereço
+if (cartTipoEntrega && blocoEnderecoEntrega) {
+    cartTipoEntrega.addEventListener('change', function() {
+        if (this.value === 'Delivery') {
+            blocoEnderecoEntrega.style.display = 'block';
+            document.getElementById('cart-endereco-cliente').setAttribute('required', 'true');
+        } else {
+            blocoEnderecoEntrega.style.display = 'none';
+            document.getElementById('cart-endereco-cliente').removeAttribute('required');
+        }
+    });
+}
+
 // 1. Abrir e Fechar o Carrinho Visual
 if (btnCarrinhoSidebar && modalCarrinho) {
     btnCarrinhoSidebar.addEventListener('click', function (e) {
         e.preventDefault();
-        // Fecha a sidebar antes de abrir o carrinho para ficar elegante
         const menuCheck = document.getElementById('menu');
         if (menuCheck) menuCheck.checked = false;
         
@@ -235,7 +250,6 @@ botoesAdicionar.forEach(botao => {
         const precoTexto = card.querySelector('.preco').innerText;
         const precoNumero = parseFloat(precoTexto.replace('R$', '').replace(',', '.').trim());
 
-        // Procura se o item já existe no carrinho para somar a quantidade
         const itemExistente = carrinho.find(item => item.nome === nomeProduto);
 
         if (itemExistente) {
@@ -249,7 +263,7 @@ botoesAdicionar.forEach(botao => {
         }
 
         alert(`✨ ${nomeProduto} foi adicionado ao seu carrinho!`);
-        atualizarDadosLocais();
+        renderizarCarrinhoVisual();
     });
 });
 
@@ -270,7 +284,6 @@ function renderizarCarrinhoVisual() {
         const custoItem = item.preco * item.quantidade;
         totalAcumulado += custoItem;
 
-        // Cria a linha fofa do item
         const divItem = document.createElement('div');
         divItem.style.display = 'flex';
         divItem.style.justifyContent = 'space-between';
@@ -281,10 +294,10 @@ function renderizarCarrinhoVisual() {
         divItem.innerHTML = `
             <div>
                 <span style="font-weight: bold; color: #5A2323;">${item.quantidade}x</span> ${item.nome}
-                <div style="font-size: 13px; color: #C06C84;">R$ ${item.preco.toFixed(2)} cada</div>
+                <div style="font-size: 13px; color: #C06C84;">R$ ${item.preco.toFixed(2).replace('.',',')} cada</div>
             </div>
             <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-weight: bold; color: #5A2323;">R$ ${custoItem.toFixed(2)}</span>
+                <span style="font-weight: bold; color: #5A2323;">R$ ${custoItem.toFixed(2).replace('.',',')}</span>
                 <button class="btn-remover-item" data-index="${index}" style="background: none; border: none; color: #C06C84; cursor: pointer; font-size: 16px;"><i class="fas fa-trash-alt"></i></button>
             </div>
         `;
@@ -292,30 +305,19 @@ function renderizarCarrinhoVisual() {
         conteinerItensCarrinho.appendChild(divItem);
     });
 
-    elementoValorTotal.innerText = `R$ ${totalAcumulado.toFixed(2)}`;
+    elementoValorTotal.innerText = `R$ ${totalAcumulado.toFixed(2).replace('.',',')}`;
 
-    // Gerencia cliques para apagar itens individuais
     const botoesRemover = document.querySelectorAll('.btn-remover-item');
     botoesRemover.forEach(btn => {
         btn.addEventListener('click', function () {
             const idx = parseInt(this.getAttribute('data-index'));
             carrinho.splice(idx, 1);
             renderizarCarrinhoVisual();
-            atualizarDadosLocais();
         });
     });
 }
 
-// 4. Salvar dados de retaguarda (LocalStorage)
-function atualizarDadosLocais() {
-    let total = carrinho.reduce((acc, item) => acc + (item.preco * item.quantidade), 0);
-    let nomes = carrinho.map(item => `${item.quantidade}x ${item.nome}`);
-    
-    localStorage.setItem('ultimoTotal', total.toFixed(2));
-    localStorage.setItem('ultimosProdutos', nomes.join(', '));
-}
-
-// 5. Finalizar Compra
+// 4. Finalizar Compra e Salvar no Banco de Dados Local do Admin
 if (btnFinalizarPedido) {
     btnFinalizarPedido.addEventListener('click', function () {
         if (carrinho.length === 0) {
@@ -323,15 +325,50 @@ if (btnFinalizarPedido) {
             return;
         }
 
+        // Validações dos novos inputs
+        const nomeCliente = document.getElementById('cart-nome-cliente').value.trim();
+        const tipoEntrega = document.getElementById('cart-tipo-entrega').value;
+        const formaPagamento = document.getElementById('cart-forma-pagamento').value;
+        const enderecoCliente = document.getElementById('cart-endereco-cliente').value.trim();
+
+        if (!nomeCliente) {
+            alert("⚠️ Por favor, insira o seu nome antes de finalizar!");
+            return;
+        }
+
+        if (tipoEntrega === 'Delivery' && !enderecoCliente) {
+            alert("⚠️ Por favor, insira o endereço para a entrega!");
+            return;
+        }
+
         let total = carrinho.reduce((acc, item) => acc + (item.preco * item.quantidade), 0);
-        alert(`🎉 Pedido Finalizado com Sucesso!\n✨ Obrigado por comprar no Coffee Time!\n💰 Total: R$ ${total.toFixed(2)}`);
+        let itensTexto = carrinho.map(item => `${item.quantidade}x ${item.nome}`).join(', ');
+
+        // Criando a estrutura do pedido para a tabela do Admin
+        const novoPedido = {
+            id: "#" + Math.floor(2000 + Math.random() * 9000), // Gera ID aleatório fofo tipo #2481
+            cliente: nomeCliente,
+            itens: itensTexto,
+            tipo: tipoEntrega,
+            endereco: tipoEntrega === 'Delivery' ? enderecoCliente : 'Retirada no Balcão',
+            pagamento: formaPagamento,
+            total: total.toFixed(2)
+        };
+
+        // Pegar pedidos já existentes ou começar uma lista nova
+        let listaPedidos = JSON.parse(localStorage.getItem('pedidosAdmin')) || [];
+        listaPedidos.unshift(novoPedido); // Adiciona no início da fila
+        localStorage.setItem('pedidosAdmin', JSON.stringify(listaPedidos));
+
+        alert(`🎉 Pedido Finalizado com Sucesso!\n✨ Obrigado por comprar no Coffee Time, ${nomeCliente}!\n💰 Total: R$ ${total.toFixed(2).replace('.',',')}`);
         
-        // Limpa tudo após o sucesso
+        // Limpa o carrinho e reseta os inputs
         carrinho = [];
-        atualizarDadosLocLocal = () => {}; 
-        localStorage.removeItem('ultimoTotal');
-        localStorage.removeItem('ultimosProdutos');
+        document.getElementById('cart-nome-cliente').value = '';
+        document.getElementById('cart-endereco-cliente').value = '';
+        if(blocoEnderecoEntrega) blocoEnderecoEntrega.style.display = 'none';
         
+        renderizarCarrinhoVisual();
         if (modalCarrinho) modalCarrinho.style.display = 'none';
     });
 }

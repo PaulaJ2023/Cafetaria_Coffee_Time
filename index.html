@@ -68,8 +68,8 @@
     <div class="popup-conteudo">
       <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
       <h2 class="titulo-popup">✨ Área de Login ✨</h2>
-      <form id="formulario-login" class="formulario-estilo" onsubmit="return false;"> 
-        <input type="text" id="campo-usuario" placeholder="Usuário ou E-mail" required> 
+      <form id="formulario-login" class="formulario-estilo" onsubmit="return false;">
+        <input type="text" id="campo-usuario" placeholder="Usuário ou E-mail" required>
         <input type="password" placeholder="Senha" required>
         <button type="submit" class="btn-laranja">Entrar</button>
         <div class="botoes-alternativos">
@@ -167,13 +167,49 @@
         <h2>🛒 Seu Carrinho</h2>
         <button id="btn-fechar-carrinho">&times;</button>
       </div>
-      <div id="itens-do-carrinho">
-        </div>
+
+      <div id="itens-do-carrinho"></div>
+
       <div class="total-carrinho">
         <span>Total:</span>
         <span id="valor-total-carrinho">R$ 0,00</span>
       </div>
-      <button id="btn-finalizar-pedido">Finalizar Pedido ✨</button>
+
+      <div class="dados-entrega-carrinho"
+        style="padding: 10px; background: #FFF5E4; border-radius: 10px; margin-top: 10px; font-family: 'Itim'; text-align: left;">
+        <h4 style="margin: 0 0 10px 0; color: #5A2323;">✨ Detalhes do Pedido</h4>
+
+        <div style="margin-bottom: 8px;">
+          <input type="text" id="cart-nome-cliente" placeholder="Seu Nome Completo"
+            style="width: 100%; padding: 6px; border: 1px solid #FCE1B6; border-radius: 5px;" required>
+        </div>
+
+        <div style="margin-bottom: 8px;">
+          <label style="color: #5A2323;">Opção de Retirada:</label>
+          <select id="cart-tipo-entrega"
+            style="width: 100%; padding: 6px; border: 1px solid #FCE1B6; border-radius: 5px;">
+            <option value="Retirada">Retirada no Balcão 🏪</option>
+            <option value="Delivery">Delivery / Entrega 🏍️</option>
+          </select>
+        </div>
+
+        <div id="bloco-endereco-entrega" style="margin-bottom: 8px; display: none;">
+          <input type="text" id="cart-endereco-cliente" placeholder="Endereço de Entrega (Rua, Nº, Bairro)"
+            style="width: 100%; padding: 6px; border: 1px solid #FCE1B6; border-radius: 5px;">
+        </div>
+
+        <div style="margin-bottom: 8px;">
+          <label style="color: #5A2323;">Forma de Pagamento:</label>
+          <select id="cart-forma-pagamento"
+            style="width: 100%; padding: 6px; border: 1px solid #FCE1B6; border-radius: 5px;">
+            <option value="Pix">Pix ✨</option>
+            <option value="Cartão">Cartão de Crédito/Débito 💳</option>
+            <option value="Dinheiro">Dinheiro 💵</option>
+          </select>
+        </div>
+      </div>
+
+      <button id="btn-finalizar-pedido" style="margin-top: 15px;">Finalizar Pedido ✨</button>
     </div>
   </div>
 
