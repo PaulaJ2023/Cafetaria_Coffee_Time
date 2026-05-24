@@ -3,7 +3,26 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+    // Carrega os pedidos assim que a página inicia
     carregarPedidosDaLoja();
+
+    // 1. SISTEMA DE FILTROS DOS PEDIDOS
+    const botoesFiltro = document.querySelectorAll('.filtros-fofos .filtro-btn');
+    if (botoesFiltro.length > 0) {
+        botoesFiltro.forEach(botao => {
+            botao.addEventListener('click', function () {
+                // Remove a classe 'ativo' de todos os botões de filtro
+                botoesFiltro.forEach(btn => btn.classList.remove('ativo'));
+                // Adiciona a classe 'ativo' apenas no botão clicado
+                this.classList.add('ativo');
+
+                // Pega o tipo de filtro (todos, Pendente, Preparo, etc.)
+                const filtro = this.getAttribute('data-filtro');
+                // Recarrega a tabela aplicando o filtro escolhido
+                carregarPedidosDaLoja(filtro);
+            });
+        });
+    }
 
     // 2. SISTEMA DE CADASTRO DE FUNCIONÁRIOS
     const formFuncionario = document.getElementById('form-cadastro-colaborador');
@@ -24,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let classeCor = 'rosa';
             let classeBadge = 'cargo-normal';
 
-            // Correção aqui: "Gerente Geral" para bater com o select do HTML
+            // Correção: "Gerente Geral" para bater com o select do HTML
             if (cargo === 'Gerente Geral') classeBadge = 'cargo-gerente';
             if (cargo === 'Barista') { icone = 'fa-cookie-bite'; classeCor = 'marrom'; }
             if (cargo === 'Estagiário') { icone = 'fa-seedling'; classeCor = 'amarelo'; classeBadge = 'cargo-estagiario'; }
@@ -168,23 +187,11 @@ window.atualizarStatusPedido = function (idPedido, botao) {
         }
 
         localStorage.setItem('pedidosAdmin', JSON.stringify(listaPedidos));
-       carregarPedidosDaLoja();
 
-    // SITEMA DE FILTROS DOS PEDIDOS (ADICIONE ESTE BLOCO AQUI):
-    const botoesFiltro = document.querySelectorAll('.filtros-fofos .filtro-btn');
-    botoesFiltro.forEach(botao => {
-        botao.addEventListener('click', function() {
-            // Remove a classe 'ativo' de todos os botões de filtro
-            botoesFiltro.forEach(btn => btn.classList.remove('ativo'));
-            // Adiciona a classe 'ativo' apenas no botão clicado
-            this.classList.add('ativo');
-
-            // Pega o tipo de filtro (todos, Pendente ou Preparo)
-            const filtro = this.getAttribute('data-filtro');
-            // Recarrega a tabela aplicando o filtro escolhido!
-            carregarPedidosDaLoja(filtro);
-        });
-    });
+        // Mantém o filtro atual ao recarregar a lista após a mudança de status
+        const filtroAtivo = document.querySelector('.filtro-btn.ativo');
+        const filtro = filtroAtivo ? filtroAtivo.getAttribute('data-filtro') : 'todos';
+        carregarPedidosDaLoja(filtro);
     }
 };
 
@@ -193,11 +200,14 @@ window.excluirPedido = function (idPedido) {
     if (confirm("Deseja realmente apagar o histórico deste pedido?")) {
         let listaPedidos = JSON.parse(localStorage.getItem('pedidosAdmin')) || [];
 
-        // Correção aqui: alterado de "==" para "!=" para excluir apenas o selecionado
+        // Filtra para remover apenas o item selecionado
         listaPedidos = listaPedidos.filter(p => p.id != idPedido);
 
         localStorage.setItem('pedidosAdmin', JSON.stringify(listaPedidos));
-        carregarPedidosDaLoja();
+
+        const filtroAtivo = document.querySelector('.filtro-btn.ativo');
+        const filtro = filtroAtivo ? filtroAtivo.getAttribute('data-filtro') : 'todos';
+        carregarPedidosDaLoja(filtro);
     }
 };
 
@@ -209,11 +219,11 @@ window.addEventListener('load', function () {
     const painelPedidosWeb = document.createElement('section');
     painelPedidosWeb.classList.add('painel-secao');
     painelPedidosWeb.innerHTML = `
-        <h2><i class="fas fa-coffee"></i> Último Pedido da Web (Integração)</h2>
-        <div style="background: #fff; padding: 15px; border-radius: 15px; border: 2px dashed #C06C84;">
+        <h2 style="text-align: center;"><i class="fas fa-coffee"></i> Último Pedido da Web (Integração)</h2>
+        <div style="background: #fff; padding: 15px; border-radius: 15px; border: 2px dashed #C06C84; text-align: center;">
             <p><strong>Produtos:</strong> ${produtosPedido || 'Nenhum pedido detectado'}</p>
             <p><strong>Total:</strong> R$ ${totalPedido || '0.00'}</p>
-            <button id="btn-gerar-token" style="background: #C06C84; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-family: 'Itim';">
+            <button id="btn-gerar-token" style="background: #C06C84; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-family: 'Itim'; margin-top: 10px;">
                 Copiar Dados para o Java ☕
             </button>
         </div>
@@ -233,23 +243,11 @@ window.addEventListener('load', function () {
     });
 });
 
+// Sincronização entre abas abertas caso o LocalStorage mude
 window.addEventListener('storage', function (evento) {
     if (evento.key === 'pedidosAdmin') {
         const filtroAtivo = document.querySelector('.filtro-btn.ativo');
         const filtro = filtroAtivo ? filtroAtivo.getAttribute('data-filtro') : 'todos';
         carregarPedidosDaLoja(filtro);
     }
-});
-
-const container = document.querySelector('.admin-container') || document.body;
-container.appendChild(painelPedidosWeb);
-
-document.getElementById('btn-gerar-token').addEventListener('click', function () {
-    if (!totalPedido) {
-        alert("Não há pedidos no carrinho para exportar!");
-        return;
-    }
-    const token = `CLIENTE: WebCliente | ENDERECO: Retirada Balcão | PRODUTOS: ${produtosPedido} | TOTAL: ${totalPedido}`;
-    navigator.clipboard.writeText(token);
-    alert("✨ Dados do pedido copiados! Vá à Tela do Java e use a Aba de Anotação de Pedidos.");
 });
