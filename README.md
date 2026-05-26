@@ -45,7 +45,7 @@ Curso: ADS - UNP Campus Salgado Filho - Turno: Manhã
 
 ---
 # Funcionalidades Principais ⚙️
-* Login Inteligente:
+* Login Inteligente
 * Cadastro com Validação
 * Carrinho de Compras
 * Formulário Adaptável
@@ -70,19 +70,29 @@ Curso: ADS - UNP Campus Salgado Filho - Turno: Manhã
 | `/Entidade Fraca`           | Gerente / Estagiario  | Dependem logicamente e estruturalmente da classe Funcionario (Herança)   |
 | `/Entidade Associativa`     | Pedido                | Une os dados do fluxo de venda (Cliente + Produtos + Valores do momento) |
 
+---
 # 🔗 Relacionamentos
 
-## 🔹 One-to-One
+## Relacionamentos e Estrutura do Sistema
+* Superclasse: Funcionario
+ ↳ Subclasse: Gerente
+ ↳ Subclasse: Estagiario
 
-* Pedido ➔ Pagamento
+## Composição de Telas e Dependência (Java Swing)
+* TelaAdmin ↔ Lista de Funcionários / Pedidos
+* TelaClientes ↔ Lista de Clientes
 
-## 🔹 One-to-Many
+## Associação de Atributos (Simulação de Entidades)
+* Pedido ↔ Cliente (Associação por Texto)
+* Pedido ↔ Itens Comprados (Agregação de Texto)
 
-* Cliente ➔ Pedido
+## Integração Web ↔ Java (Sincronização por Área de Transferência)
+* Painel Web (admin.html/js) ➔ Sistema Desktop (Java):
 
-## 🔹 Many-to-Many
-
-* Pedido ➔ Produtos
+One-to-Many (Um para Muitos):
+* TelaAdmin → Funcionario
+* TelaAdmin → Pedido
+* LocalStorage (pedidosAdmin) → Pedidos
 
 ---
 
@@ -328,4 +338,50 @@ POST /pedidos
 ```
 ---
 
+# ▶️ Execução do Projeto
+*Coffee Time** é composto por duas partes integradas: a interface Web do cliente e o sistema Desktop de gerenciamento em Java.
+
+## Executando a Interface Web (Cliente e Painel Admin)
+* **Acesso Direto:** Você pode acessar o sistema online através dos links oficiais do GitHub Pages:
+  * 🛒 **Loja/Delivery:** [https://paulaj2023.github.io/Coffee_Time/](https://paulaj2023.github.io/Coffee_Time/)
+  * 🛠️ **Painel Admin:** [https://paulaj2023.github.io/Coffee_Time/admin.html](https://paulaj2023.github.io/Coffee_Time/admin.html)
+
+ ## Clonar repositório
+```bash
+git clone [https://github.com/paulaj2023/Coffee_Time.git](https://github.com/paulaj2023/Coffee_Time.git)
+```
+Navegue até a pasta do projeto e abra o arquivo `index.html` em qualquer navegador web.
+
+ ## Executando o Sistema de Gestão (Java Desktop)
+ ### Pré-requisitos
+* Ter o **JDK 17** (ou superior) instalado na máquina.
+* Uma IDE de preferência (Eclipse, VS Code com extensões Java, ou IntelliJ).
+
+### Passos para Execução
+1. Abra a pasta do projeto Java na sua IDE.
+2. Certifique-se de que todas as classes estão localizadas dentro do package `POOJava`.
+3. Abra o arquivo **`TelaFuncionarios.java`** (ou `TelaAdmin.java` / `Principal.java` dependendo de qual tela deseja iniciar).
+4. Clique em **Run** ou execute pelo terminal dentro do diretório dos arquivos:
+```bash
+javac POOJava/*.java
+java POOJava.TelaFuncionarios
+```
 ---
+
+## 🔗Fluxo de Integração Híbrida
+* Acesse o Painel Admin Web e cadastre um novo colaborador.
+* Clique no botão "Copiar Funcionário para o Java 👤☕" para gerar o token na área de transferência.
+* Abra a janela do Java Swing em sua máquina e clique no botão "Importar Colaborador da Web 📋". Os dados do navegador preencherão a interface gráfica automaticamente!
+
+---
+
+## 📌 Status do Projeto
+* Estrutura de Classes e Herança validada.
+* Interface Web Responsiva e Integrada com o Java via Clipboard.
+* Sistema de cálculo de folha salarial polimórfico operacional.
+
+---
+
+## 📄 Licença
+
+Projeto desenvolvido para fins acadêmicos.
