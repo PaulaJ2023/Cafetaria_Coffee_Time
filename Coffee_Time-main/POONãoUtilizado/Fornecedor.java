@@ -1,0 +1,63 @@
+package POONãoUtilizado;
+/*package javas.extras;
+
+public class Fornecedor {
+    private String nome;
+    private String cpf;
+    private String cnpj;
+    private String telefone;
+    private String endereco;
+    private double pagamento;
+    public Fornecedor(String nome, String cpf, String telefone, String endereco, String cnpj, double pagamento){
+        this.nome = nome;
+        this.cpf = cpf;
+        this.cnpj = cnpj;
+        this.telefone = telefone;
+        this.endereco = endereco;
+        this.pagamento = pagamento;
+    }
+    public String getNome() {
+        return nome;
+    }
+    public String getCpf() {
+        return cpf;
+    }
+    public String getCnpj() {
+        return cnpj;
+    }
+    public String getTelefone() {
+        return telefone;
+    }
+    public String getEndereco() {
+        return endereco;
+    }
+    public double getPagamento() {
+        return pagamento;
+    }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+    public void setPagamento(double pagamento) {
+        this.pagamento = pagamento;
+    }
+    public void exibirDados(){
+        System.out.println("Nome:" + nome);
+        System.out.println("CPF" + cpf);
+        System.out.println("CNPJ" + cnpj);
+        System.out.println("Telefone:" + telefone);
+        System.out.println("Endereço:" + endereco);
+        System.out.println("Pagamento:" + pagamento);
+    }
+}*/
