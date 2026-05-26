@@ -1,6 +1,6 @@
 # ☕ Coffee Time
 Projeto A3 - Site para uma loja fisica e delivery de Cafés com doces e salgados como acompanhamento.
-Site: [Link](https://paulaj2023.github.io/Coffee_Time/)
+* Site: [Link](https://paulaj2023.github.io/Coffee_Time/)
 Administração: Link 
 ---
 # 📑 Sobre o Projeto
