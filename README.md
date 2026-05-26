@@ -343,8 +343,8 @@ POST /pedidos
 
 ## Executando a Interface Web (Cliente e Painel Admin)
 * **Acesso Direto:** Você pode acessar o sistema online através dos links oficiais do GitHub Pages:
-  * 🛒 **Loja/Delivery:** [Link](https://paulaj2023.github.io/Coffee_Time/) (https://paulaj2023.github.io/Coffee_Time/)
-  * 🛠️ **Painel Admin:** [Link](https://paulaj2023.github.io/Coffee_Time/admin.html) (https://paulaj2023.github.io/Coffee_Time/admin.html)
+  * 🛒 **Loja/Delivery:** [Link](https://paulaj2023.github.io/Coffee_Time/)
+  * 🛠️ **Painel Admin:** [Link](https://paulaj2023.github.io/Coffee_Time/admin.html)
 
  ## Clonar repositório
 git clone -> [Link](https://github.com/PaulaJ2023/Coffee_Time.git)
