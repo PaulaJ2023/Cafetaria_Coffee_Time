@@ -26,14 +26,29 @@ Curso: ADS - UNP Campus Salgado Filho - Turno: Manhã
 * Realizar pedidos
 * Fazer pagamentos
 
+**## Site / Loja 👤**
+* Gerenciar produtos
+* Gerenciar pedidos
+* Atualizar status
 
 ## Administrador 🛠️
 * Gerencia Funcionarios
 * Controlar pedidos
 * Administrar a plataforma
+* Painel de Acessibilidade (UI/IHC)
+* Modo Escuro
+* Listagem e Filtro de Pedidos
+* Controle de Progresso
+* Dashboard de Métricas
+* Cadastro de Equipe
+* Gerador de Token (Exportação)
 
 ---
 # Funcionalidades Principais ⚙️
+* Login Inteligente:
+* Cadastro com Validação
+* Carrinho de Compras
+* Formulário Adaptável
 
 ---
 # Requísitos Aplicados 📋
