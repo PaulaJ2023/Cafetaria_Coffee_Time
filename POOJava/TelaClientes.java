@@ -6,24 +6,23 @@ import java.util.ArrayList;
 
 public class TelaClientes extends JFrame {
 
-    // Campos de texto adaptados exclusivamente para a classe Cliente
     private JTextField txtNome, txtCpf, txtTelefone, txtEndereco, txtPagamento;
+    private JComboBox<String> cbFormaPagamento; // Novo menu seletor para as formas de pagamento
     private JTextArea areaResultado;
-    private JLabel lblTotalPagamentos; // Mostra o acumulado recebido dos clientes
+    private JLabel lblTotalPagamentos; 
 
-    // Lista exclusiva para armazenar os Clientes
     private ArrayList<Cliente> listaClientes = new ArrayList<>();
 
     public TelaClientes() {
         setTitle("Sistema de Gerenciamento de Clientes");
-        setSize(500, 550);
+        setSize(500, 600); // Aumentado um pouco o tamanho para acomodar a nova linha
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         setLayout(new BorderLayout());
 
-        // Painel de Cadastro (GridLayout ajustado para 5 linhas de campos de dados)
-        JPanel painelTopo = new JPanel(new GridLayout(5, 2, 5, 5));
+        // Ajustado para 6 linhas de campos de dados
+        JPanel painelTopo = new JPanel(new GridLayout(6, 2, 5, 5));
         painelTopo.setBorder(BorderFactory.createTitledBorder("Cadastro de Cliente"));
 
         txtNome = new JTextField();
@@ -31,6 +30,10 @@ public class TelaClientes extends JFrame {
         txtTelefone = new JTextField();
         txtEndereco = new JTextField();
         txtPagamento = new JTextField();
+        
+        // Inicializando o seletor de formas de pagamento
+        String[] formas = {"Pix", "Cartão de Débito", "Cartão de Crédito", "Dinheiro"};
+        cbFormaPagamento = new JComboBox<>(formas);
 
         painelTopo.add(new JLabel("Nome do Cliente:"));
         painelTopo.add(txtNome);
@@ -42,20 +45,20 @@ public class TelaClientes extends JFrame {
         painelTopo.add(txtEndereco);
         painelTopo.add(new JLabel("Valor do Pagamento:"));
         painelTopo.add(txtPagamento);
+        painelTopo.add(new JLabel("Forma de Pagamento:"));
+        painelTopo.add(cbFormaPagamento);
 
         add(painelTopo, BorderLayout.NORTH);
 
-        // Área de resultado central com Scroll para listagem
         areaResultado = new JTextArea();
         areaResultado.setEditable(false);
         areaResultado.setFont(new Font("Monospaced", Font.PLAIN, 12));
         add(new JScrollPane(areaResultado), BorderLayout.CENTER);
 
-        // Painel Inferior (Botão de Cadastrar + Somatório de Recebimentos)
         JPanel painelInferior = new JPanel(new BorderLayout());
 
         JButton btnCadastrar = new JButton("Cadastrar Cliente");
-        btnCadastrar.setBackground(new Color(46, 139, 87)); // Cor verde para diferenciar de funcionários
+        btnCadastrar.setBackground(new Color(46, 139, 87)); 
         btnCadastrar.setForeground(Color.WHITE);
         btnCadastrar.setFont(new Font("Arial", Font.BOLD, 14));
 
@@ -68,25 +71,47 @@ public class TelaClientes extends JFrame {
 
         add(painelInferior, BorderLayout.SOUTH);
 
-        // Evento do botão cadastrar
         btnCadastrar.addActionListener(e -> cadastrarCliente());
     }
 
     private void cadastrarCliente() {
         try {
-            // Captura das Strings do formulário
             String nome = txtNome.getText();
             String cpf = txtCpf.getText();
             String telefone = txtTelefone.getText();
             String endereco = txtEndereco.getText();
 
-            // Conversão do valor monetário do pagamento
-            double pagamento = Double.parseDouble(txtPagamento.getText());
+            // Validação inicial do valor numérico
+            double valor = Double.parseDouble(txtPagamento.getText());
+            
+            // Captura a forma selecionada no JComboBox
+            String formaSelecionada = (String) cbFormaPagamento.getSelectedItem();
+            String detalhesPagamento = "";
 
-            // Criação do objeto Cliente utilizando o construtor do seu código console
-            Cliente c = new Cliente(nome, cpf, telefone, endereco, pagamento);
+            // Lógica para obter as informações adicionais pedidas no enunciado
+            if (formaSelecionada.equals("Pix")) {
+                String chavePix = JOptionPane.showInputDialog(this, "Digite a chave PIX:");
+                if (chavePix == null || chavePix.trim().isEmpty()) chavePix = "Não informada";
+                detalhesPagamento = "Pix (Chave: " + chavePix + ") - R$ " + String.format("%.2f", valor);
+                
+            } else if (formaSelecionada.equals("Cartão de Débito") || formaSelecionada.equals("Cartão de Crédito")) {
+                String numCartao = JOptionPane.showInputDialog(this, "Digite o número do cartão:");
+                if (numCartao == null || numCartao.trim().isEmpty()) numCartao = "Não informado";
+                detalhesPagamento = formaSelecionada + " (Nº: " + numCartao + ") - R$ " + String.format("%.2f", valor);
+                
+            } else if (formaSelecionada.equals("Dinheiro")) {
+                String[] moedas = {"Real (BRL)", "Dólar (USD)"};
+                int resposta = JOptionPane.showOptionDialog(this, "O pagamento é em Real ou Dólar?", 
+                        "Tipo de Moeda", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, 
+                        null, moedas, moedas[0]);
+                
+                String moedaEscolhida = (resposta == 1) ? "Dólar (USD)" : "Real (BRL)";
+                detalhesPagamento = "Dinheiro em " + moedaEscolhida + " - R$ " + String.format("%.2f", valor);
+            }
 
-            // Salvando na lista correta
+            // Criação do objeto passando o valor puro e a String detalhada
+            Cliente c = new Cliente(nome, cpf, telefone, endereco, valor, detalhesPagamento);
+
             listaClientes.add(c);
 
             atualizarTela();
@@ -105,18 +130,16 @@ public class TelaClientes extends JFrame {
         areaResultado.setText("");
         double totalRecebido = 0;
 
-        // Varre a lista de clientes imprimindo os dados na tela
         for (Cliente c : listaClientes) {
             areaResultado.append("--------------------------------------------------\n");
             areaResultado.append("Cliente: " + c.getNome() + " | CPF: " + c.getCpf() + "\n");
             areaResultado.append("Telefone: " + c.getTelefone() + " | Endereço: " + c.getEndereco() + "\n");
-            // Supondo que sua classe Cliente tenha o método getPagamento() implementado
-            areaResultado.append("Valor Pago: R$ " + String.format("%.2f", c.getPagamento()) + "\n");
+            // Exibe a string completa detalhada que criamos
+            areaResultado.append("Forma de Pagto: " + c.getPagamento() + "\n");
 
-            totalRecebido += c.getPagamento();
+            totalRecebido += c.getValorNumericoPagamento();
         }
 
-        // Atualiza o painel inferior com a soma total dos pagamentos dos clientes
         lblTotalPagamentos.setText("Total de Pagamentos Recebidos: R$ " + String.format("%.2f", totalRecebido));
     }
 
@@ -126,6 +149,7 @@ public class TelaClientes extends JFrame {
         txtTelefone.setText("");
         txtEndereco.setText("");
         txtPagamento.setText("");
+        cbFormaPagamento.setSelectedIndex(0);
     }
 
     public static void main(String[] args) {

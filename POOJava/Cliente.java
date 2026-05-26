@@ -5,14 +5,16 @@ public class Cliente {
     private String cpf;
     private String telefone;
     private String endereco;
-    private double pagamento;
+    private String pagamento; // Alterado para String para guardar os detalhes da forma de pagamento
+    private double valorPagamento; // Campo interno para manter o valor numérico para as somas
 
-    public Cliente(String nome, String cpf, String telefone, String endereco, double pagamento) {
+    public Cliente(String nome, String cpf, String telefone, String endereco, double valorPagamento, String detalhesPagamento) {
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
         this.endereco = endereco;
-        this.pagamento = pagamento;
+        this.valorPagamento = valorPagamento;
+        this.pagamento = detalhesPagamento;
     }
 
     public String getNome() {
@@ -31,8 +33,12 @@ public class Cliente {
         return endereco;
     }
 
-    public double getPagamento() {
+    public String getPagamento() {
         return pagamento;
+    }
+
+    public double getValorNumericoPagamento() {
+        return valorPagamento;
     }
 
     public void setNome(String nome) {
@@ -51,8 +57,12 @@ public class Cliente {
         this.endereco = endereco;
     }
 
-    public void setPagamento(double pagamento) {
+    public void setPagamento(String pagamento) {
         this.pagamento = pagamento;
+    }
+
+    public void setValorPagamento(double valorPagamento) {
+        this.valorPagamento = valorPagamento;
     }
 
     public void exibirDados() {
