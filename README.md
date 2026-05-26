@@ -348,8 +348,10 @@ POST /pedidos
 
  ## Clonar repositório
 ```bash
-git clone [Link](https://github.com/PaulaJ2023/Coffee_Time.git) https://github.com/PaulaJ2023/Coffee_Time.git
+git clone
 ```
+[Link](https://github.com/PaulaJ2023/Coffee_Time.git)
+
 Navegue até a pasta do projeto e abra o arquivo `index.html` em qualquer navegador web.
 
  ## Executando o Sistema de Gestão (Java Desktop)
