@@ -21,15 +21,15 @@ Curso: ADS - UNP Campus Salgado Filho - Turno: Manhã
 #  👥 Perfis dos usuários
 
 ## Cliente 👤
-* Cadastrar
-* Logar
-* Realizar pedidos
-* Fazer pagamentos
+* Cadastrar e Logar
+* Adiciona produtos ao carrinho e simula os valores.
+* Realiza pedidos preenchendo informações como nome, forma de pagamento e tipo de entrega (Delivery ou Retirada no Balcão).
+* Acompanha o status dos seus pedidos
 
-**## Site / Loja 👤**
-* Gerenciar produtos
-* Gerenciar pedidos
-* Atualizar status
+## Funcionários / Membros Ativos 👥
+* Gerente: Perfil com maior nível de acesso na gestão.
+* Barista: Responsável pelo preparo dos cafés e produtos.
+* Estagiária: Perfil de suporte à equipe.
 
 ## Administrador 🛠️
 * Gerencia Funcionarios
@@ -61,4 +61,12 @@ Curso: ADS - UNP Campus Salgado Filho - Turno: Manhã
 * Cadastro, listagem e consulta de dados
 * Organização do código
 
+---
+# 🧩 Entidades do Sistema
+
+|Tipo de Entidade             | Classe no Código Java | Justificativa                                                            |
+| --------------------------- | --------------------- | ------------------------------------------------------------------------ |
+| `/Entidade Forte`           | Funcionario / Cliente | Possuem identificadores próprios (CPF) e existem de forma autónoma       |
+| `/Entidade Fraca`           | Gerente / Estagiario  | Dependem logicamente e estruturalmente da classe Funcionario (Herança)   |
+| `/Entidade Associativa`     | Pedido                | Une os dados do fluxo de venda (Cliente + Produtos + Valores do momento) |
 
