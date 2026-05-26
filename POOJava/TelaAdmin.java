@@ -2,6 +2,7 @@ package POOJava;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
 import java.util.ArrayList;
 
 public class TelaAdmin extends JFrame {
@@ -102,8 +103,8 @@ public class TelaAdmin extends JFrame {
     private JPanel criarAbaPedidos() {
         JPanel painel = new JPanel(new BorderLayout(10, 10));
 
-        // Formulário de Pedidos
-        JPanel form = new JPanel(new GridLayout(7, 2, 8, 12));
+        // Formulário de Pedidos (Grid reajustado para comportar o botão de importação)
+        JPanel form = new JPanel(new GridLayout(8, 2, 8, 12));
         form.setBorder(BorderFactory.createTitledBorder("Anotar Novo Pedido"));
 
         txtNomeCliente = new JTextField();
@@ -112,6 +113,11 @@ public class TelaAdmin extends JFrame {
         comboPagamento = new JComboBox<>(new String[] { "Pix", "Cartão de Crédito", "Cartão de Débito", "Dinheiro" });
         retirarPedido = new JComboBox<>(new String[] { "Retirar da Loja", "Delivery", "Comer na Loja" });
         txtTotalPedido = new JTextField();
+        
+        JButton btnImportarWeb = new JButton("Importar Pedido da Web ☕");
+        btnImportarWeb.setBackground(new Color(192, 108, 132)); // Cor combinando com a identidade visual do site
+        btnImportarWeb.setForeground(Color.WHITE);
+        
         JButton btnCadastrarPedido = new JButton("Anotar Pedido");
 
         form.add(new JLabel("Nome do Cliente:"));
@@ -122,47 +128,102 @@ public class TelaAdmin extends JFrame {
         form.add(new JScrollPane(areaProdutos));
         form.add(new JLabel("Forma de Pagamento:"));
         form.add(comboPagamento);
-        form.add(new JLabel("Escolha uma retirada do seu pedido:"));
+        form.add(new JLabel("Tipo de Retirada:"));
         form.add(retirarPedido);
-        form.add(new JLabel("Total a pagar"));
+        form.add(new JLabel("Total a Pagar (R$):"));
         form.add(txtTotalPedido);
-        form.add(new JLabel(""));
+        form.add(btnImportarWeb);
         form.add(btnCadastrarPedido);
 
         // Área de Exibição dos Pedidos
         areaPedido = new JTextArea();
         areaPedido.setEditable(false);
-        JScrollPane scroll = new JScrollPane(areaPedido);
+        JScrollPane scrollPedidos = new JScrollPane(areaPedido);
 
         painel.add(form, BorderLayout.WEST);
-        painel.add(scroll, BorderLayout.CENTER);
+        painel.add(scrollPedidos, BorderLayout.CENTER);
 
-        // Ação do Botão
+        // Ações dos Botões
         btnCadastrarPedido.addActionListener(e -> cadastrarPedido());
+        btnImportarWeb.addActionListener(e -> importarPedidoDoClipboard());
 
         return painel;
     }
 
-    // --- LÓGICA POO EM MEMÓRIA ---
+    // Método responsável por capturar o Clipboard e fazer o Parse dos dados
+    private void importarPedidoDoClipboard() {
+        try {
+            // Pega o texto armazenado na Área de Transferência (Ctrl+C) do computador
+            String dadosCopiados = (String) Toolkit.getDefaultToolkit()
+                    .getSystemClipboard().getContents(null).getTransferData(DataFlavor.stringFlavor);
+
+            if (dadosCopiados != null && dadosCopiados.contains(";")) {
+                String[] partes = dadosCopiados.split(";");
+
+                if (partes.length >= 7) {
+                    // 1. Preenche os campos textuais simples
+                    txtNomeCliente.setText(partes[1].trim());
+                    txtEndereco.setText(partes[2].trim());
+                    
+                    // Melhora a visualização dos produtos quebrando as linhas por vírgula
+                    areaProdutos.setText(partes[3].trim().replace(", ", "\n")); 
+                    
+                    // 2. Trata e seleciona a Forma de Pagamento no ComboBox
+                    String pagamentoWeb = partes[4].trim();
+                    selecionarItemCombo(comboPagamento, pagamentoWeb);
+
+                    // 3. Tratamento especial para o tipo de retirada ("Retirada" -> "Retirar da Loja")
+                    String tipoWeb = partes[5].trim();
+                    if (tipoWeb.equalsIgnoreCase("Retirada")) {
+                        retirarPedido.setSelectedItem("Retirar da Loja");
+                    } else {
+                        selecionarItemCombo(retirarPedido, tipoWeb);
+                    }
+
+                    // 4. Insere o valor total
+                    txtTotalPedido.setText(partes[6].trim());
+
+                    JOptionPane.showMessageDialog(this, "✨ Pedido da Web importado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "O texto copiado não possui a quantidade de dados necessária.", "Formato Inválido", JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Nenhum dado válido de pedido encontrado na Área de Transferência.\nCertifique-se de clicar em 'Copiar Dados para o Java' no site.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao acessar a Área de Transferência: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // Método utilitário para varrer e selecionar dinamicamente itens de JComboBox
+    private void selecionarItemCombo(JComboBox<String> combo, String valor) {
+        for (int i = 0; i < combo.getItemCount(); i++) {
+            if (combo.getItemAt(i).equalsIgnoreCase(valor) || combo.getItemAt(i).toLowerCase().contains(valor.toLowerCase())) {
+                combo.setSelectedIndex(i);
+                return;
+            }
+        }
+    }
+
     private void cadastrarFuncionario() {
         try {
-            int cargo = comboCargo.getSelectedIndex();
-            String nome = txtNomeFunc.getText() == null ? txtNomeFunc.getText() : txtNomeFunc.getText();
+            String nome = txtNomeFunc.getText();
             String cpf = txtCpfFunc.getText();
             double salario = Double.parseDouble(txtSalario.getText());
             double valorHora = Double.parseDouble(txtValorHora.getText());
             double horas = Double.parseDouble(txtHoras.getText());
 
             Funcionario f;
+            String cargo = (String) comboCargo.getSelectedItem();
 
-            if (cargo == 1) { // Gerente
+            if (cargo.equals("Gerente")) {
                 double grat = Double.parseDouble(txtGratificacao.getText());
                 double lucros = Double.parseDouble(txtLucros.getText());
                 f = new Gerente(nome, cpf, salario, valorHora, horas, grat, lucros);
-            } else if (cargo == 2) { // Estagiário
+            } else if (cargo.equals("Estagiário")) {
                 double bolsa = Double.parseDouble(txtBolsa.getText());
                 f = new Estagiario(nome, cpf, salario, valorHora, horas, bolsa);
-            } else { // Funcionário Normal
+            } else {
                 f = new Funcionario(nome, cpf, salario, valorHora, horas);
             }
 
@@ -170,40 +231,42 @@ public class TelaAdmin extends JFrame {
             atualizarListaFuncionarios();
             limparCamposFuncionario();
             JOptionPane.showMessageDialog(this, "Funcionário cadastrado com sucesso!");
+
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao cadastrar funcionário. Verifique os valores numéricos.");
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar funcionário: " + ex.getMessage(), "Erro",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private void cadastrarPedido() {
         try {
-            String cliente = txtNomeCliente.getText();
+            String nome = txtNomeCliente.getText();
             String endereco = txtEndereco.getText();
             String produtos = areaProdutos.getText();
             String pagamento = (String) comboPagamento.getSelectedItem();
-            String retirar = (String) retirarPedido.getSelectedItem();
+            String retirada = (String) retirarPedido.getSelectedItem();
             double total = Double.parseDouble(txtTotalPedido.getText());
 
-            Pedido p = new Pedido(contadorPedidos++, cliente, endereco, produtos, pagamento, retirar, total);
+            Pedido p = new Pedido(contadorPedidos++, nome, endereco, produtos, pagamento, retirada, total);
             listaPedidos.add(p);
 
             atualizarListaPedidos();
             limparCamposPedido();
-            JOptionPane.showMessageDialog(this, "Pedido anotado com sucesso!");
+            JOptionPane.showMessageDialog(this, "Pedido registado com sucesso!");
+
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao salvar pedido. Verifique o valor total.");
+            JOptionPane.showMessageDialog(this, "Erro ao registar pedido: " + ex.getMessage(), "Erro",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private void atualizarListaFuncionarios() {
         areaFuncionarios.setText("");
         double totalFolha = 0;
-
         for (Funcionario f : listaFuncionarios) {
+            f.exibirDados();
             areaFuncionarios.append("Nome: " + f.getNome() + " | CPF: " + f.getCpf() + "\n");
-            // O polimorfismo acontece aqui ao calcular o salário específico de cada cargo
-            // automaticamente
-            areaFuncionarios.append("Salário Líquido: R$ " + String.format("%.2f", f.calcularSalario()) + "\n");
+            areaFuncionarios.append("Salário a receber: R$ " + String.format("%.2f", f.calcularSalario()) + "\n");
             areaFuncionarios.append("----------------------------------------------------------------------\n");
             totalFolha += f.calcularSalario();
         }
