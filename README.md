@@ -21,14 +21,16 @@ Curso: ADS - UNP Campus Salgado Filho - Turno: Manhã
 #  👥 Perfis dos usuários
 
 ## Cliente 👤
-* Realiza pedidos
-* Acompanha pedidos 
+* Cadastrar
+* Logar
+* Realizar pedidos
+* Fazer pagamentos
 
 
 ## Administrador 🛠️
-* Gerencia usuários
-* Controla pedidos
-* Administra toda a plataforma
+* Gerencia Funcionarios
+* Controlar pedidos
+* Administrar a plataforma
 
 ---
 # Funcionalidades Principais ⚙️
