@@ -303,7 +303,7 @@ POST /funcionarios/estagiario
 }
 ```
 
-## ☕ Pedidos e Delivery
+##☕ Pedidos e Delivery
 
 ```http
 GET /pedidos
