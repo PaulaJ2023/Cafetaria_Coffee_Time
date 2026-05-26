@@ -177,3 +177,155 @@ erDiagram
         string cpf PK
         float bolsaAuxilio
     }
+```
+---
+# 📦 Endpoints Principais (Simulação da API REST do Coffee Time) ☕
+
+Esta seção documenta como a estrutura de dados atual do Coffee Time (HTML/JS + Java Swing) seria mapeada em uma API RESTful para comunicação com um servidor backend.
+
+## 🔓 Público
+
+### Buscar Informações do Cardápio
+```http
+GET /produtos
+```
+
+## 🔑 Autenticação
+
+```http
+POST /auth/login
+```
+
+### Request Body
+
+```json
+{
+  "email": "eduarda@coffeetime.com",
+  "senha": "duda123"
+}
+```
+
+### Response
+
+```json
+{
+  "autenticado": true,
+  "usuario": "Eduarda",
+  "perfil": "ADMINISTRADOR",
+  "token": "token_sessao_coffee_time_jwt"
+}
+```
+
+---
+
+## 👤 Clientes
+
+```http
+GET /clientes
+POST /clientes
+```
+
+```json
+{
+  "nome": "Paula",
+  "cpf": "123.456.789-00",
+  "telefone": "84999999999",
+  "endereco": "Lagoa Nova, Natal - RN",
+  "detalhesPagamento": "Pix",
+  "valorPagamento": 0.0
+}
+```
+
+---
+
+## 🛠️ Gestão de Funcionários
+
+```http
+GET /funcionarios
+DELETE /funcionarios/{cpf}
+```
+
+Cadastrar Funcionário Comum / Barista
+```http
+POST /funcionarios/comum
+```
+
+```json
+{
+  "nome": "Lucas Ribeiro",
+  "cpf": "111.222.333-44",
+  "salarioBase": 2200.00,
+  "valorHora": 0.0,
+  "horasTrabalhadas": 0.0
+}
+```
+
+Cadastrar Gerente
+```http
+POST /funcionarios/gerente
+```
+
+```json
+{
+  "nome": "Eduarda Pereira",
+  "cpf": "555.666.777-88",
+  "salarioBase": 4500.00,
+  "valorHora": 0.0,
+  "horasTrabalhadas": 0.0,
+  "gratificacao": 800.00,
+  "participacaoLucros": 500.00
+}
+```
+
+Cadastrar Estagiário
+```http
+POST /funcionarios/estagiario
+```
+
+```json
+{
+  "nome": "Julia Costa",
+  "cpf": "999.888.777-66",
+  "salarioBase": 0.0,
+  "valorHora": 0.0,
+  "horasTrabalhadas": 0.0,
+  "bolsaAuxilio": 1200.00
+}
+```
+
+##☕ Pedidos e Delivery
+
+```http
+GET /pedidos
+GET /pedidos/{numeroPedido}
+```
+
+
+---
+
+## Criar Novo Pedido da Loja
+
+```http
+POST /pedidos
+```
+
+```json
+{
+  "numeroPedido": 4829,
+  "nomeCliente": "Paula Jordânia",
+  "endereco": "Lagoa Nova, Natal - RN",
+  "produtosSelecionados": "2x Café Espresso, 1x Cookie Chocolate, 1x Bolo de Cenoura",
+  "formaPagamento": "Pix",
+  "retirarPedido": "Delivery",
+  "totalPagar": 21.50
+}
+
+{
+  "status": "Sucesso",
+  "mensagem": "🎉 Pedido enviado para a cozinha com sucesso! Acompanhe no Painel Admin.",
+  "codigoPedido": "#4829"
+}
+```
+---
+
+---
