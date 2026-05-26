@@ -89,7 +89,7 @@ function carregarPedidosDaLoja(filtroSelecionado = 'todos') {
 
         // LÓGICA DE FILTRAGEM
         if (filtroSelecionado !== 'todos' && statusAtual !== filtroSelecionado) {
-            return; 
+            return;
         }
 
         const novaLinha = document.createElement('tr');
@@ -213,7 +213,7 @@ function inicializarPainelIntegracao() {
 
     let listaPedidos = JSON.parse(localStorage.getItem('pedidosAdmin')) || [];
     // Pega o último pedido inserido no LocalStorage (primeiro do array unshift)
-    let ultimoPedido = listaPedidos[0]; 
+    let ultimoPedido = listaPedidos[0];
 
     const produtosPedido = ultimoPedido ? ultimoPedido.itens : 'Nenhum pedido detectado';
     const totalPedido = ultimoPedido ? ultimoPedido.total : '0.00';
@@ -242,9 +242,13 @@ function inicializarPainelIntegracao() {
             alert("Não há pedidos no sistema para exportar!");
             return;
         }
-        const token = `CLIENTE: ${clientePedido} | ENDERECO: ${enderecoPedido} | PRODUTOS: ${produtosPedido} | TOTAL: ${totalPedido}`;
+
+        const numeroApenas = ultimoPedido.id.replace('#', '');
+
+        const token = `${numeroApenas};${ultimoPedido.cliente};${ultimoPedido.endereco};${ultimoPedido.itens};${ultimoPedido.pagamento};${ultimoPedido.tipo};${ultimoPedido.total}`;
+
         navigator.clipboard.writeText(token);
-        alert("✨ Dados do pedido copiados! Vá à Tela do Java e use a Aba de Anotação de Pedidos.");
+        alert("✨ Dados estruturados copiados com sucesso!\n☕ Vá ao sistema Java e clique em 'Importar Pedido da Web'.");
     });
 }
 

@@ -46,7 +46,7 @@
 
     <a href="#" id="btn-acessibilidade"><i class="fas fa-universal-access" aria-hidden="true"></i>
       <span>Acessibilidade</span></a>
-    
+
     <label for="popup-config-controle" class="link-menu-label" tabindex="0" role="button"
       onkeydown="if(event.key==='Enter'||event.key===' '){this.click(); event.preventDefault()}">
       <i class="fas fa-cog" aria-hidden="true"></i> <span>Configurações</span>
@@ -91,7 +91,7 @@
       <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
       <h2 class="titulo-popup">🌸 Recuperar Senha 🌸</h2>
       <p class="texto-popup">Insira seu e-mail para receber as instruções de recuperação.</p>
-      <form id="formulario-recuperar" class="formulario-estilo" onsubmit="return false;">
+      <form id="formulario-login" class="formulario-estilo">
         <input type="email" id="campo-email-recuperar" placeholder="Seu e-mail cadastrado" required>
         <button type="submit" class="btn-laranja">Enviar Instruções</button>
         <div class="botoes-alternativos">
@@ -138,7 +138,7 @@
       <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
       <h2 class="titulo-popup">⚙️ Configurações ⚙️</h2>
       <form id="formulario-config" class="formulario-estilo" onsubmit="return false;">
-        
+
         <div class="item-config">
           <label for="cfg-tema-escuro">🌙 Tema Escuro</label>
           <input type="checkbox" id="cfg-tema-escuro">

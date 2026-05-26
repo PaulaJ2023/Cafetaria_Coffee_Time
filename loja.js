@@ -8,12 +8,24 @@ const fecharPopupTodos = document.getElementById('popup-fechar-todos');
 //SISTEMA DE LOGIN
 const formularioLogin = document.getElementById('formulario-login');
 const campoUsuario = document.getElementById('campo-usuario');
+// Capturando o campo de senha que estava faltando no JS anterior
+const campoSenhaLogin = document.querySelector('#formulario-login input[type="password"]');
 
 if (formularioLogin) {
     formularioLogin.addEventListener('submit', function (event) {
         event.preventDefault();
         const nomeDigitado = campoUsuario.value.trim();
+        const senhaDigitada = campoSenhaLogin ? campoSenhaLogin.value : "";
 
+        // Verificação para o login de Administrador (Duda)
+        if ((nomeDigitado === "eduarda@coffeetime.com" || nomeDigitado === "duda123") && senhaDigitada === "duda123") {
+            alert("☕ Acesso administrativo detectado! Bem-vinda, Duda. Redirecionando...");
+            // Abre o painel de admin (crie um arquivo chamado admin.html para os pedidos)
+            window.location.href = "admin.html";
+            return; // Interrompe o resto da execução
+        }
+
+        // Fluxo normal para usuários comuns
         if (nomeDigitado !== "") {
             const primeiroNome = nomeDigitado.split(" ")[0].split("@")[0];
             if (nomeUsuarioSidebar) {
@@ -61,7 +73,7 @@ if (formularioRegistro) {
 }
 
 //SISTEMA DE RECUPERAÇÃO DE SENHA
-const formularioRecuperar = document.getElementById('formulario-recover'); // Ajustado para corresponder ao HTML
+const formularioRecuperar = document.getElementById('formulario-recover');
 
 const formRecuperarReal = document.getElementById('formulario-recuperar') || formularioRecuperar;
 if (formRecuperarReal) {
@@ -103,7 +115,6 @@ if (formularioContato) {
 const formularioConfig = document.getElementById('formulario-config');
 const popupConfigControle = document.getElementById('popup-config-controle');
 
-// Função rápida para aplicar ou remover a classe do tema escuro no body
 function aplicarTemaEscuro(ativar) {
     if (ativar) {
         document.body.classList.add('tema-escuro');
@@ -112,13 +123,11 @@ function aplicarTemaEscuro(ativar) {
     }
 }
 
-// Carregar todas as configurações salvas ao iniciar a página
 document.addEventListener('DOMContentLoaded', () => {
     const configsSalvas = JSON.parse(localStorage.getItem('coffeeTimeConfigs'));
     if (configsSalvas) {
         if (document.getElementById('cfg-tema-escuro')) {
             document.getElementById('cfg-tema-escuro').checked = configsSalvas.temaEscuro || false;
-            // Aplica o tema logo no carregamento se estiver ativo
             aplicarTemaEscuro(configsSalvas.temaEscuro);
         }
         if (document.getElementById('cfg-notificacoes')) {
@@ -133,9 +142,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Fechar a sidebar quando clicar em Configurações
 if (popupConfigControle) {
-    popupConfigControle.addEventListener('change', function() {
+    popupConfigControle.addEventListener('change', function () {
         if (this.checked) {
             const menuCheck = document.getElementById('menu');
             if (menuCheck) menuCheck.checked = false;
@@ -143,25 +151,22 @@ if (popupConfigControle) {
     });
 }
 
-// Salvar Preferências
 if (formularioConfig) {
     formularioConfig.addEventListener('submit', function (event) {
         event.preventDefault();
-        
+
         const temaEscuro = document.getElementById('cfg-tema-escuro').checked;
         const notificacoes = document.getElementById('cfg-notificacoes').checked;
         const salvarDados = document.getElementById('cfg-salvar-dados').checked;
         const moeda = document.getElementById('cfg-moeda').value;
 
-        // Atualiza o tema escuro em tempo real na tela
         aplicarTemaEscuro(temaEscuro);
 
-        // Guarda no localStorage do navegador
         const objetoConfig = { temaEscuro, notificacoes, salvarDados, moeda };
         localStorage.setItem('coffeeTimeConfigs', JSON.stringify(objetoConfig));
 
-        alert("⚙️ Preferências atualizadas com sucesso e aplicadas!");
-        
+        alert("⚙️ Preferências updated com sucesso e aplicadas!");
+
         if (fecharPopupTodos) {
             fecharPopupTodos.checked = true;
         }
@@ -230,7 +235,6 @@ if (toggleInverter) {
     });
 }
 
-//PARA ACESSIBILIDADE DIGITAL
 document.addEventListener('DOMContentLoaded', () => {
     const toggles = document.querySelectorAll('.popup-toggle, .menu-check');
 
@@ -262,7 +266,6 @@ document.addEventListener('DOMContentLoaded', () => {
     atualizarVisibilidadeAria();
 });
 
-
 //SISTEMA DO CARRINHO
 let carrinho = [];
 
@@ -285,7 +288,7 @@ if (cartTipoEntrega && blocoEnderecoEntrega) {
         } else {
             blocoEnderecoEntrega.style.display = 'none';
             document.getElementById('cart-endereco-cliente').removeAttribute('required');
-        }   
+        }
     });
 }
 
