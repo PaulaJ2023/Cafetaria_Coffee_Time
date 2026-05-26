@@ -1,6 +1,5 @@
 // ANOTAÇÕES DA PAULA: Esse arquivo cuida do Painel de Admin! 🛠️
 // Ele pega os dados do formulário de funcionário e também puxa os pedidos da loja!
-
 document.addEventListener('DOMContentLoaded', function () {
 
     // Carrega os pedidos assim que a página inicia
@@ -18,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Pega o tipo de filtro (todos, Pendente, Preparo, etc.)
                 const filtro = this.getAttribute('data-filtro');
-                // Recarrega a tabela aplicando o filtro escolhido
+                // Recarrega a tabela aplicando o filtro escolher
                 carregarPedidosDaLoja(filtro);
             });
         });
@@ -35,6 +34,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const nome = document.getElementById('nome-func').value;
             const email = document.getElementById('email-func').value;
             const cargo = document.getElementById('cargo-func').value;
+
+            // --- INTEGRAÇÃO JAVA: Salva o funcionário recém-criado no LocalStorage ---
+            const dadosFuncionario = { nome, email, cargo };
+            localStorage.setItem('ultimoFuncionarioAdmin', JSON.stringify(dadosFuncionario));
 
             const novoItem = document.createElement('div');
             novoItem.classList.add('item-funcionario-fofo');
@@ -62,13 +65,17 @@ document.addEventListener('DOMContentLoaded', function () {
             // Atualiza dinamicamente o card de Equipe Ativa
             atualizarCardEquipe();
 
+            // Recarrega o painel de exportação do funcionário para o Java
+            inicializarPainelIntegracaoFuncionario();
+
             alert(`✨ Colaborador(a) ${nome} cadastrado(a) com sucesso no sistema!`);
             formFuncionario.reset();
         });
     }
 
-    // Inicializa a caixinha de integração após renderizar a página
+    // Inicializa as caixinhas de integração após renderizar a página
     inicializarPainelIntegracao();
+    inicializarPainelIntegracaoFuncionario(); // <--- Nova inicialização
 });
 
 // Função que integra os pedidos salvos no LocalStorage dentro da Tabela Administrativa
@@ -145,15 +152,12 @@ function carregarPedidosDaLoja(filtroSelecionado = 'todos') {
 function atualizarCardsMetricas(novosPedidos, valorExtra, novosPendentes) {
     const cards = document.querySelectorAll('.card-metrica-admin .numero-metrica');
     if (cards.length >= 4) {
-        // 1. Pedidos de Hoje (Começa em 0 e conta o total de pedidos reais na lista)
         let totalPedidosHoje = novosPedidos;
         cards[0].innerText = totalPedidosHoje;
 
-        // 2. Para Entrega (Começa em 0 e conta apenas os pedidos Delivery que estão Pendentes ou em Preparo)
         let totalPendentesEntrega = novosPendentes;
         cards[1].innerText = `${totalPendentesEntrega} Pendente${totalPendentesEntrega !== 1 ? 's' : ''}`;
 
-        // 3. Faturamento (Começa em 0.00 e soma o total de todos os pedidos reais)
         let faturamentoTotal = valorExtra;
         cards[3].innerText = `R$ ${faturamentoTotal.toFixed(2).replace('.', ',')}`;
     }
@@ -202,7 +206,7 @@ window.excluirPedido = function (idPedido) {
         const filtroAtivo = document.querySelector('.filtro-btn.ativo');
         const filtro = filtroAtivo ? filtroAtivo.getAttribute('data-filtro') : 'todos';
         carregarPedidosDaLoja(filtro);
-        inicializarPainelIntegracao(); // Atualiza a caixinha do Java caso o último pedido mude
+        inicializarPainelIntegracao();
     }
 };
 
@@ -212,13 +216,10 @@ function inicializarPainelIntegracao() {
     if (painelExistente) painelExistente.remove();
 
     let listaPedidos = JSON.parse(localStorage.getItem('pedidosAdmin')) || [];
-    // Pega o último pedido inserido no LocalStorage (primeiro do array unshift)
     let ultimoPedido = listaPedidos[0];
 
     const produtosPedido = ultimoPedido ? ultimoPedido.itens : 'Nenhum pedido detectado';
     const totalPedido = ultimoPedido ? ultimoPedido.total : '0.00';
-    const clientePedido = ultimoPedido ? ultimoPedido.cliente : 'WebCliente';
-    const enderecoPedido = ultimoPedido ? ultimoPedido.endereco : 'Retirada Balcão';
 
     const painelPedidosWeb = document.createElement('section');
     painelPedidosWeb.id = 'painel-integracao-java';
@@ -235,6 +236,7 @@ function inicializarPainelIntegracao() {
     `;
 
     const container = document.querySelector('.admin-container') || document.body;
+    // Insere o painel de pedidos no início ou fim do container
     container.appendChild(painelPedidosWeb);
 
     document.getElementById('btn-gerar-token').addEventListener('click', function () {
@@ -244,11 +246,52 @@ function inicializarPainelIntegracao() {
         }
 
         const numeroApenas = ultimoPedido.id.replace('#', '');
-
         const token = `${numeroApenas};${ultimoPedido.cliente};${ultimoPedido.endereco};${ultimoPedido.itens};${ultimoPedido.pagamento};${ultimoPedido.tipo};${ultimoPedido.total}`;
 
         navigator.clipboard.writeText(token);
         alert("✨ Dados estruturados copiados com sucesso!\n☕ Vá ao sistema Java e clique em 'Importar Pedido da Web'.");
+    });
+}
+
+// --- NOVA FUNÇÃO: Integração de Funcionários para o Java ---
+function inicializarPainelIntegracaoFuncionario() {
+    let painelExistente = document.getElementById('painel-integracao-java-func');
+    if (painelExistente) painelExistente.remove();
+
+    let ultimoFunc = JSON.parse(localStorage.getItem('ultimoFuncionarioAdmin'));
+
+    const nomeFunc = ultimoFunc ? ultimoFunc.nome : 'Nenhum cadastro recente';
+    const emailFunc = ultimoFunc ? ultimoFunc.email : 'corporativo@coffeetime.com';
+    const cargoFunc = ultimoFunc ? ultimoFunc.cargo : 'Nenhum';
+
+    const painelFuncWeb = document.createElement('section');
+    painelFuncWeb.id = 'painel-integracao-java-func';
+    painelFuncWeb.classList.add('painel-secao');
+    painelFuncWeb.innerHTML = `
+        <h2 style="text-align: center;"><i class="fas fa-user-tie"></i> Último Colaborador (Integração)</h2>
+        <div style="background: #fff; padding: 15px; border-radius: 15px; border: 2px dashed #45B69C; text-align: center;">
+            <p><strong>Nome:</strong> ${nomeFunc}</p>
+            <p><strong>Cargo:</strong> ${cargoFunc}</p>
+            <button id="btn-gerar-token-func" style="background: #45B69C; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-family: 'Itim'; margin-top: 10px;">
+                Copiar Funcionário para o Java 👤☕
+            </button>
+        </div>
+    `;
+
+    const container = document.querySelector('.admin-container') || document.body;
+    container.appendChild(painelFuncWeb);
+
+    document.getElementById('btn-gerar-token-func').addEventListener('click', function () {
+        if (!ultimoFunc) {
+            alert("Não há funcionários cadastrados nesta sessão para exportar!");
+            return;
+        }
+
+        // Formato da string de transferência para o Java: Nome;Email;Cargo
+        const tokenFunc = `${ultimoFunc.nome};${ultimoFunc.email};${ultimoFunc.cargo}`;
+
+        navigator.clipboard.writeText(tokenFunc);
+        alert("✨ Dados do colaborador copiados com sucesso!\n☕ Vá ao sistema Java e clique em 'Importar Funcionário'.");
     });
 }
 
@@ -259,5 +302,8 @@ window.addEventListener('storage', function (evento) {
         const filtro = filtroAtivo ? filtroAtivo.getAttribute('data-filtro') : 'todos';
         carregarPedidosDaLoja(filtro);
         inicializarPainelIntegracao();
+    }
+    if (evento.key === 'ultimoFuncionarioAdmin') {
+        inicializarPainelIntegracaoFuncionario();
     }
 });

@@ -2,11 +2,13 @@ package POOJava;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.DataFlavor; // Importante para ler a área de transferência
+import java.awt.Toolkit; // Importante para acessar o Clipboard do sistema
 import java.util.ArrayList;
 
 public class TelaFuncionarios extends JFrame {
 
-    // Campos de texto adaptados para bater com as variáveis do código anterior
+    // Campos de texto adaptados para bater com as variáveis do código
     private JTextField txtNome, txtCpf, txtSalario, txtValorHora, txtHorasTrabalhadas, txtGratificacao,
             txtParticipacaoLucros, txtBolsaAuxilio;
     private JComboBox<String> comboTipo;
@@ -17,14 +19,13 @@ public class TelaFuncionarios extends JFrame {
 
     public TelaFuncionarios() {
         setTitle("Sistema de Gerenciamento de Funcionários");
-        setSize(550, 650);
+        setSize(580, 650);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         setLayout(new BorderLayout());
 
-        // Painel de Cadastro (GridLayout expandido para 9 linhas para caber todos os
-        // novos campos)
+        // Painel de Cadastro (GridLayout expandido para 9 linhas)
         JPanel painelTopo = new JPanel(new GridLayout(9, 2, 5, 5));
         painelTopo.setBorder(BorderFactory.createTitledBorder("Cadastro de Funcionários"));
 
@@ -37,93 +38,105 @@ public class TelaFuncionarios extends JFrame {
         txtParticipacaoLucros = new JTextField();
         txtBolsaAuxilio = new JTextField();
 
-        comboTipo = new JComboBox<>(new String[] { "Funcionario", "Gerente", "Estagiario" });
+        String[] tipos = { "Funcionário Comum", "Gerente", "Estagiário" };
+        comboTipo = new JComboBox<>(tipos);
 
-        painelTopo.add(new JLabel("Tipo:"));
+        // Adicionando os componentes no painel de cima
+        painelTopo.add(new JLabel(" Tipo de Cargo:"));
         painelTopo.add(comboTipo);
-        painelTopo.add(new JLabel("Nome:"));
+        painelTopo.add(new JLabel(" Nome:"));
         painelTopo.add(txtNome);
-        painelTopo.add(new JLabel("CPF:"));
+        painelTopo.add(new JLabel(" CPF:"));
         painelTopo.add(txtCpf);
-        painelTopo.add(new JLabel("Salário Base:"));
+        painelTopo.add(new JLabel(" Salário Base:"));
         painelTopo.add(txtSalario);
-        painelTopo.add(new JLabel("Valor Hora:"));
+        painelTopo.add(new JLabel(" Valor da Hora:"));
         painelTopo.add(txtValorHora);
-        painelTopo.add(new JLabel("Horas Trabalhadas:"));
+        painelTopo.add(new JLabel(" Horas Trabalhadas:"));
         painelTopo.add(txtHorasTrabalhadas);
-        painelTopo.add(new JLabel("Gratificação (Apenas Gerente):"));
+        painelTopo.add(new JLabel(" Gratificação (Apenas Gerente):"));
         painelTopo.add(txtGratificacao);
-        painelTopo.add(new JLabel("Part. Lucros (Apenas Gerente):"));
+        painelTopo.add(new JLabel(" Part. Lucros (Apenas Gerente):"));
         painelTopo.add(txtParticipacaoLucros);
-        painelTopo.add(new JLabel("Bolsa Auxílio (Apenas Estagiário):"));
+        painelTopo.add(new JLabel(" Bolsa Auxílio (Apenas Estagiário):"));
         painelTopo.add(txtBolsaAuxilio);
 
         add(painelTopo, BorderLayout.NORTH);
 
-        // Área de resultado central com Scroll
+        // Painel Central (Exibição dos resultados cadastrados)
+        JPanel painelCentral = new JPanel(new BorderLayout());
         areaResultado = new JTextArea();
         areaResultado.setEditable(false);
-        areaResultado.setFont(new Font("Monospaced", Font.PLAIN, 12));
-        add(new JScrollPane(areaResultado), BorderLayout.CENTER);
+        JScrollPane scroll = new JScrollPane(areaResultado);
+        painelCentral.add(scroll, BorderLayout.CENTER);
 
-        // Painel Inferior (Botão de Cadastrar + Totalizador de Folha Salarial)
-        JPanel painelInferior = new JPanel(new BorderLayout());
+        // Inicializa a label de totalização da folha
+        lblTotalFolha = new JLabel("Total da Folha Salarial: R$ 0,00", SwingConstants.RIGHT);
+        lblTotalFolha.setFont(new Font("Arial", Font.BOLD, 13));
+        lblTotalFolha.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 10));
+        painelCentral.add(lblTotalFolha, BorderLayout.SOUTH);
 
-        JButton btnCadastrar = new JButton("Cadastrar Funcionário");
-        btnCadastrar.setBackground(new Color(70, 130, 180));
-        btnCadastrar.setForeground(Color.WHITE);
-        btnCadastrar.setFont(new Font("Arial", Font.BOLD, 14));
+        add(painelCentral, BorderLayout.CENTER);
 
-        lblTotalFolha = new JLabel("Total da Folha Salarial: R$ 0.00", SwingConstants.CENTER);
-        lblTotalFolha.setFont(new Font("Arial", Font.BOLD, 14));
-        lblTotalFolha.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        // --- PAINEL DE BOTÕES TOTALMENTE ARRUMADO ---
+        JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-        painelInferior.add(btnCadastrar, BorderLayout.NORTH);
-        painelInferior.add(lblTotalFolha, BorderLayout.SOUTH);
+        JButton btnCadastrar = new JButton("Cadastrar 💾");
+        JButton btnLimpar = new JButton("Limpar 🧹");
+        JButton btnFechar = new JButton("Fechar ❌");
 
-        add(painelInferior, BorderLayout.SOUTH);
+        // Botão de Importação customizado estilo Web
+        JButton btnImportarWeb = new JButton("Importar da Web 👤☕");
+        btnImportarWeb.setBackground(new Color(69, 182, 156)); // Verde igual ao site
+        btnImportarWeb.setForeground(Color.WHITE);
+        btnImportarWeb.setFont(new Font("Arial", Font.BOLD, 12));
+        btnImportarWeb.setFocusPainted(false);
 
-        // Evento do botão cadastrar
+        // Adicionando os botões na ordem correta e organizada
+        painelBotoes.add(btnImportarWeb);
+        painelBotoes.add(btnCadastrar);
+        painelBotoes.add(btnLimpar);
+        painelBotoes.add(btnFechar);
+
+        add(painelBotoes, BorderLayout.SOUTH);
+
+        // Configuração das ações de clique dos botões
         btnCadastrar.addActionListener(e -> cadastrarFuncionario());
+        btnLimpar.addActionListener(e -> limparCampos());
+        btnFechar.addActionListener(e -> dispose());
+        btnImportarWeb.addActionListener(e -> importarFuncionarioDaWeb());
     }
 
     private void cadastrarFuncionario() {
         try {
-            // Campos comuns a todos os tipos
             String nome = txtNome.getText();
             String cpf = txtCpf.getText();
             double salario = Double.parseDouble(txtSalario.getText());
             double valorHora = Double.parseDouble(txtValorHora.getText());
-            double horasTrabalhadas = Double.parseDouble(txtHorasTrabalhadas.getText());
+            double horas = Double.parseDouble(txtHorasTrabalhadas.getText());
 
-            String tipo = comboTipo.getSelectedItem().toString();
-            Funcionario f;
+            int tipoSelecionado = comboTipo.getSelectedIndex();
 
-            // Polimorfismo aplicado na criação dos objetos seguindo seus construtores
-            // anteriores
-            if (tipo.equals("Gerente")) {
+            if (tipoSelecionado == 0) { // Funcionário Comum
+                Funcionario f = new Funcionario(nome, cpf, salario, valorHora, horas);
+                lista.add(f);
+            } else if (tipoSelecionado == 1) { // Gerente
                 double gratificacao = Double.parseDouble(txtGratificacao.getText());
-                double participacaoLucros = Double.parseDouble(txtParticipacaoLucros.getText());
-
-                f = new Gerente(nome, cpf, salario, valorHora, horasTrabalhadas, gratificacao, participacaoLucros);
-
-            } else if (tipo.equals("Estagiario")) {
-                double bolsaAuxilio = Double.parseDouble(txtBolsaAuxilio.getText());
-
-                f = new Estagiario(nome, cpf, salario, valorHora, horasTrabalhadas, bolsaAuxilio);
-
-            } else {
-                f = new Funcionario(nome, cpf, salario, valorHora, horasTrabalhadas);
+                double lucros = Double.parseDouble(txtParticipacaoLucros.getText());
+                Gerente g = new Gerente(nome, cpf, salario, valorHora, horas, gratificacao, lucros);
+                lista.add(g);
+            } else if (tipoSelecionado == 2) { // Estagiário
+                double bolsa = Double.parseDouble(txtBolsaAuxilio.getText());
+                Estagiario est = new Estagiario(nome, cpf, salario, valorHora, horas, bolsa);
+                lista.add(est);
             }
-
-            lista.add(f);
 
             atualizarTela();
             limparCampos();
             JOptionPane.showMessageDialog(this, "Funcionário cadastrado com sucesso!");
 
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Erro: Verifique se preencheu os campos numéricos corretamente!",
+            JOptionPane.showMessageDialog(this, "Erro: Certifique-se de preencher os campos numéricos corretamente!",
                     "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro ao cadastrar: " + ex.getMessage());
@@ -134,8 +147,6 @@ public class TelaFuncionarios extends JFrame {
         areaResultado.setText("");
         double totalFolha = 0;
 
-        // O polimorfismo acontece aqui: f.calcularSalario() executa a regra da classe
-        // específica
         for (Funcionario f : lista) {
             areaResultado.append("--------------------------------------------------\n");
             areaResultado.append("Nome: " + f.getNome() + " | CPF: " + f.getCpf() + "\n");
@@ -144,8 +155,6 @@ public class TelaFuncionarios extends JFrame {
             totalFolha += f.calcularSalario();
         }
 
-        // Atualiza a label com o valor acumulado da folha (Substitui a opção 3 do seu
-        // menu antigo)
         lblTotalFolha.setText("Total da Folha Salarial: R$ " + String.format("%.2f", totalFolha));
     }
 
@@ -158,6 +167,79 @@ public class TelaFuncionarios extends JFrame {
         txtGratificacao.setText("");
         txtParticipacaoLucros.setText("");
         txtBolsaAuxilio.setText("");
+    }
+
+    // ====== FUNÇÃO DE IMPORTAÇÃO: APENAS PREENCHE OS CAMPOS DA TELA ======
+    private void importarFuncionarioDaWeb() {
+        try {
+            // 1. Pega o texto da área de transferência (o seu Ctrl+V do botão do site)
+            String dadosCopiados = (String) Toolkit.getDefaultToolkit()
+                    .getSystemClipboard().getData(DataFlavor.stringFlavor);
+
+            // Validação básica do formato
+            if (dadosCopiados == null || dadosCopiados.trim().isEmpty() || !dadosCopiados.contains(";")) {
+                JOptionPane.showMessageDialog(this,
+                        "⚠️ Nenhum dado de funcionário válido na área de transferência.\n" +
+                                "Vá ao site de Admin e clique em 'Copiar Funcionário para o Java'.",
+                        "Aviso", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // 2. Divide os dados da String: Nome;Email;Cargo
+            String[] partes = dadosCopiados.split(";");
+            if (partes.length < 3) {
+                JOptionPane.showMessageDialog(this, "⚠️ O texto copiado está incompleto ou corrompido.", "Erro",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            String nome = partes[0].trim();
+            String email = partes[1].trim();
+            String cargo = partes[2].trim();
+
+            // Limpa antes de injetar os novos valores
+            limparCampos();
+
+            // Preenche o nome e sugere uma máscara de CPF provisória
+            txtNome.setText(nome);
+            txtCpf.setText("000.000.000-00");
+
+            // 3. Identifica o cargo e muda o ComboBox + sugere valores fictícios adequados
+            if (cargo.equalsIgnoreCase("Gerente Geral") || cargo.equalsIgnoreCase("Gerente")) {
+                comboTipo.setSelectedIndex(1); // Modifica o seletor para "Gerente"
+                txtSalario.setText("4500.00");
+                txtValorHora.setText("0.0");
+                txtHorasTrabalhadas.setText("0.0");
+                txtGratificacao.setText("500.00");
+                txtParticipacaoLucros.setText("250.00");
+                txtBolsaAuxilio.setText("0.0");
+            } else if (cargo.equalsIgnoreCase("Estagiário") || cargo.equalsIgnoreCase("Estagiario")) {
+                comboTipo.setSelectedIndex(2); // Modifica o seletor para "Estagiário"
+                txtSalario.setText("0.0");
+                txtValorHora.setText("0.0");
+                txtHorasTrabalhadas.setText("0.0");
+                txtGratificacao.setText("0.0");
+                txtParticipacaoLucros.setText("0.0");
+                txtBolsaAuxilio.setText("1200.00");
+            } else {
+                comboTipo.setSelectedIndex(0); // Modifica o seletor para "Funcionário Comum"
+                txtSalario.setText("2200.00");
+                txtValorHora.setText("0.0");
+                txtHorasTrabalhadas.setText("0.0");
+                txtGratificacao.setText("0.0");
+                txtParticipacaoLucros.setText("0.0");
+                txtBolsaAuxilio.setText("0.0");
+            }
+
+            JOptionPane.showMessageDialog(this,
+                    "✨ Campos preenchidos com os dados de " + nome + "!\n" +
+                            "📝 Altere o CPF/Valores se necessário e clique em 'Cadastrar 💾'.",
+                    "Importado com Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao preencher os campos: " + ex.getMessage(), "Erro",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public static void main(String[] args) {
