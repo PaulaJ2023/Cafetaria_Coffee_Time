@@ -70,3 +70,110 @@ Curso: ADS - UNP Campus Salgado Filho - Turno: Manhã
 | `/Entidade Fraca`           | Gerente / Estagiario  | Dependem logicamente e estruturalmente da classe Funcionario (Herança)   |
 | `/Entidade Associativa`     | Pedido                | Une os dados do fluxo de venda (Cliente + Produtos + Valores do momento) |
 
+# 🔗 Relacionamentos
+
+## 🔹 One-to-One
+
+* Pedido ➔ Pagamento
+
+## 🔹 One-to-Many
+
+* Cliente ➔ Pedido
+
+## 🔹 Many-to-Many
+
+* Pedido ➔ Produtos
+
+---
+
+# 🛠️ Tecnologias Utilizadas
+
+## Back-end
+
+* Java SE
+* Java Swing
+* Java AWT
+
+## Integração de Dados
+
+* Web LocalStorage (API do Navegador)
+* Java Collections (ArrayList)
+* Clipboard Data Transfer (Mecanismo de Integração)
+
+## Front-end
+
+* HTML
+* CSS
+* JavaScript
+* Font Awesome
+
+---
+
+# 🏗️ Modelo de Dados com localStorage e ArrayList
+
+Nosso código código não possui um banco de dados relacional físico configurado (como MySQL ou PostgreSQL). Em vez disso, usamos o localStorage no navegador e ArrayList na memória do Java para guardar as informações. No entanto, estruturalmente, nosso programa possui sim um Modelo de Dados Implícito. As nossas classes Java e os objetos criados no JavaScript foram desenhados com atributos que se conectam exatamente como tabelas de um banco de dados.
+
+```mermaid
+erDiagram
+    %% Relacionamento de Herança/Especialização representado logicamente
+    FUNCIONARIO ||--o| GERENTE : pode_ser
+    FUNCIONARIO ||--o| ESTAGIARIO : pode_ser
+
+    %% Relacionamentos do fluxo de negócios do Coffee Time
+    CLIENTE ||--o{ PEDIDO : realiza
+    PEDIDO ||--|{ ITEM_PEDIDO : contem
+    PRODUTO ||--o{ ITEM_PEDIDO : pertence_a
+    PEDIDO ||--|| PAGAMENTO : possui
+
+    CLIENTE {
+        string cpf PK
+        string nome
+        string telefone
+        string endereco
+    }
+
+    PEDIDO {
+        int numeroPedido PK
+        string nomeCliente FK
+        string endereco
+        string retirarPedido
+        float totalPagar
+    }
+
+    ITEM_PEDIDO {
+        int id FK
+        int numeroPedido FK
+        string nomeProduto
+        int quantidade
+    }
+
+    PRODUTO {
+        string nome PK
+        float preco
+        string categoria
+    }
+
+    PAGAMENTO {
+        int numeroPedido PK
+        string formaPagamento
+        float valorPagamento
+    }
+
+    FUNCIONARIO {
+        string cpf PK
+        string nome
+        float salarioBase
+        float valorHora
+        float horasTrabalhadas
+    }
+
+    GERENTE {
+        string cpf PK
+        float gratificacao
+        float participacaoLucros
+    }
+
+    ESTAGIARIO {
+        string cpf PK
+        float bolsaAuxilio
+    }
