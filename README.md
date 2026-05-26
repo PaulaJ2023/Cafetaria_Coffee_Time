@@ -196,7 +196,7 @@ GET /produtos
 POST /auth/login
 ```
 
-### Request Body
+### Request
 
 ```json
 {
