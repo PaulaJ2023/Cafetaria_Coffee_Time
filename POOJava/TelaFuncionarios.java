@@ -194,8 +194,7 @@ public class TelaFuncionarios extends JFrame {
             }
 
             String nome = partes[0].trim();
-            String email = partes[1].trim();
-            String cargo = partes[2].trim();
+            String cargo = partes[1].trim();
 
             // Limpa antes de injetar os novos valores
             limparCampos();
