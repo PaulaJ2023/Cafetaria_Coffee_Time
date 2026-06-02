@@ -12,7 +12,6 @@
 
 <body>
   <input type="checkbox" id="menu" class="menu-check" aria-hidden="true" tabindex="-1">
-
   <input type="radio" name="popup-grupo" id="popup-fechar-todos" class="popup-toggle" checked aria-hidden="true"
     tabindex="-1">
   <input type="radio" name="popup-grupo" id="popup-login-controle" class="popup-toggle" aria-hidden="true"
@@ -24,6 +23,8 @@
   <input type="radio" name="popup-grupo" id="popup-contato-controle" class="popup-toggle" aria-hidden="true"
     tabindex="-1">
   <input type="radio" name="popup-grupo" id="popup-config-controle" class="popup-toggle" aria-hidden="true"
+    tabindex="-1">
+  <input type="radio" name="popup-grupo" id="popup-sobre-controle" class="popup-toggle" aria-hidden="true"
     tabindex="-1">
 
   <nav class="sidebar" role="navigation" aria-label="Menu Lateral">
@@ -52,7 +53,10 @@
       <i class="fas fa-cog" aria-hidden="true"></i> <span>Configurações</span>
     </label>
 
-    <a href="#"><i class="fas fa-info-circle" aria-hidden="true"></i> <span>Sobre nós</span></a>
+    <label for="popup-sobre-controle" class="link-menu-label" tabindex="0" role="button"
+      onkeydown="if(event.key==='Enter'||event.key===' '){this.click(); event.preventDefault()}">
+      <i class="fas fa-info-circle" aria-hidden="true"></i> <span>Sobre nós</span>
+    </label>
   </nav>
 
   <header class="topo">
@@ -69,6 +73,7 @@
     <h1>Seja Bem-Vindo ao Coffee Time! ✨☕</h1>
   </section>
 
+  <!-- ==================== POPUP LOGIN ==================== -->
   <div class="popup-overlay login-overlay">
     <div class="popup-conteudo">
       <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
@@ -85,6 +90,7 @@
     </div>
   </div>
 
+  <!-- ==================== POPUP ESQUECI A SENHA ==================== -->
   <div class="popup-overlay senha-overlay">
     <div class="popup-conteudo">
       <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
@@ -100,6 +106,7 @@
     </div>
   </div>
 
+  <!-- ==================== POPUP REGISTRAR-SE ==================== -->
   <div class="popup-overlay registro-overlay">
     <div class="popup-conteudo">
       <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
@@ -118,88 +125,7 @@
     </div>
   </div>
 
-  <div class="popup-overlay contato-overlay">
-    <div class="popup-conteudo">
-      <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
-      <h2 class="titulo-popup">💌 Fale Conosco 💌</h2>
-      <form id="formulario-contato" class="formulario-estilo" onsubmit="return false;">
-        <input type="text" id="campo-nome-contato" placeholder="Seu Nome" required>
-        <input type="email" placeholder="Seu E-mail" required>
-        <input type="text" placeholder="Assunto" required>
-        <textarea placeholder="Escreva sua mensagem aqui..." class="textarea-contato" rows="4" required></textarea>
-        <button type="submit" class="btn-laranja">Enviar Mensagem</button>
-      </form>
-    </div>
-  </div>
-
-  <div class="popup-overlay config-overlay">
-    <div class="popup-conteudo">
-      <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
-      <h2 class="titulo-popup">⚙️ Configurações ⚙️</h2>
-      <form id="formulario-config" class="formulario-estilo" onsubmit="return false;">
-
-        <div class="item-config">
-          <label for="cfg-tema-escuro">🌙 Tema Escuro</label>
-          <input type="checkbox" id="cfg-tema-escuro">
-        </div>
-
-        <div class="item-config">
-          <label for="cfg-notificacoes">🔔 Receber Promoções</label>
-          <input type="checkbox" id="cfg-notificacoes" checked>
-        </div>
-
-        <div class="item-config">
-          <label for="cfg-salvar-dados">💾 Lembrar Dados de Entrega</label>
-          <input type="checkbox" id="cfg-salvar-dados" checked>
-        </div>
-
-        <div class="item-config-seletor">
-          <label for="cfg-moeda">🪙 Moeda Preferencial:</label>
-          <select id="cfg-moeda" class="seletor-config">
-            <option value="BRL">Real (R$)</option>
-            <option value="USD">Dólar ($)</option>
-          </select>
-        </div>
-
-        <button type="submit" class="btn-laranja" style="margin-top: 15px;">Salvar Preferências ✨</button>
-      </form>
-    </div>
-  </div>
-
-  <div id="popup-acessibilidade" class="modal-acessibilidade">
-    <div class="conteudo-modal-acc">
-      <div class="topo-modal-acc">
-        <h3>✨ Opções de Acessibilidade</h3>
-        <button id="fechar-acessibilidade" class="btn-fechar-acc">&times;</button>
-      </div>
-
-      <div class="opcoes-acc">
-        <div class="item-acc">
-          <label for="acc-contraste">🖤 Alto Contraste</label>
-          <input type="checkbox" id="acc-contraste">
-        </div>
-
-        <div class="item-acc-botoes">
-          <span>🔍 Tamanho do Texto</span>
-          <div class="grupo-botoes">
-            <button id="acc-diminuir" title="Diminuir Texto">A-</button>
-            <button id="acc-aumentar" title="Aumentar Texto">A+</button>
-          </div>
-        </div>
-
-        <div class="item-acc">
-          <label for="acc-sublinhado">🔗 Sublinhar Links</label>
-          <input type="checkbox" id="acc-sublinhado">
-        </div>
-
-        <div class="item-acc">
-          <label for="acc-inverter">🔄 Inverter Cores</label>
-          <input type="checkbox" id="acc-inverter">
-        </div>
-      </div>
-    </div>
-  </div>
-
+  <!-- ==================== POPUP CARRINHO ==================== -->
   <div id="modal-carrinho" class="modal-carrinho-fofo" style="display: none;">
     <div class="conteudo-carrinho">
       <div class="topo-carrinho">
@@ -252,6 +178,105 @@
     </div>
   </div>
 
+  <!-- ==================== POPUP CONTATO ==================== -->
+  <div class="popup-overlay contato-overlay">
+    <div class="popup-conteudo">
+      <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
+      <h2 class="titulo-popup">💌 Fale Conosco 💌</h2>
+      <form id="formulario-contato" class="formulario-estilo" onsubmit="return false;">
+        <input type="text" id="campo-nome-contato" placeholder="Seu Nome" required>
+        <input type="email" placeholder="Seu E-mail" required>
+        <input type="text" placeholder="Assunto" required>
+        <textarea placeholder="Escreva sua mensagem aqui..." class="textarea-contato" rows="4" required></textarea>
+        <button type="submit" class="btn-laranja">Enviar Mensagem</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== POPUP ACESSIBILIDADE ==================== -->
+  <div id="popup-acessibilidade" class="modal-acessibilidade">
+    <div class="conteudo-modal-acc">
+      <div class="topo-modal-acc">
+        <h3>✨ Opções de Acessibilidade</h3>
+        <button id="fechar-acessibilidade" class="btn-fechar-acc">&times;</button>
+      </div>
+
+      <div class="opcoes-acc">
+        <div class="item-acc">
+          <label for="acc-contraste">🖤 Alto Contraste</label>
+          <input type="checkbox" id="acc-contraste">
+        </div>
+
+        <div class="item-acc-botoes">
+          <span>🔍 Tamanho do Texto</span>
+          <div class="grupo-botoes">
+            <button id="acc-diminuir" title="Diminuir Texto">A-</button>
+            <button id="acc-aumentar" title="Aumentar Texto">A+</button>
+          </div>
+        </div>
+
+        <div class="item-acc">
+          <label for="acc-sublinhado">🔗 Sublinhar Links</label>
+          <input type="checkbox" id="acc-sublinhado">
+        </div>
+
+        <div class="item-acc">
+          <label for="acc-inverter">🔄 Inverter Cores</label>
+          <input type="checkbox" id="acc-inverter">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== POPUP CONFIGURAÇÕES ==================== -->
+  <div class="popup-overlay config-overlay">
+    <div class="popup-conteudo">
+      <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
+      <h2 class="titulo-popup">⚙️ Configurações ⚙️</h2>
+      <form id="formulario-config" class="formulario-estilo" onsubmit="return false;">
+
+        <div class="item-config">
+          <label for="cfg-tema-escuro">🌙 Tema Escuro</label>
+          <input type="checkbox" id="cfg-tema-escuro">
+        </div>
+
+        <div class="item-config">
+          <label for="cfg-notificacoes">🔔 Receber Promoções</label>
+          <input type="checkbox" id="cfg-notificacoes" checked>
+        </div>
+
+        <div class="item-config">
+          <label for="cfg-salvar-dados">💾 Lembrar Dados de Entrega</label>
+          <input type="checkbox" id="cfg-salvar-dados" checked>
+        </div>
+
+        <div class="item-config-seletor">
+          <label for="cfg-moeda">🪙 Moeda Preferencial:</label>
+          <select id="cfg-moeda" class="seletor-config">
+            <option value="BRL">Real (R$)</option>
+            <option value="USD">Dólar ($)</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-laranja" style="margin-top: 15px;">Salvar Preferências ✨</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== POPUP SOBRE NÓS ==================== -->
+  <div class="popup-overlay sobre-overlay">
+    <div class="popup-conteudo">
+      <label for="popup-fechar-todos" class="popup-fechar">&times;</label>
+      <h2 class="titulo-popup">✨ Sobre nós ✨</h2>
+      <p class="texto-popup" style="text-align: justify; line-height: 1.6;">
+        O Coffee Time é uma plataforma completa para uma loja física e delivery especializada em cafés especiais
+        com salgados e doces artesanais. A plataforma conecta clientes, funcionários e administradores,
+        centralizando o gerenciamento de pedidos, pagamentos e avaliações em um único lugar.
+      </p>
+    </div>
+  </div>
+
+  <!-- ==================== PRODUTOS: BEBIDAS QUENTES ==================== -->
   <main class="produtos">
 
     <h2><span class="titulo-categoria">☕ Bebidas Quentes ☕</span></h2>
@@ -284,6 +309,7 @@
       </div>
     </div>
 
+    <!-- ==================== PRODUTOS: BEBIDAS GELADAS ==================== -->
     <h2><span class="titulo-categoria">🧊 Bebidas Geladas 🧊</span></h2>
     <div class="carrossel-container">
       <div class="grid">
@@ -314,6 +340,7 @@
       </div>
     </div>
 
+    <!-- ==================== PRODUTOS: SALGADOS ==================== -->
     <h2><span class="titulo-categoria">🥐 Salgados Time 🥐</span></h2>
     <div class="carrossel-container">
       <div class="grid">
@@ -344,6 +371,7 @@
       </div>
     </div>
 
+    <!-- ==================== PRODUTOS: DOCES ==================== -->
     <h2><span class="titulo-categoria">🍰 Doces Time 🍰</span></h2>
     <div class="carrossel-container">
       <div class="grid">

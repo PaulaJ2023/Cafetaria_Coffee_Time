@@ -123,6 +123,17 @@ function aplicarTemaEscuro(ativar) {
     }
 }
 
+const popupSobreControle = document.getElementById('popup-sobre-controle');
+
+if (popupSobreControle) {
+    popupSobreControle.addEventListener('change', function () {
+        if (this.checked) {
+            const menuCheck = document.getElementById('menu');
+            if (menuCheck) menuCheck.checked = false; // Fecha a sidebar fofa
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const configsSalvas = JSON.parse(localStorage.getItem('coffeeTimeConfigs'));
     if (configsSalvas) {
