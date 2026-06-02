@@ -1,50 +1,106 @@
-//ANOTAÇÕES DA PAULA: Esse arquivo cuida da parte da site do Coffee Time
-//ANOTAÇÕES DA PAULA: Cuida do login, do cadastro e também soma os valores do carrinho.
+/* ==========================================================================
+   ☕ COFFEE TIME - SCRIPT DE INTERATIVIDADE E FLUXOS DA PLATAFORMA
+   ========================================================================== 
+   ANOTAÇÕES DA PAULA: Esse arquivo cuida da parte do site do Coffee Time.
+   Cuida do login, do cadastro e também soma os valores do carrinho.
+   ========================================================================== */
 
-//VARIÁVEIS GERAIS
+/* --------------------------------------------------------------------------
+   1. MAPEAMENTO DE ELEMENTOS DO DOM (VARIÁVEIS GERAIS)
+   -------------------------------------------------------------------------- 
+   Dica: Mapear todas as constantes no topo do arquivo evita redundâncias 
+   de buscas repetidas no documento através do 'document.getElementById'. */
+
+// Elementos de Controle de Fluxo e Interface Geral
 const nomeUsuarioSidebar = document.getElementById('nome-usuario-sidebar');
 const fecharPopupTodos = document.getElementById('popup-fechar-todos');
+const menuCheck = document.getElementById('menu');
 
-//SISTEMA DE LOGIN
+// Elementos do Sistema de Login e Autenticação
 const formularioLogin = document.getElementById('formulario-login');
 const campoUsuario = document.getElementById('campo-usuario');
-// Capturando o campo de senha que estava faltando no JS anterior
 const campoSenhaLogin = document.querySelector('#formulario-login input[type="password"]');
 
+// Elementos do Sistema de Cadastro e Registro de Contas
+const formularioRegistro = document.getElementById('formulario-registro');
+const campoNomeRegistro = document.getElementById('campo-nome-registro');
+const campoSenhaRegistro = document.getElementById('campo-senha-registro');
+const campoConfirmarSenhaRegistro = document.getElementById('campo-confirmar-senha-registro');
+
+// Elementos das Telas Auxiliares (Recuperação e Contato)
+const formularioRecuperar = document.getElementById('formulario-recover');
+const formRecuperarReal = document.getElementById('formulario-recuperar') || formularioRecuperar;
+const formularioContato = document.getElementById('formulario-contato');
+const campoNomeContato = document.getElementById('campo-nome-contato');
+
+// Elementos do Painel de Configurações do Sistema
+const formularioConfig = document.getElementById('formulario-config');
+const popupConfigControle = document.getElementById('popup-config-controle');
+const popupSobreControle = document.getElementById('popup-sobre-controle');
+
+// Elementos de Controle de Acessibilidade
+const botaoAcessibilidade = document.getElementById('btn-acessibilidade');
+const popupAcessibilidade = document.getElementById('popup-acessibilidade');
+const fecharAcessibilidade = document.getElementById('fechar-acessibilidade');
+const toggleContraste = document.getElementById('acc-contraste');
+const btnAumentarTexto = document.getElementById('acc-aumentar');
+const btnDiminuirTexto = document.getElementById('acc-diminuir');
+const toggleSublinhado = document.getElementById('acc-sublinhado');
+const toggleInverter = document.getElementById('acc-inverter');
+
+// Elementos do Ecossistema do Carrinho de Compras
+const btnCarrinhoSidebar = document.getElementById('btn-carrinho');
+const modalCarrinho = document.getElementById('modal-carrinho');
+const btnFecharCarrinho = document.getElementById('btn-fechar-carrinho');
+const conteinerItensCarrinho = document.getElementById('itens-do-carrinho');
+const elementoValorTotal = document.getElementById('valor-total-carrinho');
+const btnFinalizarPedido = document.getElementById('btn-finalizar-pedido');
+const botoesAdicionar = document.querySelectorAll('.btn-adicionar');
+const cartTipoEntrega = document.getElementById('cart-tipo-entrega');
+const blocoEnderecoEntrega = document.getElementById('bloco-endereco-entrega');
+
+/* --------------------------------------------------------------------------
+   2. VARIÁVEIS DE ESTADO DO SISTEMA
+   -------------------------------------------------------------------------- */
+let carrinho = [];           // Array dinâmico que armazenará os objetos dos produtos inseridos
+let tamanhoFonteAtual = 100; // Estado inicial do tamanho da fonte em porcentagem (%) para acessibilidade
+
+
+/* --------------------------------------------------------------------------
+   3. SISTEMA DE LOGIN E CONTROLE ADMINISTRATIVO
+   -------------------------------------------------------------------------- */
 if (formularioLogin) {
     formularioLogin.addEventListener('submit', function (event) {
-        event.preventDefault();
+        event.preventDefault(); // Evita o recarregamento nativo da página
+
         const nomeDigitado = campoUsuario.value.trim();
         const senhaDigitada = campoSenhaLogin ? campoSenhaLogin.value : "";
 
         // Verificação para o login de Administrador (Duda)
         if ((nomeDigitado === "eduarda@coffeetime.com" || nomeDigitado === "duda123") && senhaDigitada === "duda123") {
             alert("☕ Acesso administrativo detectado! Bem-vinda, Duda. Redirecionando...");
-            // Abre o painel de admin (crie um arquivo chamado admin.html para os pedidos)
-            window.location.href = "admin.html";
-            return; // Interrompe o resto da execução
+            window.location.href = "admin.html"; // Direciona para o painel de administração de pedidos
+            return;
         }
 
-        // Fluxo normal para usuários comuns
+        // Fluxo normal para clientes comuns
         if (nomeDigitado !== "") {
+            // Separa o e-mail ou nome completo para pegar apenas o primeiro nome para exibição fofa
             const primeiroNome = nomeDigitado.split(" ")[0].split("@")[0];
+
             if (nomeUsuarioSidebar) {
                 nomeUsuarioSidebar.innerText = `Olá, ${primeiroNome}! ✨`;
             }
             alert(`🌸 Bem-vindo(a) de volta, ${primeiroNome}!`);
-            if (fecharPopupTodos) {
-                fecharPopupTodos.checked = true;
-            }
+            fecharTodosPopups();
         }
     });
 }
 
-//SISTEMA DE CADASTRO
-const formularioRegistro = document.getElementById('formulario-registro');
-const campoNomeRegistro = document.getElementById('campo-nome-registro');
-const campoSenhaRegistro = document.getElementById('campo-senha-registro');
-const campoConfirmarSenhaRegistro = document.getElementById('campo-confirmar-senha-registro');
 
+/* --------------------------------------------------------------------------
+   4. SISTEMA DE CADASTRO / REGISTRO
+   -------------------------------------------------------------------------- */
 if (formularioRegistro) {
     formularioRegistro.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -53,6 +109,7 @@ if (formularioRegistro) {
         const senha = campoSenhaRegistro ? campoSenhaRegistro.value : "";
         const confirmarSenha = campoConfirmarSenhaRegistro ? campoConfirmarSenhaRegistro.value : "";
 
+        // Validação de segurança básica: as duas senhas devem bater
         if (senha !== confirmarSenha) {
             alert("⚠️ Atenção: As senhas digitadas não são iguais! Por favor, verifique.");
             return;
@@ -65,17 +122,15 @@ if (formularioRegistro) {
             }
             alert(`🌱 Conta criada com sucesso! Seja bem-vindo(a), ${primeiroNome}!`);
             formularioRegistro.reset();
-            if (fecharPopupTodos) {
-                fecharPopupTodos.checked = true;
-            }
+            fecharTodosPopups();
         }
     });
 }
 
-//SISTEMA DE RECUPERAÇÃO DE SENHA
-const formularioRecuperar = document.getElementById('formulario-recover');
 
-const formRecuperarReal = document.getElementById('formulario-recuperar') || formularioRecuperar;
+/* --------------------------------------------------------------------------
+   5. FORMULÁRIOS AUXILIARES (RECUPERAÇÃO DE SENHA E CONTATO)
+   -------------------------------------------------------------------------- */
 if (formRecuperarReal) {
     formRecuperarReal.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -85,16 +140,10 @@ if (formRecuperarReal) {
         if (emailDigitado !== "") {
             alert(`🌸 Sucesso! As instruções de recuperação foram enviadas para:\n💌 ${emailDigitado}`);
             campoEmailRecuperar.value = "";
-            if (fecharPopupTodos) {
-                fecharPopupTodos.checked = true;
-            }
+            fecharTodosPopups();
         }
     });
 }
-
-//SISTEMA DE CONTATO
-const formularioContato = document.getElementById('formulario-contato');
-const campoNomeContato = document.getElementById('campo-nome-contato');
 
 if (formularioContato) {
     formularioContato.addEventListener('submit', function (event) {
@@ -104,17 +153,17 @@ if (formularioContato) {
         if (nomeContato !== "") {
             alert(`💌 Obrigado pelo contato, ${nomeContato}!\n✨ Sua mensagem foi enviada com sucesso para a equipe do Coffee Time.`);
             formularioContato.reset();
-            if (fecharPopupTodos) {
-                fecharPopupTodos.checked = true;
-            }
+            fecharTodosPopups();
         }
     });
 }
 
-//SISTEMA DE CONFIGURAÇÕES (INCLUINDO TEMA ESCURO)
-const formularioConfig = document.getElementById('formulario-config');
-const popupConfigControle = document.getElementById('popup-config-controle');
 
+/* --------------------------------------------------------------------------
+   6. CONFIGURAÇÕES INTERNAS E CUSTOMIZAÇÃO DE TEMA
+   -------------------------------------------------------------------------- */
+
+// Função auxiliar centralizada para aplicar ou remover a classe do tema escuro no body
 function aplicarTemaEscuro(ativar) {
     if (ativar) {
         document.body.classList.add('tema-escuro');
@@ -123,17 +172,20 @@ function aplicarTemaEscuro(ativar) {
     }
 }
 
-const popupSobreControle = document.getElementById('popup-sobre-controle');
-
+// Escuta a ativação dos rádios para fechar a sidebar automaticamente quando abrir o popup "Sobre" ou "Config"
 if (popupSobreControle) {
     popupSobreControle.addEventListener('change', function () {
-        if (this.checked) {
-            const menuCheck = document.getElementById('menu');
-            if (menuCheck) menuCheck.checked = false; // Fecha a sidebar fofa
-        }
+        if (this.checked && menuCheck) menuCheck.checked = false;
     });
 }
 
+if (popupConfigControle) {
+    popupConfigControle.addEventListener('change', function () {
+        if (this.checked && menuCheck) menuCheck.checked = false;
+    });
+}
+
+// Event Listener para ler as configurações salvas no navegador assim que a página carregar
 document.addEventListener('DOMContentLoaded', () => {
     const configsSalvas = JSON.parse(localStorage.getItem('coffeeTimeConfigs'));
     if (configsSalvas) {
@@ -153,15 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-if (popupConfigControle) {
-    popupConfigControle.addEventListener('change', function () {
-        if (this.checked) {
-            const menuCheck = document.getElementById('menu');
-            if (menuCheck) menuCheck.checked = false;
-        }
-    });
-}
-
+// Manipulador do formulário de salvamento de configurações de preferência
 if (formularioConfig) {
     formularioConfig.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -173,26 +217,26 @@ if (formularioConfig) {
 
         aplicarTemaEscuro(temaEscuro);
 
+        // Agrupa as configurações em um objeto único e converte para string para salvar no LocalStorage
         const objetoConfig = { temaEscuro, notificacoes, salvarDados, moeda };
         localStorage.setItem('coffeeTimeConfigs', JSON.stringify(objetoConfig));
 
-        alert("⚙️ Preferências updated com sucesso e aplicadas!");
-
-        if (fecharPopupTodos) {
-            fecharPopupTodos.checked = true;
-        }
+        alert("⚙️ Preferências atualizadas com sucesso e aplicadas!");
+        fecharTodosPopups();
     });
 }
 
-//SISTEMA DE ACESSIBILIDADE
-const botaoAcessibilidade = document.getElementById('btn-acessibilidade');
-const popupAcessibilidade = document.getElementById('popup-acessibilidade');
-const fecharAcessibilidade = document.getElementById('fechar-acessibilidade');
+
+/* --------------------------------------------------------------------------
+   7. ARQUITETURA DE ACESSIBILIDADE AVANÇADA
+   -------------------------------------------------------------------------- 
+   Lembrete: Esta seção injeta classes específicas de acessibilidade no body 
+   e altera dinamicamente o root font-size da aplicação de forma amigável. */
 
 if (botaoAcessibilidade && popupAcessibilidade) {
     botaoAcessibilidade.addEventListener('click', function (event) {
         event.preventDefault();
-        popupAcessibilidade.classList.add('ativo');
+        popupAcessibilidade.classList.add('ativo'); // Ativa o modal de acessibilidade
     });
 }
 
@@ -201,14 +245,6 @@ if (fecharAcessibilidade && popupAcessibilidade) {
         popupAcessibilidade.classList.remove('ativo');
     });
 }
-
-const toggleContraste = document.getElementById('acc-contraste');
-const btnAumentarTexto = document.getElementById('acc-aumentar');
-const btnDiminuirTexto = document.getElementById('acc-diminuir');
-const toggleSublinhado = document.getElementById('acc-sublinhado');
-const toggleInverter = document.getElementById('acc-inverter');
-
-let tamanhoFonteAtual = 100;
 
 if (toggleContraste) {
     toggleContraste.addEventListener('change', function () {
@@ -246,6 +282,7 @@ if (toggleInverter) {
     });
 }
 
+// Sincronização dos estados com as Tags ARIA para leitores de tela deficientes visuais
 document.addEventListener('DOMContentLoaded', () => {
     const toggles = document.querySelectorAll('.popup-toggle, .menu-check');
 
@@ -260,7 +297,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const sidebar = document.querySelector('.sidebar');
-        const menuCheck = document.getElementById('menu');
         if (sidebar && menuCheck) {
             if (menuCheck.checked) {
                 sidebar.removeAttribute('aria-hidden');
@@ -277,37 +313,30 @@ document.addEventListener('DOMContentLoaded', () => {
     atualizarVisibilidadeAria();
 });
 
-//SISTEMA DO CARRINHO
-let carrinho = [];
 
-const btnCarrinhoSidebar = document.getElementById('btn-carrinho');
-const modalCarrinho = document.getElementById('modal-carrinho');
-const btnFecharCarrinho = document.getElementById('btn-fechar-carrinho');
-const conteinerItensCarrinho = document.getElementById('itens-do-carrinho');
-const elementoValorTotal = document.getElementById('valor-total-carrinho');
-const btnFinalizarPedido = document.getElementById('btn-finalizar-pedido');
-const botoesAdicionar = document.querySelectorAll('.btn-adicionar');
+/* --------------------------------------------------------------------------
+   8. ECOSSISTEMA DO CARRINHO DE COMPRAS E PEDIDOS
+   -------------------------------------------------------------------------- */
 
-const cartTipoEntrega = document.getElementById('cart-tipo-entrega');
-const blocoEnderecoEntrega = document.getElementById('bloco-endereco-entrega');
-
+// Alterna a exibição do bloco de endereço condicionado ao tipo de entrega (Delivery x Balcão)
 if (cartTipoEntrega && blocoEnderecoEntrega) {
     cartTipoEntrega.addEventListener('change', function () {
+        const inputEndereco = document.getElementById('cart-endereco-cliente');
         if (this.value === 'Delivery') {
             blocoEnderecoEntrega.style.display = 'block';
-            document.getElementById('cart-endereco-cliente').setAttribute('required', 'true');
+            if (inputEndereco) inputEndereco.setAttribute('required', 'true');
         } else {
             blocoEnderecoEntrega.style.display = 'none';
-            document.getElementById('cart-endereco-cliente').removeAttribute('required');
+            if (inputEndereco) inputEndereco.removeAttribute('required');
         }
     });
 }
 
+// Controle de abertura e fechamento da interface modal do carrinho fofo
 if (btnCarrinhoSidebar && modalCarrinho) {
     btnCarrinhoSidebar.addEventListener('click', function (e) {
         e.preventDefault();
-        const menuCheck = document.getElementById('menu');
-        if (menuCheck) menuCheck.checked = false;
+        if (menuCheck) menuCheck.checked = false; // recolhe sidebar
 
         modalCarrinho.style.display = 'flex';
         renderizarCarrinhoVisual();
@@ -320,11 +349,14 @@ if (btnFecharCarrinho && modalCarrinho) {
     });
 }
 
+// Adicionando escutas de clique em toda a matriz de botões de produtos na vitrine
 botoesAdicionar.forEach(botao => {
     botao.addEventListener('click', function () {
         const card = botao.parentElement;
         const nomeProduto = card.querySelector('h3').innerText;
         const precoTexto = card.querySelector('.preco').innerText;
+
+        // Limpa string monetária e converte de 'R$ 15,90' para o formato numérico flutuante do JS (15.90)
         const precoNumero = parseFloat(precoTexto.replace('R$', '').replace(',', '.').trim());
 
         const itemExistente = carrinho.find(item => item.nome === nomeProduto);
@@ -344,6 +376,7 @@ botoesAdicionar.forEach(botao => {
     });
 });
 
+// Renderização dinâmica do conteúdo injetado internamente no HTML do carrinho
 function renderizarCarrinhoVisual() {
     if (!conteinerItensCarrinho) return;
 
@@ -383,16 +416,18 @@ function renderizarCarrinhoVisual() {
 
     elementoValorTotal.innerText = `R$ ${totalAcumulado.toFixed(2).replace('.', ',')}`;
 
+    // Re-atribui listeners de remoção individual pós renderização dos elementos filhos
     const botoesRemover = document.querySelectorAll('.btn-remover-item');
     botoesRemover.forEach(btn => {
         btn.addEventListener('click', function () {
             const idx = parseInt(this.getAttribute('data-index'));
-            carrinho.splice(idx, 1);
+            carrinho.splice(idx, 1); // Corta o elemento do array baseado no índice dele
             renderizarCarrinhoVisual();
         });
     });
 }
 
+// Gatilho finalizador do Checkout e envio das informações agrupadas para a Duda (Painel Admin)
 if (btnFinalizarPedido) {
     btnFinalizarPedido.addEventListener('click', function () {
         if (carrinho.length === 0) {
@@ -418,8 +453,9 @@ if (btnFinalizarPedido) {
         let total = carrinho.reduce((acc, item) => acc + (item.preco * item.quantidade), 0);
         let itensTexto = carrinho.map(item => `${item.quantidade}x ${item.nome}`).join(', ');
 
+        // Criação da estrutura de dados do novo pedido simulando banco de dados no LocalStorage
         const novoPedido = {
-            id: "#" + Math.floor(2000 + Math.random() * 9000),
+            id: "#" + Math.floor(2000 + Math.random() * 9000), // Gera código único fofinho aleatório
             cliente: nomeCliente,
             itens: itensTexto,
             tipo: tipoEntrega,
@@ -428,12 +464,14 @@ if (btnFinalizarPedido) {
             total: total.toFixed(2)
         };
 
+        // Empurra o objeto estruturado para o array contido na memória persistente LocalStorage
         let listaPedidos = JSON.parse(localStorage.getItem('pedidosAdmin')) || [];
-        listaPedidos.unshift(novoPedido);
+        listaPedidos.unshift(novoPedido); // Adiciona no início da lista
         localStorage.setItem('pedidosAdmin', JSON.stringify(listaPedidos));
 
         alert(`🎉 Pedido Finalizado com Sucesso!\n✨ Obrigado por comprar no Coffee Time, ${nomeCliente}!\n💰 Total: R$ ${total.toFixed(2).replace('.', ',')}`);
 
+        // Reset completo pós venda do carrinho e formulário associado
         carrinho = [];
         document.getElementById('cart-nome-cliente').value = '';
         document.getElementById('cart-endereco-cliente').value = '';
@@ -442,4 +480,14 @@ if (btnFinalizarPedido) {
         renderizarCarrinhoVisual();
         if (modalCarrinho) modalCarrinho.style.display = 'none';
     });
+}
+
+
+/* --------------------------------------------------------------------------
+   9. FUNÇÕES DE SUPORTE GLOBAL
+   -------------------------------------------------------------------------- */
+function fecharTodosPopups() {
+    if (fecharPopupTodos) {
+        fecharPopupTodos.checked = true; // Força a ativação do rádio controlador oculto do reset
+    }
 }
