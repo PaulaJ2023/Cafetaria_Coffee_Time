@@ -380,7 +380,7 @@ java POOJava.TelaFuncionarios
 ---
 
 ## 📌 Status do Projeto
-* Estrutura de Classes e Herança validada.
+* Estrutura de Classes, Polimorfismo e Herança validada.
 * Interface Web Responsiva e Integrada com o Java via Clipboard.
 * Sistema de cálculo de folha salarial polimórfico operacional.
 
