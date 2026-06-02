@@ -1,11 +1,21 @@
-/*ANOTAÇÕES DE PAULA: 
-  Use esses espaços com barra e * para fazer anotações, 
-  deixar lembretes, dicas e explições de cada coisa do codigo faz.
-  Isso deixará o código mais organizado e menus confuso. 
-  Bjs da Paula <3 */
+/* ==========================================================================
+   ☕ COFFEE TIME - FOLHA DE ESTILOS PRINCIPAL
+   ========================================================================== 
+   ANOTAÇÕES DE PAULA: 
+   Use esses espaços com barra e * para fazer anotações, 
+   deixar lembretes, dicas e explicações de que cada coisa do código faz.
+   Isso deixará o código mais organizado e menos confuso. 
+   Bjs da Paula <3 
+   ========================================================================== */
 
-/* SISTEMA DE CORES COMPARTILHADAS (TEMA CLARO E ESCURO) */
+/* --------------------------------------------------------------------------
+   1. SISTEMA DE CORES E VARIÁVEIS (THEMING)
+   -------------------------------------------------------------------------- 
+   Lembrete: O uso de custom properties (--variavel) centraliza as cores. 
+   Para trocar a paleta visual do site inteiro, basta alterar os valores aqui. */
+
 :root {
+  /* Paleta de Cores - Tema Claro (Default) */
   --bg-principal: #FFF9F9;
   --bg-topo: #F7D6D6;
   --borda-topo: #E7BCBC;
@@ -18,8 +28,9 @@
   --bg-carrinho-entrega: #FFF5E4;
 }
 
-/* VARIÁVEIS PARA O TEMA ESCURO */
 body.tema-escuro {
+  /* Paleta de Cores - Tema Escuro 
+     Dica: Invocado dinamicamente via JavaScript adicionando a classe ao body */
   --bg-principal: #2E1A1A;
   --bg-topo: #422828;
   --borda-topo: #5C3A3A;
@@ -32,16 +43,20 @@ body.tema-escuro {
   --bg-carrinho-entrega: #4B3126;
 }
 
-/*CONFIGURAÇÕES GERAIS*/
+/* --------------------------------------------------------------------------
+   2. CONFIGURAÇÕES GERAIS E RESETS
+   -------------------------------------------------------------------------- */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* Garante que padding e border não alterem o tamanho final do elemento */
 }
 
 html {
   font-size: 16px;
-  /* Base para o cálculo do rem */
+  /* Base padrão universal para o cálculo das unidades rem */
 }
 
 body {
@@ -49,22 +64,28 @@ body {
   background: var(--bg-principal);
   overflow-x: hidden;
   color: var(--cor-texto);
+  /* Evita quebras de layout e barras de rolagem horizontais indesejadas */
   transition: background 0.3s ease, color 0.3s ease;
+  /* Transição suave na troca de temas */
 }
 
-/*HEADER / TOPO*/
+/* --------------------------------------------------------------------------
+   3. HEADER / TOPO
+   -------------------------------------------------------------------------- */
+
 .topo {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  /* Mantém o topo sempre visível acima de outros conteúdos ao rolar a página */
   height: 90px;
+  padding: 0 5%;
   background: var(--bg-topo);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 5%;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
   border-bottom: 4px dashed var(--borda-topo);
-  /*Borda tracejada estilo craft*/
+  /* Borda tracejada estilo craft/vintage */
 }
 
 .logo {
@@ -75,7 +96,7 @@ body {
 
 .logo:hover {
   transform: scale(1.08) rotate(2deg);
-  /*Efeito dinâmico fofo ao passar o mouse*/
+  /* Efeito dinâmico sutil e fofo ao passar o mouse */
 }
 
 .botao-menu {
@@ -91,9 +112,13 @@ body {
   width: 55px;
   cursor: pointer;
   filter: drop-shadow(2px 3px 0px rgba(90, 35, 35, 0.15));
+  /* Sombra sólida limpa com a cor identidade */
 }
 
-/*SIDEBAR*/
+/* --------------------------------------------------------------------------
+   4. SIDEBAR (MENU LATERAL NAVEGÁVEL)
+   -------------------------------------------------------------------------- */
+
 .menu-check,
 .popup-toggle {
   display: none !important;
@@ -103,18 +128,20 @@ body {
   position: fixed;
   top: 0;
   left: -280px;
+  /* Inicializa fora da tela à esquerda */
   width: 260px;
   height: 100vh;
-  background: var(--bg-sidebar);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   z-index: 9999;
+  background: var(--bg-sidebar);
   display: flex;
   flex-direction: column;
   box-shadow: 5px 0 25px rgba(90, 35, 35, 0.15);
   border-radius: 0 30px 30px 0;
-  /*Bordas arredondadas*/
+  /* Transição avançada baseada em Cubic-Bezier para dar efeito elástico orgânico */
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+/* Quando o checkbox invisível for marcado, joga a sidebar para dentro da tela */
 .menu-check:checked~.sidebar {
   left: 0;
 }
@@ -124,7 +151,6 @@ body {
   top: 15px;
   right: 20px;
   font-size: 2rem;
-  /* Mudado de 32px para relativo (2rem) */
   color: #A64B2A;
   cursor: pointer;
   font-weight: bold;
@@ -136,7 +162,7 @@ body {
   color: var(--cor-texto);
 }
 
-/*LINK DA SIDEBAR*/
+/* Links e Itens Internos da Sidebar */
 .usuario-menu {
   display: flex;
   align-items: center;
@@ -189,6 +215,7 @@ body {
   background-color: var(--bg-topo);
   color: var(--cor-texto);
   transform: translateX(8px);
+  /* Deslocamento suave para a direita ao interagir */
 }
 
 .sidebar i,
@@ -199,11 +226,15 @@ body {
   color: #C06C84;
 }
 
-/*SEÇÃO HERO*/
+/* --------------------------------------------------------------------------
+   5. SEÇÃO HERO (BANNER DE DESTAQUE)
+   -------------------------------------------------------------------------- */
+
 .hero {
   min-height: 25vh;
   background-color: #FCD8D8;
   background-image: radial-gradient(#F5C2C2 15%, transparent 16%);
+  /* Padrão de bolinhas (Polka Dot) */
   background-size: 24px 24px;
   display: flex;
   align-items: center;
@@ -219,6 +250,7 @@ body.tema-escuro .hero {
 }
 
 .hero h1 {
+  /* Altera dinamicamente o tamanho da fonte baseado na largura da viewport (mínimo, fluidez, máximo) */
   font-size: clamp(1.8rem, 6vw, 3rem);
   color: #5A2323;
   text-shadow: 3px 3px 0px #ffffff, 5px 5px 0px rgba(245, 194, 194, 0.5);
@@ -235,21 +267,27 @@ body.tema-escuro .hero h1 {
   text-shadow: 3px 3px 0px #2E1A1A, 5px 5px 0px rgba(0, 0, 0, 0.3);
 }
 
-/*POPUPS E POPUP OVERLAYS COM RADIO BUTTONS*/
+/* --------------------------------------------------------------------------
+   6. POPUPS E MODAIS (ESTILOS COMPARTILHADOS)
+   -------------------------------------------------------------------------- */
+
 .popup-overlay {
   position: fixed;
   inset: 0;
+  /* Atalho moderno para top, bottom, left e right em 0 */
+  z-index: 10000;
+  padding: 20px;
   background: rgba(90, 35, 35, 0.4);
-  /*backdrop harmônico*/
+  /* Fundo escuro do café transparente */
   backdrop-filter: blur(4px);
+  /* Desfoque do plano de fundo (Glaasmorfismo sutil) */
   display: none;
   justify-content: center;
   align-items: center;
-  z-index: 10000;
-  padding: 20px;
 }
 
-/*Mapeamento de ativação via Radio Buttons*/
+/* Mapeamento de ativação via seletores irmãos gerais 
+   baseados em Radio Buttons CSS Puros */
 #popup-login-controle:checked~.login-overlay,
 #popup-senha-controle:checked~.senha-overlay,
 #popup-registro-controle:checked~.registro-overlay,
@@ -317,7 +355,10 @@ body.tema-escuro .popup-conteudo {
   transform: scale(1.2);
 }
 
-/*FORMULÁRIOS COMPARTILHADOS*/
+/* --------------------------------------------------------------------------
+   7. FORMULÁRIOS COMPARTILHADOS E BOTÕES
+   -------------------------------------------------------------------------- */
+
 .formulario-estilo input,
 .textarea-contato {
   width: 100%;
@@ -326,7 +367,6 @@ body.tema-escuro .popup-conteudo {
   border: 2px solid #ffffff;
   border-radius: 18px;
   font-size: 1rem;
-  /* Mudado de 16px para relativo (1rem) */
   outline: none;
   font-family: 'Itim', cursive;
   color: #5A2323;
@@ -345,26 +385,30 @@ body.tema-escuro .textarea-contato {
 .textarea-contato:focus {
   border-color: #C06C84;
   box-shadow: 0 0 0 4px rgba(192, 108, 132, 0.15);
+  /* Ring de foco estético */
 }
 
 .textarea-contato {
   resize: none;
+  /* Impede o usuário de deformar a caixa de texto */
 }
 
 .btn-laranja {
+  /* Botão Laranja Estilo Cartoon/Pop com Sombra de Profundidade */
   width: 100%;
   padding: 15px;
   background-color: #E28929;
   color: white;
-  border: none;
-  border-radius: 18px;
   font-size: 1.125rem;
   font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   font-family: 'Itim', cursive;
+  border: none;
+  border-radius: 18px;
+  cursor: pointer;
   box-shadow: 0 6px 0px #B36210;
+  /* Sombra sólida inferior simulando 3D */
   margin-bottom: 10px;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .btn-laranja:hover {
@@ -375,10 +419,11 @@ body.tema-escuro .textarea-contato {
 
 .btn-laranja:active {
   transform: translateY(4px);
+  /* Achata o botão simulando clique físico */
   box-shadow: 0 2px 0px #B36210;
 }
 
-/*ESTILOS DO POPUP DE CONFIGURAÇÃO*/
+/* Configurações internas exclusivas do formulário de Configuração */
 .item-config {
   display: flex;
   justify-content: space-between;
@@ -432,7 +477,7 @@ body.tema-escuro .seletor-config {
   color: #FFF0F0;
 }
 
-/*Ajustes de redirecionamento interno dos links nos Popups*/
+/* Links de navegação alternativa dentro dos modais */
 .botoes-alternativos {
   display: flex;
   flex-direction: column;
@@ -455,7 +500,10 @@ body.tema-escuro .seletor-config {
   color: #C06C84;
 }
 
-/* POPUP MODAL DE ACESSIBILIDADE */
+/* --------------------------------------------------------------------------
+   8. POPUP MODAL DE ACESSIBILIDADE
+   -------------------------------------------------------------------------- */
+
 .modal-acessibilidade {
   position: fixed;
   top: 0;
@@ -463,17 +511,17 @@ body.tema-escuro .seletor-config {
   width: 100%;
   height: 100%;
   background-color: rgba(90, 35, 35, 0.4);
-  /* Tom de café transparente */
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 10000;
   opacity: 0;
   pointer-events: none;
+  /* Desativa interações quando invisível */
   transition: opacity 0.3s ease;
 }
 
-/* Quando tiver a classe 'ativo', o popup aparece */
+/* Ativação via classe controlada por JavaScript */
 .modal-acessibilidade.ativo {
   opacity: 1;
   pointer-events: auto;
@@ -528,7 +576,7 @@ body.tema-escuro .btn-fechar-acc {
   color: white;
 }
 
-/* OPÇÕES INTERNAS */
+/* Opções internas de controle de acessibilidade */
 .item-acc,
 .item-acc-botoes {
   display: flex;
@@ -551,9 +599,11 @@ body.tema-escuro .btn-fechar-acc {
   cursor: pointer;
 }
 
-/*ACESSIBILIDADE ATIVA*/
+/* --------------------------------------------------------------------------
+   9. REGRAS INTERNAS PARA ACESSIBILIDADE ATIVA (MÓDULOS SPECÍFICOS)
+   -------------------------------------------------------------------------- */
 
-/* 1. Alto Contraste */
+/* Módulo 1. Alto Contraste Extremo */
 body.acc-alto-contraste {
   background-color: #000000 !important;
   background-image: none !important;
@@ -568,6 +618,7 @@ body.acc-alto-contraste span,
 body.acc-alto-contraste label {
   background: #000000 !important;
   color: #FFFF00 !important;
+  /* Amarelo Puro Acessível sobre o Preto */
   text-shadow: none !important;
 }
 
@@ -628,7 +679,7 @@ body.acc-alto-contraste .logo {
   filter: drop-shadow(2px 2px 0px #FFFF00) drop-shadow(-2px -2px 0px #FFFF00) !important;
 }
 
-/* 2. Tamanho do Texto*/
+/* Módulo 2. Controle Dinâmico do Tamanho do Texto (Aumentar / Diminuir) */
 .grupo-botoes button {
   background-color: var(--bg-sidebar);
   border: 2px solid var(--borda-card);
@@ -648,25 +699,26 @@ body.acc-alto-contraste .logo {
   transform: scale(1.05);
 }
 
-/* 3. Links e Botões Sublinhados */
+/* Módulo 3. Forçar Sublinhado Geral em Links e Elementos Clicáveis */
 body.acc-links-sublinhados a,
 body.acc-links-sublinhados button,
 body.acc-links-sublinhados label {
   text-decoration: underline !important;
 }
 
-/* 4. Inverter Cores */
+/* Módulo 4. Inversão Completa da Matriz de Cores */
 html.acc-inverter-cores {
   filter: invert(1) hue-rotate(180deg);
 }
 
+/* Reverte elementos de mídia para não sofrerem distorções bizarras com a inversão global */
 html.acc-inverter-cores .foto-perfil,
 html.acc-inverter-cores .avatar-func,
 html.acc-inverter-cores i {
   filter: invert(1) hue-rotate(180deg);
 }
 
-/*ACESSIBILIDADE (FOCO VISUAL)*/
+/* Módulo 5. Foco Acessível Avançado para Navegação via Teclado (Tab) */
 [tabindex="0"]:focus-visible,
 a:focus-visible,
 button:focus-visible,
@@ -685,7 +737,10 @@ select:focus-visible {
   color: #C06C84;
 }
 
-/*PRODUTOS*/
+/* --------------------------------------------------------------------------
+   10. SEÇÃO DE PRODUTOS E VITRINE
+   -------------------------------------------------------------------------- */
+
 .produtos {
   padding: 30px 0 60px 0;
 }
@@ -707,7 +762,7 @@ select:focus-visible {
   box-shadow: 0 5px 15px rgba(245, 194, 194, 0.1);
 }
 
-/*SCROLL CONTAINER (CARROSSEL)*/
+/* Scroll Container Adaptável (Carrossel Horizontal Mobile-Friendly) */
 .carrossel-container {
   max-width: 1300px;
   margin: 0 auto;
@@ -716,15 +771,19 @@ select:focus-visible {
 
 .grid {
   display: flex;
-  overflow-x: auto;
-  scroll-behavior: smooth;
   gap: 25px;
   padding: 20px 5%;
+  overflow-x: auto;
+  /* Ativa a rolagem horizontal */
+  scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
+  /* Efeito "imã" na parada dos cards */
   -webkit-overflow-scrolling: touch;
+  /* Melhora a fluidez do deslize em aparelhos iOS */
 }
 
 .grid::-webkit-scrollbar {
+  /* Customização Estética das Barras de Rolagem */
   height: 8px;
 }
 
@@ -739,9 +798,13 @@ select:focus-visible {
   border: 2px solid var(--bg-sidebar);
 }
 
-/*CARDS DOS PRODUTOS ESTILO ADESIVO/STICKER*/
+/* --------------------------------------------------------------------------
+   11. CARDS DE PRODUTOS (ESTILO ADESIVO/STICKER)
+   -------------------------------------------------------------------------- */
+
 .card {
   flex: 0 0 260px;
+  /* Impede os cards de encolherem, mantendo o tamanho fixo no carrossel */
   scroll-snap-align: center;
   background: var(--bg-card);
   padding: 25px 20px;
@@ -773,6 +836,7 @@ select:focus-visible {
 
 .card:hover .imagem-sticker {
   transform: scale(1.1) rotate(-3deg);
+  /* Animação lúdica e descontraída da imagem */
 }
 
 .card h3 {
@@ -814,7 +878,10 @@ select:focus-visible {
   box-shadow: 0 2px 0px #4A3E55;
 }
 
-/*Carrinho*/
+/* --------------------------------------------------------------------------
+   12. CARRINHO DE COMPRAS
+   -------------------------------------------------------------------------- */
+
 .modal-carrinho-fofo {
   position: fixed;
   top: 0;
