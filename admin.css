@@ -1,23 +1,40 @@
-/*CONFIGURAÇÃO GERAL E BACKGROUND*/
+/* ==========================================================================
+   ☕ COFFEE TIME - PAINEL ADMINISTRATIVO (ESTILIZAÇÃO GERAL)
+   ========================================================================== 
+   ANOTAÇÕES DA PAULA: Este arquivo estiliza a tela do administrador (admin.html).
+   Controla os cards de métricas, tabela de pedidos, badges de status,
+   cadastro de novos itens/funcionários e layouts responsivos da dashboard.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CONFIGURAÇÕES RAÍZES E RESET DE ELEMENTOS
+   -------------------------------------------------------------------------- */
 .admin-body {
   background-color: #FFFDF9;
+  /* Fundo off-white fofinho */
   font-family: 'Itim', cursive;
+  /* Mantém a identidade tipográfica do site */
   margin: 0;
   padding: 0;
   color: #5A2323;
+  /* Tom de marrom café escuro padrão para textos */
 }
 
-/*CONTAINER PRINCIPAL*/
+/* Container centralizador limitador de largura em telas grandes */
 .admin-container {
   padding: 20px 4%;
   max-width: 1400px;
   margin: 0 auto;
 }
 
-/*TOPO DO ADMIN*/
+
+/* --------------------------------------------------------------------------
+   2. BARRA DE TOPO DA DASHBOARD (HEADER)
+   -------------------------------------------------------------------------- */
 .topo-admin {
   background: #FFF;
   border-bottom: 4px dashed #FCE1B6;
+  /* Efeito tracejado característico da marca */
   padding: 15px 5%;
   display: flex;
   justify-content: space-between;
@@ -30,6 +47,7 @@
   width: auto;
 }
 
+/* Bloco que agrupa a foto e os dados de saudação do Admin */
 .admin-perfil-topo {
   display: flex;
   align-items: center;
@@ -65,6 +83,7 @@
   font-size: 12px;
 }
 
+/* Botão fofo para deslogar ou voltar à página principal da loja */
 .btn-voltar {
   background: #FFF0F0;
   color: #C06C84;
@@ -80,9 +99,13 @@
   background: #F5C2C2;
   color: white;
   transform: scale(1.05);
+  /* Pequeno zoom estético ao passar o mouse */
 }
 
-/*HERO ADMIN*/
+
+/* --------------------------------------------------------------------------
+   3. SEÇÃO HERO (BOAS-VINDAS PRINCIPAL)
+   -------------------------------------------------------------------------- */
 .hero-admin {
   text-align: center;
   padding: 30px 20px 10px 20px;
@@ -100,7 +123,11 @@
   font-size: 16px;
 }
 
-/*CARDS DE MÉTRICAS*/
+
+/* --------------------------------------------------------------------------
+   4. BLOCO DE MÉTRICAS (KPI CARDS)
+   -------------------------------------------------------------------------- 
+   Organizado com CSS Grid para garantir adaptação de colunas automática */
 .dashboard-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -115,6 +142,7 @@
   text-align: center;
   border: 3px solid #FCE1B6;
   box-shadow: 0 8px 0px #FCE1B6;
+  /* Efeito cartoon/fofo com sombra sólida */
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   position: relative;
   display: flex;
@@ -124,10 +152,13 @@
 
 .card-metrica-admin:hover {
   transform: translateY(-4px);
+  /* Sobe de leve no hover */
   box-shadow: 0 12px 0px #F5C2C2;
+  /* Sombra se expande e muda para o rosa pastel */
   border-color: #F5C2C2;
 }
 
+/* Wrapper circular dos ícones internos das métricas */
 .icone-wrapper {
   width: 50px;
   height: 50px;
@@ -139,7 +170,7 @@
   margin-bottom: 10px;
 }
 
-/* Cores dos ícones dos cards */
+/* Variações de cor dos ícones dos cards de métricas */
 .icone-wrapper.rosa {
   background: #FFF0F0;
   color: #C06C84;
@@ -174,18 +205,24 @@
   margin: 5px 0 0 0;
 }
 
+/* Destaque piscante para métricas críticas (como novos pedidos pendentes) */
 .numero-metrica.alert {
   color: #C06C84;
   animation: pulse 2s infinite;
 }
 
-/* SEÇÕES DO PAINEL GERAL */
+
+/* --------------------------------------------------------------------------
+   5. DISTRIBUIÇÃO DO LAYOUT (GRID PRINCIPAL & PAINÉIS)
+   -------------------------------------------------------------------------- */
 .admin-grid-layout {
   display: grid;
   grid-template-columns: 2fr 1fr;
+  /* Tabela de pedidos ocupa mais espaço do que a lateral */
   gap: 30px;
 }
 
+/* Responsividade para tablets e smartphones: colapsa o layout em uma única coluna */
 @media (max-width: 1024px) {
   .admin-grid-layout {
     grid-template-columns: 1fr;
@@ -198,6 +235,7 @@
   gap: 30px;
 }
 
+/* Caixa padrão que envelopa cada bloco/seção estrutural */
 .painel-secao {
   background: #FFF;
   border: 3px solid #FCE1B6;
@@ -228,7 +266,10 @@
   color: #C06C84;
 }
 
-/*FILTROS INTERATIVOS*/
+
+/* --------------------------------------------------------------------------
+   6. COMPONENTES DE FILTRO INTERATIVO
+   -------------------------------------------------------------------------- */
 .filtros-fofos {
   display: flex;
   gap: 8px;
@@ -251,9 +292,13 @@
   border-color: #C06C84;
 }
 
-/*TABELA DE PEDIDOS*/
+
+/* --------------------------------------------------------------------------
+   7. MODELAGEM DA TABELA DE PEDIDOS DOS CLIENTES
+   -------------------------------------------------------------------------- */
 .tabela-responsiva {
   overflow-x: auto;
+  /* Permite scroll horizontal em telas menores para não quebrar a UI */
   border-radius: 18px;
   border: 2px solid #FFF0F0;
 }
@@ -279,11 +324,15 @@
   font-size: 14px;
 }
 
+/* Sutil destaque na linha onde o cursor do mouse está focado */
 .tabela-admin tr:hover td {
   background-color: #FFF9F9;
 }
 
-/*BADGES*/
+
+/* --------------------------------------------------------------------------
+   8. IDENTIFICADORES VISUAIS (BADGES DE STATUS E ENTREGA)
+   -------------------------------------------------------------------------- */
 .badge-fofo {
   display: inline-flex;
   align-items: center;
@@ -294,6 +343,7 @@
   font-weight: bold;
 }
 
+/* Status: Processo de Compra e Cozinha */
 .status-pendente {
   background: #FFF3E0;
   color: #E28929;
@@ -318,6 +368,7 @@
   border: 1px solid #C8E6C9;
 }
 
+/* Modos de Aquisição do Pedido */
 .tipo-delivery {
   background: #FFF0F0;
   color: #C06C84;
@@ -328,7 +379,10 @@
   color: #5A2323;
 }
 
-/*BOTÕES DE AÇÃO NA TABELA*/
+
+/* --------------------------------------------------------------------------
+   9. ELEMENTOS DE AÇÃO (BOTÕES DA TABELA)
+   -------------------------------------------------------------------------- */
 .btn-acao {
   border: none;
   width: 32px;
@@ -361,7 +415,10 @@
   transform: scale(1.15);
 }
 
-/*FORMULÁRIO DE CADASTRO INTERNO*/
+
+/* --------------------------------------------------------------------------
+   10. FORMULÁRIOS INTERNOS DO PAINEL DE CONTROLE
+   -------------------------------------------------------------------------- */
 .formulario-cadastro-admin {
   background: #FFF9F9;
   padding: 15px;
@@ -369,6 +426,7 @@
   border: 3px dashed #F5C2C2;
 }
 
+/* Caixas organizadoras de Input + Ícones Absolutos */
 .input-container-fofo {
   position: relative;
   margin-bottom: 12px;
@@ -385,6 +443,7 @@
 .input-container-fofo input {
   width: 100%;
   padding: 12px 12px 12px 40px;
+  /* Recuo à esquerda maior para abrir espaço ao ícone */
   border: 2px solid white;
   border-radius: 16px;
   font-family: 'Itim', cursive;
@@ -399,7 +458,7 @@
   border-color: #F5C2C2;
 }
 
-/* SELECT CUSTOMIZADO */
+/* Customização Estética de Elementos Select */
 .select-customizado {
   position: relative;
   width: 100%;
@@ -418,8 +477,10 @@
   background-color: white;
   cursor: pointer;
   appearance: none;
+  /* Desativa a seta original feia do navegador */
 }
 
+/* Injeta uma seta customizada estilizada via pseudo-elemento */
 .select-customizado::after {
   content: '▼';
   font-size: 10px;
@@ -429,8 +490,10 @@
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
+  /* Impede que o clique trave em cima da seta */
 }
 
+/* Botões de Confirmação e Salvamento do Painel */
 .btn-salvar-admin {
   width: 100%;
   background: #E28929;
@@ -442,15 +505,21 @@
   border-radius: 16px;
   cursor: pointer;
   box-shadow: 0 4px 0px #B36210;
+  /* Efeito 3D de relevo no botão */
   transition: all 0.1s;
 }
 
 .btn-salvar-admin:hover {
   transform: translateY(2px);
+  /* Abaixa levemente simulando pressão mecânica do clique */
   box-shadow: 0 2px 0px #B36210;
+  /* Encolhe o relevo da sombra inferior */
 }
 
-/*LISTA DE COMPONENTES DE FUNCIONÁRIOS*/
+
+/* --------------------------------------------------------------------------
+   11. COMPONENTE DA LISTA DE FUNCIONÁRIOS ATIVOS
+   -------------------------------------------------------------------------- */
 .lista-funcionarios {
   display: flex;
   flex-direction: column;
@@ -468,6 +537,7 @@
   gap: 12px;
 }
 
+/* Mini avatares circulares de identificação de equipe */
 .avatar-func {
   width: 38px;
   height: 38px;
@@ -478,6 +548,7 @@
   font-size: 16px;
 }
 
+/* Colorização dos avatares da equipe */
 .avatar-func.rosa {
   background: #FFF0F0;
   color: #C06C84;
@@ -509,6 +580,7 @@
   font-size: 12px;
 }
 
+/* Níveis hierárquicos dos cargos cadastrados */
 .badge-cargo {
   font-size: 11px;
   padding: 3px 10px;
@@ -530,7 +602,10 @@
   color: #3E5F20;
 }
 
-/* ANIMAÇÃO FOFA DE PULSAR */
+
+/* --------------------------------------------------------------------------
+   12. ANIMAÇÕES GLOBAIS DO PAINEL COFFEE TIME
+   -------------------------------------------------------------------------- */
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -538,6 +613,7 @@
 
   50% {
     transform: scale(1.05);
+    /* Expansão suave no ápice do ciclo */
   }
 
   100% {
