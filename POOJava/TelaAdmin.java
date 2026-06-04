@@ -113,11 +113,11 @@ public class TelaAdmin extends JFrame {
         comboPagamento = new JComboBox<>(new String[] { "Pix", "Cartão de Crédito", "Cartão de Débito", "Dinheiro" });
         retirarPedido = new JComboBox<>(new String[] { "Retirar da Loja", "Delivery", "Comer na Loja" });
         txtTotalPedido = new JTextField();
-        
+
         JButton btnImportarWeb = new JButton("Importar Pedido da Web ☕");
         btnImportarWeb.setBackground(new Color(192, 108, 132)); // Cor combinando com a identidade visual do site
         btnImportarWeb.setForeground(Color.WHITE);
-        
+
         JButton btnCadastrarPedido = new JButton("Anotar Pedido");
 
         form.add(new JLabel("Nome do Cliente:"));
@@ -164,15 +164,16 @@ public class TelaAdmin extends JFrame {
                     // 1. Preenche os campos textuais simples
                     txtNomeCliente.setText(partes[1].trim());
                     txtEndereco.setText(partes[2].trim());
-                    
+
                     // Melhora a visualização dos produtos quebrando as linhas por vírgula
-                    areaProdutos.setText(partes[3].trim().replace(", ", "\n")); 
-                    
+                    areaProdutos.setText(partes[3].trim().replace(", ", "\n"));
+
                     // 2. Trata e seleciona a Forma de Pagamento no ComboBox
                     String pagamentoWeb = partes[4].trim();
                     selecionarItemCombo(comboPagamento, pagamentoWeb);
 
-                    // 3. Tratamento especial para o tipo de retirada ("Retirada" -> "Retirar da Loja")
+                    // 3. Tratamento especial para o tipo de retirada ("Retirada" -> "Retirar da
+                    // Loja")
                     String tipoWeb = partes[5].trim();
                     if (tipoWeb.equalsIgnoreCase("Retirada")) {
                         retirarPedido.setSelectedItem("Retirar da Loja");
@@ -183,22 +184,28 @@ public class TelaAdmin extends JFrame {
                     // 4. Insere o valor total
                     txtTotalPedido.setText(partes[6].trim());
 
-                    JOptionPane.showMessageDialog(this, "✨ Pedido da Web importado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "✨ Pedido da Web importado com sucesso!", "Sucesso",
+                            JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(this, "O texto copiado não possui a quantidade de dados necessária.", "Formato Inválido", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "O texto copiado não possui a quantidade de dados necessária.",
+                            "Formato Inválido", JOptionPane.WARNING_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Nenhum dado válido de pedido encontrado na Área de Transferência.\nCertifique-se de clicar em 'Copiar Dados para o Java' no site.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this,
+                        "Nenhum dado válido de pedido encontrado na Área de Transferência.\nCertifique-se de clicar em 'Copiar Dados para o Java' no site.",
+                        "Aviso", JOptionPane.WARNING_MESSAGE);
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao acessar a Área de Transferência: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Erro ao acessar a Área de Transferência: " + ex.getMessage(), "Erro",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
     // Método utilitário para varrer e selecionar dinamicamente itens de JComboBox
     private void selecionarItemCombo(JComboBox<String> combo, String valor) {
         for (int i = 0; i < combo.getItemCount(); i++) {
-            if (combo.getItemAt(i).equalsIgnoreCase(valor) || combo.getItemAt(i).toLowerCase().contains(valor.toLowerCase())) {
+            if (combo.getItemAt(i).equalsIgnoreCase(valor)
+                    || combo.getItemAt(i).toLowerCase().contains(valor.toLowerCase())) {
                 combo.setSelectedIndex(i);
                 return;
             }

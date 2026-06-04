@@ -9,7 +9,7 @@ public class TelaClientes extends JFrame {
     private JTextField txtNome, txtCpf, txtTelefone, txtEndereco, txtPagamento;
     private JComboBox<String> cbFormaPagamento; // Novo menu seletor para as formas de pagamento
     private JTextArea areaResultado;
-    private JLabel lblTotalPagamentos; 
+    private JLabel lblTotalPagamentos;
 
     private ArrayList<Cliente> listaClientes = new ArrayList<>();
 
@@ -30,9 +30,9 @@ public class TelaClientes extends JFrame {
         txtTelefone = new JTextField();
         txtEndereco = new JTextField();
         txtPagamento = new JTextField();
-        
+
         // Inicializando o seletor de formas de pagamento
-        String[] formas = {"Pix", "Cartão de Débito", "Cartão de Crédito", "Dinheiro"};
+        String[] formas = { "Pix", "Cartão de Débito", "Cartão de Crédito", "Dinheiro" };
         cbFormaPagamento = new JComboBox<>(formas);
 
         painelTopo.add(new JLabel("Nome do Cliente:"));
@@ -58,7 +58,7 @@ public class TelaClientes extends JFrame {
         JPanel painelInferior = new JPanel(new BorderLayout());
 
         JButton btnCadastrar = new JButton("Cadastrar Cliente");
-        btnCadastrar.setBackground(new Color(46, 139, 87)); 
+        btnCadastrar.setBackground(new Color(46, 139, 87));
         btnCadastrar.setForeground(Color.WHITE);
         btnCadastrar.setFont(new Font("Arial", Font.BOLD, 14));
 
@@ -83,7 +83,7 @@ public class TelaClientes extends JFrame {
 
             // Validação inicial do valor numérico
             double valor = Double.parseDouble(txtPagamento.getText());
-            
+
             // Captura a forma selecionada no JComboBox
             String formaSelecionada = (String) cbFormaPagamento.getSelectedItem();
             String detalhesPagamento = "";
@@ -91,20 +91,22 @@ public class TelaClientes extends JFrame {
             // Lógica para obter as informações adicionais pedidas no enunciado
             if (formaSelecionada.equals("Pix")) {
                 String chavePix = JOptionPane.showInputDialog(this, "Digite a chave PIX:");
-                if (chavePix == null || chavePix.trim().isEmpty()) chavePix = "Não informada";
+                if (chavePix == null || chavePix.trim().isEmpty())
+                    chavePix = "Não informada";
                 detalhesPagamento = "Pix (Chave: " + chavePix + ") - R$ " + String.format("%.2f", valor);
-                
+
             } else if (formaSelecionada.equals("Cartão de Débito") || formaSelecionada.equals("Cartão de Crédito")) {
                 String numCartao = JOptionPane.showInputDialog(this, "Digite o número do cartão:");
-                if (numCartao == null || numCartao.trim().isEmpty()) numCartao = "Não informado";
+                if (numCartao == null || numCartao.trim().isEmpty())
+                    numCartao = "Não informado";
                 detalhesPagamento = formaSelecionada + " (Nº: " + numCartao + ") - R$ " + String.format("%.2f", valor);
-                
+
             } else if (formaSelecionada.equals("Dinheiro")) {
-                String[] moedas = {"Real (BRL)", "Dólar (USD)"};
-                int resposta = JOptionPane.showOptionDialog(this, "O pagamento é em Real ou Dólar?", 
-                        "Tipo de Moeda", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, 
+                String[] moedas = { "Real (BRL)", "Dólar (USD)" };
+                int resposta = JOptionPane.showOptionDialog(this, "O pagamento é em Real ou Dólar?",
+                        "Tipo de Moeda", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
                         null, moedas, moedas[0]);
-                
+
                 String moedaEscolhida = (resposta == 1) ? "Dólar (USD)" : "Real (BRL)";
                 detalhesPagamento = "Dinheiro em " + moedaEscolhida + " - R$ " + String.format("%.2f", valor);
             }

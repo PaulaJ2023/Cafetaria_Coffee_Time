@@ -8,7 +8,8 @@ public class Cliente {
     private String pagamento; // Alterado para String para guardar os detalhes da forma de pagamento
     private double valorPagamento; // Campo interno para manter o valor numérico para as somas
 
-    public Cliente(String nome, String cpf, String telefone, String endereco, double valorPagamento, String detalhesPagamento) {
+    public Cliente(String nome, String cpf, String telefone, String endereco, double valorPagamento,
+            String detalhesPagamento) {
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;

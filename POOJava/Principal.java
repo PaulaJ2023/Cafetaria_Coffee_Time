@@ -3,7 +3,7 @@ package POOJava;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor; // Importante para ler a área de transferência
-import java.awt.Toolkit;                 // Importante para acessar o Clipboard do sistema
+import java.awt.Toolkit; // Importante para acessar o Clipboard do sistema
 import java.util.ArrayList;
 
 public class Principal {
@@ -17,7 +17,8 @@ public class Principal {
     private int contadorPedidos = 1;
 
     // --- COMPONENTES DA ABA DE FUNCIONÁRIOS ---
-    private JTextField txtNomeFunc, txtCpfFunc, txtSalario, txtValorHora, txtHorasFunc, txtGratificacao, txtLucros, txtBolsa;
+    private JTextField txtNomeFunc, txtCpfFunc, txtSalario, txtValorHora, txtHorasFunc, txtGratificacao, txtLucros,
+            txtBolsa;
     private JComboBox<String> comboCargo;
     private JTextArea areaFuncionarios;
     private JLabel lblTotalFolha;
@@ -39,12 +40,12 @@ public class Principal {
         JTabbedPane abas = new JTabbedPane();
         abas.addTab("Gestão de Funcionários 👥", criarAbaFuncionarios());
         abas.addTab("Anotação de Pedidos 📜", criarAbaPedidos());
-        
+
         // Título Superior Charmoso
         JLabel lblTituloGeral = new JLabel("Coffee Time ☕ - Painel de Controle", SwingConstants.CENTER);
         lblTituloGeral.setFont(new Font("Arial", Font.BOLD, 18));
         lblTituloGeral.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        
+
         // Adicionando os componentes estruturais à janela
         janela.add(lblTituloGeral, BorderLayout.NORTH);
         janela.add(abas, BorderLayout.CENTER);
@@ -77,15 +78,24 @@ public class Principal {
         String[] cargos = { "Funcionário Comum", "Gerente", "Estagiário" };
         comboCargo = new JComboBox<>(cargos);
 
-        painelForm.add(new JLabel(" Tipo de Cargo:"));    painelForm.add(comboCargo);
-        painelForm.add(new JLabel(" Nome:"));            painelForm.add(txtNomeFunc);
-        painelForm.add(new JLabel(" CPF:"));            painelForm.add(txtCpfFunc);
-        painelForm.add(new JLabel(" Salário Base:"));     painelForm.add(txtSalario);
-        painelForm.add(new JLabel(" Valor da Hora:"));    painelForm.add(txtValorHora);
-        painelForm.add(new JLabel(" Horas Trabalhadas:"));painelForm.add(txtHorasFunc);
-        painelForm.add(new JLabel(" Gratificação (Gerente):"));      painelForm.add(txtGratificacao);
-        painelForm.add(new JLabel(" Part. Lucros (Gerente):"));     painelForm.add(txtLucros);
-        painelForm.add(new JLabel(" Bolsa Auxílio (Estagiário):"));  painelForm.add(txtBolsa);
+        painelForm.add(new JLabel(" Tipo de Cargo:"));
+        painelForm.add(comboCargo);
+        painelForm.add(new JLabel(" Nome:"));
+        painelForm.add(txtNomeFunc);
+        painelForm.add(new JLabel(" CPF:"));
+        painelForm.add(txtCpfFunc);
+        painelForm.add(new JLabel(" Salário Base:"));
+        painelForm.add(txtSalario);
+        painelForm.add(new JLabel(" Valor da Hora:"));
+        painelForm.add(txtValorHora);
+        painelForm.add(new JLabel(" Horas Trabalhadas:"));
+        painelForm.add(txtHorasFunc);
+        painelForm.add(new JLabel(" Gratificação (Gerente):"));
+        painelForm.add(txtGratificacao);
+        painelForm.add(new JLabel(" Part. Lucros (Gerente):"));
+        painelForm.add(txtLucros);
+        painelForm.add(new JLabel(" Bolsa Auxílio (Estagiário):"));
+        painelForm.add(txtBolsa);
 
         painelGeral.add(painelForm, BorderLayout.NORTH);
 
@@ -144,17 +154,23 @@ public class Principal {
         String[] formasEntrega = { "Entrega (Delivery)", "Retirada no Balcão" };
         retirarPedido = new JComboBox<>(formasEntrega);
 
-        painelForm.add(new JLabel(" Nome do Cliente:"));   painelForm.add(txtNomeCliente);
-        painelForm.add(new JLabel(" Endereço de Entrega:")); painelForm.add(txtEndereco);
-        painelForm.add(new JLabel(" Forma de Pagamento:")); painelForm.add(comboPagamento);
-        painelForm.add(new JLabel(" Modo de Retirada:"));   painelForm.add(retirarPedido);
-        painelForm.add(new JLabel(" Total a Pagar (R$):")); painelForm.add(txtTotalPedido);
+        painelForm.add(new JLabel(" Nome do Cliente:"));
+        painelForm.add(txtNomeCliente);
+        painelForm.add(new JLabel(" Endereço de Entrega:"));
+        painelForm.add(txtEndereco);
+        painelForm.add(new JLabel(" Forma de Pagamento:"));
+        painelForm.add(comboPagamento);
+        painelForm.add(new JLabel(" Modo de Retirada:"));
+        painelForm.add(retirarPedido);
+        painelForm.add(new JLabel(" Total a Pagar (R$):"));
+        painelForm.add(txtTotalPedido);
 
         // Painel Dividido do Meio (Esquerda: Itens / Direita: Histórico de Pedidos)
         JPanel painelMeio = new JPanel(new GridLayout(1, 2, 10, 10));
-        
+
         JPanel painelProdutosInput = new JPanel(new BorderLayout());
-        painelProdutosInput.setBorder(BorderFactory.createTitledBorder("Produtos Selecionados (Ex: 1x Café, 2x Cookie)"));
+        painelProdutosInput
+                .setBorder(BorderFactory.createTitledBorder("Produtos Selecionados (Ex: 1x Café, 2x Cookie)"));
         areaProdutos = new JTextArea();
         painelProdutosInput.add(new JScrollPane(areaProdutos), BorderLayout.CENTER);
 
@@ -179,7 +195,8 @@ public class Principal {
         JButton btnLancarPedido = new JButton("Lançar Pedido 💾");
         JButton btnLimparPedido = new JButton("Limpar Campos 🧹");
 
-        // Estilização charmosa do botão de importar para combinar com a interface do Coffee Time
+        // Estilização charmosa do botão de importar para combinar com a interface do
+        // Coffee Time
         btnImportarPedido.setBackground(new Color(192, 108, 132)); // Cor que combina com o CSS do Admin da Web
         btnImportarPedido.setForeground(Color.WHITE);
         btnImportarPedido.setFont(new Font("Arial", Font.BOLD, 12));
@@ -209,17 +226,19 @@ public class Principal {
 
             // Validação de segurança básica se o dado está vazio ou mal estruturado
             if (dadosCopiados == null || dadosCopiados.trim().isEmpty() || !dadosCopiados.contains(";")) {
-                JOptionPane.showMessageDialog(janela, 
-                    "⚠️ Nenhum dado de pedido válido na área de transferência.\n" +
-                    "Acesse o painel web, localize 'Último Pedido' e clique em 'Copiar Dados para o Java ☕'.", 
-                    "Aviso de Sincronização", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(janela,
+                        "⚠️ Nenhum dado de pedido válido na área de transferência.\n" +
+                                "Acesse o painel web, localize 'Último Pedido' e clique em 'Copiar Dados para o Java ☕'.",
+                        "Aviso de Sincronização", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
             // O separador criado no arquivo admin.js é o ";"
             String[] partes = dadosCopiados.split(";");
             if (partes.length < 7) {
-                JOptionPane.showMessageDialog(janela, "⚠️ Os dados estruturados do pedido parecem corrompidos ou incompletos.", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(janela,
+                        "⚠️ Os dados estruturados do pedido parecem corrompidos ou incompletos.", "Erro",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -255,13 +274,14 @@ public class Principal {
                 retirarPedido.setSelectedIndex(1); // Retirada no Balcão
             }
 
-            JOptionPane.showMessageDialog(janela, 
-                "🎉 Último Pedido " + idWeb + " de " + cliente + " importado com sucesso!\n" +
-                "Verifique os dados e clique em 'Lançar Pedido 💾' para arquivar.", 
-                "Integração Concluída", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(janela,
+                    "🎉 Último Pedido " + idWeb + " de " + cliente + " importado com sucesso!\n" +
+                            "Verifique os dados e clique em 'Lançar Pedido 💾' para arquivar.",
+                    "Integração Concluída", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(janela, "Falha na leitura do clipboard do sistema: " + ex.getMessage(), "Erro de Integração", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(janela, "Falha na leitura do clipboard do sistema: " + ex.getMessage(),
+                    "Erro de Integração", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -274,9 +294,9 @@ public class Principal {
                     .getSystemClipboard().getData(DataFlavor.stringFlavor);
 
             if (dadosCopiados == null || dadosCopiados.trim().isEmpty() || !dadosCopiados.contains(";")) {
-                JOptionPane.showMessageDialog(janela, 
-                    "⚠️ Nenhum dado de funcionário válido na área de transferência.", 
-                    "Aviso", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(janela,
+                        "⚠️ Nenhum dado de funcionário válido na área de transferência.",
+                        "Aviso", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
@@ -303,7 +323,8 @@ public class Principal {
             }
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(janela, "Erro na importação: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(janela, "Erro na importação: " + ex.getMessage(), "Erro",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -332,7 +353,8 @@ public class Principal {
             limparCamposFuncionario();
             JOptionPane.showMessageDialog(janela, "Funcionário cadastrado com sucesso!");
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(janela, "Erro: Verifique os dados numéricos!", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(janela, "Erro: Verifique os dados numéricos!", "Erro",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -349,9 +371,14 @@ public class Principal {
     }
 
     private void limparCamposFuncionario() {
-        txtNomeFunc.setText("");  txtCpfFunc.setText("");
-        txtSalario.setText("0.0"); txtValorHora.setText("0.0"); txtHorasFunc.setText("0.0");
-        txtGratificacao.setText("0.0"); txtLucros.setText("0.0"); txtBolsa.setText("0.0");
+        txtNomeFunc.setText("");
+        txtCpfFunc.setText("");
+        txtSalario.setText("0.0");
+        txtValorHora.setText("0.0");
+        txtHorasFunc.setText("0.0");
+        txtGratificacao.setText("0.0");
+        txtLucros.setText("0.0");
+        txtBolsa.setText("0.0");
         comboCargo.setSelectedIndex(0);
     }
 
@@ -368,11 +395,13 @@ public class Principal {
             double total = Double.parseDouble(txtTotalPedido.getText());
 
             if (nomeCliente.trim().isEmpty() || produtos.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(janela, "Por favor, preencha o nome do cliente e os produtos!", "Campos Vazios", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(janela, "Por favor, preencha o nome do cliente e os produtos!",
+                        "Campos Vazios", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
-            Pedido novoPedido = new Pedido(contadorPedidos++, nomeCliente, endereco, produtos, pagamento, modoRetirada, total);
+            Pedido novoPedido = new Pedido(contadorPedidos++, nomeCliente, endereco, produtos, pagamento, modoRetirada,
+                    total);
             listaPedidos.add(novoPedido);
 
             atualizarListaPedidos();
@@ -380,7 +409,8 @@ public class Principal {
             JOptionPane.showMessageDialog(janela, "Pedido lançado no sistema com sucesso!");
 
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(janela, "Insira um valor numérico válido para o total do pedido!", "Erro no Total", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(janela, "Insira um valor numérico válido para o total do pedido!",
+                    "Erro no Total", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -414,119 +444,124 @@ public class Principal {
     }
 }
 
-/*public class Principal {
-  public static void main(String[] args) {
-    Scanner leitor = new Scanner(System.in);
-    ArrayList<Funcionario> lista = new ArrayList<>();
-    ArrayList<Cliente> listaClientes = new ArrayList<>();
-    // ArrayList<Fornecedor> listaFornecedores = new ArrayList<>();
-    int opcao;
-    do {
-      System.out.println("-menu-");
-      System.out.println("1- Cadastrar funcionario");
-      System.out.println("2- Listar funcionario");
-      System.out.println("3- Calcular folha salarial");
-      System.out.println("4 - Cadastrar cliente");
-      // System.out.println("5 - Cadastrar fornecedor");
-      System.out.println("0- Sair");
-      System.out.println("escolha uma opçâo");
-      opcao = leitor.nextInt();
-      leitor.nextLine();
-      if (opcao == 1) {
-        System.out.println("\nTipo(1- funcionario | 2-Gerente | 3-Estagiario): ");
-        int tipo_funci = leitor.nextInt();
-        leitor.nextLine();
-        System.out.println("nome");
-        String nome = leitor.nextLine();
-        System.out.println("cpf");
-        String cpf = leitor.nextLine();
-        Funcionario f;
-        if (tipo_funci == 2) {
-          System.out.println("salario");
-          double salario = leitor.nextDouble();
-          System.out.println("valor hora");
-          double valorHora = leitor.nextDouble();
-          System.out.println("horas trabalhadas");
-          double horasTrabalhadas = leitor.nextDouble();
-          System.out.println("gratificação");
-          double gratificacao = leitor.nextDouble();
-          System.out.println("participação nos lucros");
-          double participacaoLucros = leitor.nextDouble();
-          f = new Gerente(nome, cpf, salario, valorHora, horasTrabalhadas, gratificacao, participacaoLucros);
-        } else if (tipo_funci == 3) {
-          System.out.println("salario");
-          double salario = leitor.nextDouble();
-          System.out.println("valor hora");
-          double valorHora = leitor.nextDouble();
-          System.out.println("horas trabalhadas");
-          double horasTrabalhadas = leitor.nextDouble();
-          System.out.println("bolsa auxilio");
-          double bolsaAuxilio = leitor.nextDouble();
-          f = new Estagiario(nome, cpf, salario, valorHora, horasTrabalhadas, bolsaAuxilio);
-        } else {
-          System.out.println("salario");
-          double salario = leitor.nextDouble();
-          System.out.println("valor hora");
-          double valorHora = leitor.nextDouble();
-          System.out.println("horas trabalhadas");
-          double horasTrabalhadas = leitor.nextDouble();
-          f = new Funcionario(nome, cpf, salario, valorHora, horasTrabalhadas);
-        }
-        lista.add(f);
-        System.out.println("funcionario cadastrado com sucesso");
-      } else if (opcao == 2) {
-        System.out.println("--listando funcionario--");
-        for (int i = 0; i < lista.size(); i++) {
-          lista.get(i).exibirDados();
-        }
-      } else if (opcao == 3) {
-        // calcular valor total
-        double total = 0;
-        int i = 0;
-        while (i < lista.size()) {
-          total += lista.get(i).calcularSalario();
-          i++;
-        }
-        System.out.println("total da folha salarial" + total);
-      } else if (opcao == 4) {
-        System.out.println("nome do cliente");
-        String nome = leitor.nextLine();
-        System.out.println("cpf do cliente");
-        String cpf = leitor.nextLine();
-        System.out.println("Telefone do cliente");
-        String telefone = leitor.nextLine();
-        System.out.println("endereço do cliente");
-        String endereco = leitor.nextLine();
-        System.out.println("pagamento do cliente");
-        double pagamento = leitor.nextDouble();
-        leitor.nextLine();// limpar buffer
-        Cliente c = new Cliente(nome, cpf, telefone, endereco, pagamento);
-        listaClientes.add(c);
-        System.out.println("cliente cadastrado com sucesso");
-      } 
-    } while (opcao != 0);
-    leitor.close();
-  }
-}*/
+/*
+ * public class Principal {
+ * public static void main(String[] args) {
+ * Scanner leitor = new Scanner(System.in);
+ * ArrayList<Funcionario> lista = new ArrayList<>();
+ * ArrayList<Cliente> listaClientes = new ArrayList<>();
+ * // ArrayList<Fornecedor> listaFornecedores = new ArrayList<>();
+ * int opcao;
+ * do {
+ * System.out.println("-menu-");
+ * System.out.println("1- Cadastrar funcionario");
+ * System.out.println("2- Listar funcionario");
+ * System.out.println("3- Calcular folha salarial");
+ * System.out.println("4 - Cadastrar cliente");
+ * // System.out.println("5 - Cadastrar fornecedor");
+ * System.out.println("0- Sair");
+ * System.out.println("escolha uma opçâo");
+ * opcao = leitor.nextInt();
+ * leitor.nextLine();
+ * if (opcao == 1) {
+ * System.out.println("\nTipo(1- funcionario | 2-Gerente | 3-Estagiario): ");
+ * int tipo_funci = leitor.nextInt();
+ * leitor.nextLine();
+ * System.out.println("nome");
+ * String nome = leitor.nextLine();
+ * System.out.println("cpf");
+ * String cpf = leitor.nextLine();
+ * Funcionario f;
+ * if (tipo_funci == 2) {
+ * System.out.println("salario");
+ * double salario = leitor.nextDouble();
+ * System.out.println("valor hora");
+ * double valorHora = leitor.nextDouble();
+ * System.out.println("horas trabalhadas");
+ * double horasTrabalhadas = leitor.nextDouble();
+ * System.out.println("gratificação");
+ * double gratificacao = leitor.nextDouble();
+ * System.out.println("participação nos lucros");
+ * double participacaoLucros = leitor.nextDouble();
+ * f = new Gerente(nome, cpf, salario, valorHora, horasTrabalhadas,
+ * gratificacao, participacaoLucros);
+ * } else if (tipo_funci == 3) {
+ * System.out.println("salario");
+ * double salario = leitor.nextDouble();
+ * System.out.println("valor hora");
+ * double valorHora = leitor.nextDouble();
+ * System.out.println("horas trabalhadas");
+ * double horasTrabalhadas = leitor.nextDouble();
+ * System.out.println("bolsa auxilio");
+ * double bolsaAuxilio = leitor.nextDouble();
+ * f = new Estagiario(nome, cpf, salario, valorHora, horasTrabalhadas,
+ * bolsaAuxilio);
+ * } else {
+ * System.out.println("salario");
+ * double salario = leitor.nextDouble();
+ * System.out.println("valor hora");
+ * double valorHora = leitor.nextDouble();
+ * System.out.println("horas trabalhadas");
+ * double horasTrabalhadas = leitor.nextDouble();
+ * f = new Funcionario(nome, cpf, salario, valorHora, horasTrabalhadas);
+ * }
+ * lista.add(f);
+ * System.out.println("funcionario cadastrado com sucesso");
+ * } else if (opcao == 2) {
+ * System.out.println("--listando funcionario--");
+ * for (int i = 0; i < lista.size(); i++) {
+ * lista.get(i).exibirDados();
+ * }
+ * } else if (opcao == 3) {
+ * // calcular valor total
+ * double total = 0;
+ * int i = 0;
+ * while (i < lista.size()) {
+ * total += lista.get(i).calcularSalario();
+ * i++;
+ * }
+ * System.out.println("total da folha salarial" + total);
+ * } else if (opcao == 4) {
+ * System.out.println("nome do cliente");
+ * String nome = leitor.nextLine();
+ * System.out.println("cpf do cliente");
+ * String cpf = leitor.nextLine();
+ * System.out.println("Telefone do cliente");
+ * String telefone = leitor.nextLine();
+ * System.out.println("endereço do cliente");
+ * String endereco = leitor.nextLine();
+ * System.out.println("pagamento do cliente");
+ * double pagamento = leitor.nextDouble();
+ * leitor.nextLine();// limpar buffer
+ * Cliente c = new Cliente(nome, cpf, telefone, endereco, pagamento);
+ * listaClientes.add(c);
+ * System.out.println("cliente cadastrado com sucesso");
+ * }
+ * } while (opcao != 0);
+ * leitor.close();
+ * }
+ * }
+ */
 
-/*Parte do gerente desativado
-         * else if (opcao == 5){
-         * System.out.println("nome do fornecedor");
-         * String nome = leitor.nextLine();
-         * System.out.println("cpf do fornecedor");
-         * String cpf = leitor.nextLine();
-         * System.out.println("cnpj do fornecedor");
-         * String cnpj = leitor.nextLine();
-         * System.out.println("Telefone do fornecedor");
-         * String telefone = leitor.nextLine();
-         * System.out.println("endereço do fornecedor");
-         * String endereco = leitor.nextLine();
-         * System.out.println("pagamento do fornecedor");
-         * double pagamento = leitor.nextDouble();
-         * leitor.nextLine();//limpar buffer
-         * Fornecedor f = new Fornecedor(nome, cpf, telefone, endereco, cnpj,
-         * pagamento);
-         * listaFornecedores.add(f);
-         * System.out.println("fornecedor cadastrado com sucesso");
-         * }
-         */
+/*
+ * Parte do gerente desativado
+ * else if (opcao == 5){
+ * System.out.println("nome do fornecedor");
+ * String nome = leitor.nextLine();
+ * System.out.println("cpf do fornecedor");
+ * String cpf = leitor.nextLine();
+ * System.out.println("cnpj do fornecedor");
+ * String cnpj = leitor.nextLine();
+ * System.out.println("Telefone do fornecedor");
+ * String telefone = leitor.nextLine();
+ * System.out.println("endereço do fornecedor");
+ * String endereco = leitor.nextLine();
+ * System.out.println("pagamento do fornecedor");
+ * double pagamento = leitor.nextDouble();
+ * leitor.nextLine();//limpar buffer
+ * Fornecedor f = new Fornecedor(nome, cpf, telefone, endereco, cnpj,
+ * pagamento);
+ * listaFornecedores.add(f);
+ * System.out.println("fornecedor cadastrado com sucesso");
+ * }
+ */
