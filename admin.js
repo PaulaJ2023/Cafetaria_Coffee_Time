@@ -1,29 +1,37 @@
-// ANOTAÇÕES DA PAULA: Esse arquivo cuida do Painel de Admin! 🛠️
-// Ele pega os dados do formulário de funcionário e também puxa os pedidos da loja!
+// =========================================================================
+// 📝 ANOTAÇÕES DA PAULA: Esse arquivo cuida do Painel de Admin! 
+// 🛠️ Ele pega os dados do formulário de funcionário e puxa os pedidos da loja.
+// =========================================================================
+
 document.addEventListener('DOMContentLoaded', function () {
 
-    // Carrega os pedidos assim que a página inicia
+    // Inicialização: Carrega os pedidos assim que a página inicia
     carregarPedidosDaLoja();
 
+    // ---------------------------------------------------------------------
     // 1. SISTEMA DE FILTROS DOS PEDIDOS
+    // ---------------------------------------------------------------------
     const botoesFiltro = document.querySelectorAll('.filtros-fofos .filtro-btn');
+
     if (botoesFiltro.length > 0) {
         botoesFiltro.forEach(botao => {
             botao.addEventListener('click', function () {
                 // Remove a classe 'ativo' de todos os botões de filtro
                 botoesFiltro.forEach(btn => btn.classList.remove('ativo'));
+
                 // Adiciona a classe 'ativo' apenas no botão clicado
                 this.classList.add('ativo');
 
-                // Pega o tipo de filtro (todos, Pendente, Preparo, etc.)
+                // Pega o tipo de filtro (todos, Pendente, Preparo, etc.) e recarrega a tabela
                 const filtro = this.getAttribute('data-filtro');
-                // Recarrega a tabela aplicando o filtro escolher
                 carregarPedidosDaLoja(filtro);
             });
         });
     }
 
-    // 2. SISTEMA DE CADASTRO DE FUNCIONÁRIOS
+    // ---------------------------------------------------------------------
+    //  2. SISTEMA DE CADASTRO DE FUNCIONÁRIOS
+    // ---------------------------------------------------------------------
     const formFuncionario = document.getElementById('form-cadastro-colaborador');
     const listaFuncionariosHtml = document.querySelector('.lista-funcionarios');
 
@@ -31,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
         formFuncionario.addEventListener('submit', function (evento) {
             evento.preventDefault();
 
+            // Captura os valores dos campos do formulário
             const nome = document.getElementById('nome-func').value;
             const email = document.getElementById('email-func').value;
             const cargo = document.getElementById('cargo-func').value;
@@ -39,18 +48,30 @@ document.addEventListener('DOMContentLoaded', function () {
             const dadosFuncionario = { nome, email, cargo };
             localStorage.setItem('ultimoFuncionarioAdmin', JSON.stringify(dadosFuncionario));
 
+            // Criação do elemento de interface para o novo funcionário
             const novoItem = document.createElement('div');
             novoItem.classList.add('item-funcionario-fofo');
 
+            // Definições visuais padrão (Card Rosa / Ícone de Café / Cargo Normal)
             let icone = 'fa-mug-hot';
             let classeCor = 'rosa';
             let classeBadge = 'cargo-normal';
 
-            // Correção: "Gerente Geral" para bater com o select do HTML
-            if (cargo === 'Gerente Geral') classeBadge = 'cargo-gerente';
-            if (cargo === 'Barista') { icone = 'fa-cookie-bite'; classeCor = 'marrom'; }
-            if (cargo === 'Estagiário') { icone = 'fa-seedling'; classeCor = 'amarelo'; classeBadge = 'cargo-estagiario'; }
+            // Customização baseada no cargo selecionado (Compatível com o select do HTML)
+            if (cargo === 'Gerente Geral') {
+                classeBadge = 'cargo-gerente';
+            }
+            if (cargo === 'Barista') {
+                icone = 'fa-cookie-bite';
+                classeCor = 'marrom';
+            }
+            if (cargo === 'Estagiário') {
+                icone = 'fa-seedling';
+                classeCor = 'amarelo';
+                classeBadge = 'cargo-estagiario';
+            }
 
+            // Injeta o HTML com as classes e variáveis definidas acima
             novoItem.innerHTML = `
                 <div class="avatar-func ${classeCor}"><i class="fas ${icone}"></i></div>
                 <div class="func-info">
@@ -62,10 +83,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             listaFuncionariosHtml.appendChild(novoItem);
 
-            // Atualiza dinamicamente o card de Equipe Ativa
+            // Atualiza dinamicamente o card de Equipe Ativa e o painel de integração Java
             atualizarCardEquipe();
-
-            // Recarrega o painel de exportação do funcionário para o Java
             inicializarPainelIntegracaoFuncionario();
 
             alert(`✨ Colaborador(a) ${nome} cadastrado(a) com sucesso no sistema!`);
@@ -75,18 +94,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Inicializa as caixinhas de integração após renderizar a página
     inicializarPainelIntegracao();
-    inicializarPainelIntegracaoFuncionario(); // <--- Nova inicialização
+    inicializarPainelIntegracaoFuncionario();
 });
 
-// Função que integra os pedidos salvos no LocalStorage dentro da Tabela Administrativa
+// =========================================================================
+// SEÇÃO: MANIPULAÇÃO DE PEDIDOS & MÉTRICAS
+// =========================================================================
+
+/**
+ * Puxa os pedidos salvos no LocalStorage e renderiza na Tabela Administrativa
+ * @param {string} filtroSelecionado - Filtro atual ('todos', 'Pendente', 'Preparo', etc)
+ */
 function carregarPedidosDaLoja(filtroSelecionado = 'todos') {
     const tabelaCorpo = document.querySelector('.tabela-admin tbody');
     if (!tabelaCorpo) return;
 
     tabelaCorpo.innerHTML = '';
 
+    // Busca os dados locais ou inicia um array vazio caso não exista nada salvo
     let listaPedidos = JSON.parse(localStorage.getItem('pedidosAdmin')) || [];
 
+    // Variáveis auxiliares para recalcular as métricas do topo do painel
     let faturamentoExtra = 0;
     let novosPedidosContagem = listaPedidos.length;
     let pendentesExtra = 0;
@@ -102,6 +130,7 @@ function carregarPedidosDaLoja(filtroSelecionado = 'todos') {
         const novaLinha = document.createElement('tr');
         novaLinha.style.background = "#FFF9F3";
 
+        // Identificação visual do tipo de atendimento (Delivery vs Balcão)
         let badgeTipo = '';
         if (pedido.tipo === 'Delivery') {
             badgeTipo = `<span class="badge-fofo tipo-delivery" title="Endereço: ${pedido.endereco}"><i class="fas fa-motorcycle"></i> Delivery</span>`;
@@ -112,8 +141,10 @@ function carregarPedidosDaLoja(filtroSelecionado = 'todos') {
             badgeTipo = `<span class="badge-fofo tipo-balcao"><i class="fas fa-store"></i> Retirada</span>`;
         }
 
+        // Soma o valor do pedido ao faturamento global acumulado
         faturamentoExtra += parseFloat(pedido.total || 0);
 
+        // Define as cores e estados com base na etapa atual do pedido
         let badgeStatus = '';
         let acaoBotao = '';
 
@@ -131,6 +162,7 @@ function carregarPedidosDaLoja(filtroSelecionado = 'todos') {
             acaoBotao = `<button class="btn-acao excluir" title="Excluir Pedido" onclick="excluirPedido('${pedido.id}')" style="background: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;"><i class="fas fa-trash"></i></button>`;
         }
 
+        // Constrói a estrutura HTML da linha da tabela
         novaLinha.innerHTML = `
             <td><strong>${pedido.id}</strong></td>
             <td>${pedido.cliente}</td>
@@ -141,29 +173,38 @@ function carregarPedidosDaLoja(filtroSelecionado = 'todos') {
             <td>${acaoBotao}</td>
         `;
 
+        // Insere sempre no topo para que os pedidos mais novos apareçam primeiro
         tabelaCorpo.insertBefore(novaLinha, tabelaCorpo.firstChild);
     });
 
+    // Atualiza os painéis numéricos de resumo
     atualizarCardsMetricas(novosPedidosContagem, faturamentoExtra, pendentesExtra);
     atualizarCardEquipe();
 }
 
-// Atualiza os contadores numéricos do cabeçalho do painel administrativo
+/**
+ * Atualiza os contadores numéricos informativos exibidos no cabeçalho
+ */
 function atualizarCardsMetricas(novosPedidos, valorExtra, novosPendentes) {
     const cards = document.querySelectorAll('.card-metrica-admin .numero-metrica');
     if (cards.length >= 4) {
+        // Card [0]: Total Geral de Pedidos
         let totalPedidosHoje = novosPedidos;
         cards[0].innerText = totalPedidosHoje;
 
+        // Card [1]: Pedidos Pendentes (Garante o plural correto caso não seja 1)
         let totalPendentesEntrega = novosPendentes;
         cards[1].innerText = `${totalPendentesEntrega} Pendente${totalPendentesEntrega !== 1 ? 's' : ''}`;
 
+        // Card [3]: Faturamento Total formatado em Moeda Real (R$)
         let faturamentoTotal = valorExtra;
         cards[3].innerText = `R$ ${faturamentoTotal.toFixed(2).replace('.', ',')}`;
     }
 }
 
-// Atualiza o contador de equipe baseado nos itens visíveis na lista
+/**
+ * Conta os elementos da lista de funcionários na tela e atualiza o respectivo Card [2]
+ */
 function atualizarCardEquipe() {
     const totalMembros = document.querySelectorAll('.lista-funcionarios .item-funcionario-fofo').length;
     const cardEquipe = document.querySelectorAll('.numero-metrica')[2];
@@ -172,37 +213,40 @@ function atualizarCardEquipe() {
     }
 }
 
-// Função interativa para avançar o status e salvar no localStorage
+/**
+ * Avança o status do ciclo de vida do pedido (Pendente -> Preparo -> A Caminho -> Finalizado)
+ */
 window.atualizarStatusPedido = function (idPedido, botao) {
     let listaPedidos = JSON.parse(localStorage.getItem('pedidosAdmin')) || [];
     let pedido = listaPedidos.find(p => p.id == idPedido);
 
     if (pedido) {
         const statusAtual = pedido.status || 'Pendente';
-        if (statusAtual === 'Pendente') {
-            pedido.status = 'Preparo';
-        } else if (statusAtual === 'Preparo') {
-            pedido.status = 'A Caminho';
-        } else if (statusAtual === 'A Caminho') {
-            pedido.status = 'Finalizado';
-        }
+        if (statusAtual === 'Pendente') pedido.status = 'Preparo';
+        else if (statusAtual === 'Preparo') pedido.status = 'A Caminho';
+        else if (statusAtual === 'A Caminho') pedido.status = 'Finalizado';
 
         localStorage.setItem('pedidosAdmin', JSON.stringify(listaPedidos));
 
+        // Preserva o filtro que estava ativo ao recarregar a visualização
         const filtroAtivo = document.querySelector('.filtro-btn.ativo');
         const filtro = filtroAtivo ? filtroAtivo.getAttribute('data-filtro') : 'todos';
         carregarPedidosDaLoja(filtro);
     }
 };
 
-// Nova função para excluir o pedido permanentemente do LocalStorage
+/**
+ * Remove o registro de forma permanente do LocalStorage
+ */
 window.excluirPedido = function (idPedido) {
     if (confirm("Deseja realmente apagar o histórico deste pedido?")) {
         let listaPedidos = JSON.parse(localStorage.getItem('pedidosAdmin')) || [];
 
+        // Filtra mantendo todos menos o ID que foi excluído
         listaPedidos = listaPedidos.filter(p => p.id != idPedido);
         localStorage.setItem('pedidosAdmin', JSON.stringify(listaPedidos));
 
+        // Recarrega e atualiza os painéis integrados
         const filtroAtivo = document.querySelector('.filtro-btn.ativo');
         const filtro = filtroAtivo ? filtroAtivo.getAttribute('data-filtro') : 'todos';
         carregarPedidosDaLoja(filtro);
@@ -210,7 +254,14 @@ window.excluirPedido = function (idPedido) {
     }
 };
 
-// Seção de Integração de logs da Web atualizada e corrigida
+
+// =========================================================================
+// ☕ SEÇÃO: INTEGRAÇÃO COM SISTEMA DESKTOP (JAVA FOUNDATIONS)
+// =========================================================================
+
+/**
+ * Painel que estrutura e gera a String tokenizada do ÚLTIMO PEDIDO para área de transferência
+ */
 function inicializarPainelIntegracao() {
     let painelExistente = document.getElementById('painel-integracao-java');
     if (painelExistente) painelExistente.remove();
@@ -236,7 +287,6 @@ function inicializarPainelIntegracao() {
     `;
 
     const container = document.querySelector('.admin-container') || document.body;
-    // Insere o painel de pedidos no início ou fim do container
     container.appendChild(painelPedidosWeb);
 
     document.getElementById('btn-gerar-token').addEventListener('click', function () {
@@ -245,6 +295,7 @@ function inicializarPainelIntegracao() {
             return;
         }
 
+        // Formato exportação: idApenas;cliente;endereco;itens;pagamento;tipo;total
         const numeroApenas = ultimoPedido.id.replace('#', '');
         const token = `${numeroApenas};${ultimoPedido.cliente};${ultimoPedido.endereco};${ultimoPedido.itens};${ultimoPedido.pagamento};${ultimoPedido.tipo};${ultimoPedido.total}`;
 
@@ -253,7 +304,9 @@ function inicializarPainelIntegracao() {
     });
 }
 
-// --- NOVA FUNÇÃO: Integração de Funcionários para o Java ---
+/**
+ * Painel que estrutura e gera a String tokenizada do ÚLTIMO COLABORADOR cadastrado para área de transferência
+ */
 function inicializarPainelIntegracaoFuncionario() {
     let painelExistente = document.getElementById('painel-integracao-java-func');
     if (painelExistente) painelExistente.remove();
@@ -287,7 +340,7 @@ function inicializarPainelIntegracaoFuncionario() {
             return;
         }
 
-        // Formato da string de transferência para o Java: Nome;Email;Cargo
+        // Formato string de transferência para tratamento com String.split(";") no Java: Nome;Email;Cargo
         const tokenFunc = `${ultimoFunc.nome};${ultimoFunc.email};${ultimoFunc.cargo}`;
 
         navigator.clipboard.writeText(tokenFunc);
@@ -295,7 +348,12 @@ function inicializarPainelIntegracaoFuncionario() {
     });
 }
 
-// Sincronização entre abas abertas caso o LocalStorage mude
+
+// =========================================================================
+// 🔄 SEÇÃO: ESCUTA DE SINCRONIZAÇÃO DE STORAGE (MULTI-ABA)
+// =========================================================================
+
+// Sincroniza em tempo real caso o LocalStorage mude em outra aba aberta no mesmo navegador
 window.addEventListener('storage', function (evento) {
     if (evento.key === 'pedidosAdmin') {
         const filtroAtivo = document.querySelector('.filtro-btn.ativo');
