@@ -1,9 +1,9 @@
 # ☕ Coffee Time
 Projeto A3 - Site para uma loja fisica e delivery de Cafés com doces e salgados como acompanhamento.
-* Site: [Link](https://paulaj2023.github.io/Coffee_Time/)
-* Administração: [Link](https://paulaj2023.github.io/Coffee_Time/admin.html)
-* Canva Slides: [Link](https://canva.link/d9cutz5irtyb94z)
-* PowerPoint: [Coffe time.pptx](https://github.com/user-attachments/files/28617307/Coffe.time.pptx)
+* Site Coffee Time: [Link](https://paulaj2023.github.io/Coffee_Time/)
+* Administração Coffee Time: [Link](https://paulaj2023.github.io/Coffee_Time/admin.html)
+* Canva Slides Coffee Time: [Link](https://canva.link/d9cutz5irtyb94z)
+* PowerPoint Coffee Time: [Coffe time.pptx](https://github.com/user-attachments/files/28617307/Coffe.time.pptx)
 
 ---
 # 📑 Sobre o Projeto
