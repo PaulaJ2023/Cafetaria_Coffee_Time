@@ -60,7 +60,6 @@ Turno: Manhã
 * Uso de nove classes
 * Criação de objetos
 * Atributos e métodos
-* Encapsulamento
 * Herança
 * Polimorfismo
 * Cadastro, listagem e consulta de dados
