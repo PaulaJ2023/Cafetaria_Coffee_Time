@@ -195,9 +195,8 @@ public class Principal {
         JButton btnLancarPedido = new JButton("Lançar Pedido 💾");
         JButton btnLimparPedido = new JButton("Limpar Campos 🧹");
 
-        // Estilização charmosa do botão de importar para combinar com a interface do
-        // Coffee Time
-        btnImportarPedido.setBackground(new Color(192, 108, 132)); // Cor que combina com o CSS do Admin da Web
+        // Estilização charmosa do botão de importar para combinar com a interface do Coffee Time
+        btnImportarPedido.setBackground(new Color(192, 108, 132));
         btnImportarPedido.setForeground(Color.WHITE);
         btnImportarPedido.setFont(new Font("Arial", Font.BOLD, 12));
         btnImportarPedido.setFocusPainted(false);
